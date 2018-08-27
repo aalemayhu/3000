@@ -8,19 +8,15 @@
 
 import Cocoa
 import AVFoundation
+import Foundation
 
 class ViewController: NSViewController {
     
     // Views
     var textField: Press2PlayTextField?
     
-    // TODO: move to wrapper class
-    var player: AVPlayer?
-    var currentPlaylist: Playlist?
-    var playerIndex = 0
-    var nowPlaying = TrackMetadata()
-
-    var playlists = [Playlist]()
+    var pm: PlayerManager?
+    var cache = [String: Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +29,10 @@ class ViewController: NSViewController {
                                                name: Notification.Name.OpenedFolder, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pressed2PlayTextField),
                                                name: Notification.Name.PressedPlayTextField, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(loadArtwork),
+                                               name: Notification.Name.StartFirstPlaylist, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
+                                               name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         addInfo()
     }
     
@@ -41,11 +40,12 @@ class ViewController: NSViewController {
         super.viewDidDisappear()
         NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.PressedPlayTextField, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.StartFirstPlaylist, object: nil)
     }
-
+    
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
     
@@ -64,12 +64,12 @@ class ViewController: NSViewController {
     func randomPosition() -> NSPoint {
         let x = CGFloat(arc4random() % uint(view.bounds.size.height))
         let y = CGFloat(arc4random() % uint(view.bounds.size.height))
-
+        
         return NSPoint(x: x, y: y)
     }
     
-    func loadArtwork() {
-        guard let tracks = currentPlaylist?.tracks else {
+    @objc func loadArtwork() {
+        guard let tracks = self.pm?.tracks() else {
             return
         }
         
@@ -134,66 +134,32 @@ class ViewController: NSViewController {
         
         // Traverse the directory for audio files
         for folder in root {
-            // TODO: what happens to nested folders?
             let p = Playlist(name: folder.absoluteString)
             
             do {
                 let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
-                p.tracks = files.filter {$0.absoluteString.hasSuffix(".mp3")}
+                print(AVURLAsset.audiovisualTypes())
+                // Use the supported types from AVURLAsset, there might be a simpler way with flatmap
+                p.tracks = files.filter { self.isSupported($0.lastPathComponent.lowercased())}
             } catch {
                 continue
             }
-            
-            /*
-             NSString *file = @"…"; // path to some file
-             CFStringRef fileExtension = (CFStringRef) [file pathExtension];
-             CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
-             
-             if (UTTypeConformsTo(fileUTI, kUTTypeImage)) NSLog(@"It's an image");
-             else if (UTTypeConformsTo(fileUTI, kUTTypeMovie)) NSLog(@"It's a movie");
-             else if (UTTypeConformsTo(fileUTI, kUTTypeText)) NSLog(@"It's text");
-             
-             CFRelease(fileUTI);
-             */
-            self.playlists.append(p)
+            // TODO: what happens to nested folders?
+            self.pm = PlayerManager(playlist: p)
+            break
         }
         
-        // For now just play the first playlist
-        startFirstPlaylist()
+        self.pm?.startPlaylist()
     }
     
-    
-    // Player tracking
-    
-    func startFirstPlaylist() {
-        guard self.playlists.count > 0 else { fatalError("No playlists?") }
-        self.currentPlaylist = self.playlists[0]
-        loadArtwork()
-        play(self.currentPlaylist!)
+    func isSupported(_ type: String) -> Bool {
+        return type.hasSuffix(".mp3") || type.hasSuffix(".wav")
     }
     
-    func play(_ playlist: Playlist) {
-        if playerIndex == playlist.tracks.count - 1 {
-            print("END reached, what now?")
-            playerIndex = 0
-            return
-        }
-        
-        let u = playlist.tracks[playerIndex]
-        print("playing \(u)")
-        let item = AVPlayerItem(url: u)
-        self.player = AVPlayer(playerItem: item)
-//        self.player?.volume = NSSound().volume
-        self.player?.play()
-        playerIndex += 1
-        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-    }
+    // Notification handlers
     
     @objc func playerDidFinishPlaying(note: NSNotification){
-        guard let p = self.currentPlaylist else {
-            return
-        }
-        play(p)
+        self.pm?.playNextTrack()
     }
     
     @objc func pressed2PlayTextField(note: NSNotification) {
