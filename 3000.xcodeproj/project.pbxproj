@@ -15,9 +15,9 @@
 		8414CE142132D26600CE30F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8414CE122132D26600CE30F6 /* Main.storyboard */; };
 		8414CE202132D26600CE30F6 /* _000Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE1F2132D26600CE30F6 /* _000Tests.swift */; };
 		8414CE2B2132D26600CE30F6 /* _000UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE2A2132D26600CE30F6 /* _000UITests.swift */; };
+		842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842D40A2213489D300AD1FBD /* TrackMetada.swift */; };
 		84D80EC021345D86006C5D14 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EBF21345D86006C5D14 /* Notifications.swift */; };
 		84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EC2213461CF006C5D14 /* Playlist.swift */; };
-		84D80EC62134777C006C5D14 /* NowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EC52134777C006C5D14 /* NowPlaying.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +53,9 @@
 		8414CE262132D26600CE30F6 /* 3000UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3000UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8414CE2A2132D26600CE30F6 /* _000UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _000UITests.swift; sourceTree = "<group>"; };
 		8414CE2C2132D26600CE30F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		842D40A2213489D300AD1FBD /* TrackMetada.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackMetada.swift; sourceTree = "<group>"; };
 		84D80EBF21345D86006C5D14 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		84D80EC2213461CF006C5D14 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
-		84D80EC52134777C006C5D14 /* NowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlaying.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +149,8 @@
 		84D80EC1213461C4006C5D14 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				842D40A2213489D300AD1FBD /* TrackMetada.swift */,
 				84D80EC2213461CF006C5D14 /* Playlist.swift */,
-				84D80EC52134777C006C5D14 /* NowPlaying.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,10 +295,10 @@
 			files = (
 				84D80EC021345D86006C5D14 /* Notifications.swift in Sources */,
 				8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */,
-				84D80EC62134777C006C5D14 /* NowPlaying.swift in Sources */,
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,
 				8414CE0F2132D26500CE30F6 /* _000.xcdatamodeld in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
+				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,
 				84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

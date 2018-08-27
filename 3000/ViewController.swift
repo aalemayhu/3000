@@ -15,7 +15,7 @@ class ViewController: NSViewController {
     var player: AVPlayer?
     var currentPlaylist: Playlist?
     var playerIndex = 0
-    var nowPlaying = NowPlaying()
+    var nowPlaying = TrackMetadata()
 
     var playlists = [Playlist]()
     
@@ -41,48 +41,61 @@ class ViewController: NSViewController {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
     }
     
-    func showMetaData(playerItem: AVPlayerItem?) {
-        guard let playerItem = playerItem else {
-            return
-        }
-        retrieveMetaData(playerItem: playerItem)
-        loadArtwork()
+    func randomPosition() -> NSPoint {
+        let x = CGFloat(arc4random() % uint(view.bounds.size.height))
+        let y = CGFloat(arc4random() % uint(view.bounds.size.height))
+
+        return NSPoint(x: x, y: y)
     }
     
-    func loadArtwork() {        
+    func loadArtwork() {
+        guard let tracks = currentPlaylist?.tracks else {
+            return
+        }
+        
+        for track in tracks {
+            let item = AVPlayerItem(url: track)
+            let playable = TrackMetadata.load(playerItem: item)
+            
+            var f = CGRect.zero
+            f.size.width = 140
+            f.size.height = 116
+            let imageView = NSImageView(frame: f)
+            // TODO: fallback if no image?
+            imageView.image = playable.artwork
+            // failed attempt at circular imageviews
+            if let layer = imageView.layer {
+                layer.cornerRadius = 25
+                layer.masksToBounds = true
+            }
+            addNewImageView(imageView: imageView)
+        }
+    }
+    
+    func addNewImageView(imageView: NSImageView) {
         guard let mainView = self.view as? MainView else {
             return
         }
-        // TODO: fallback if no image?
-        mainView.imageView.image = self.nowPlaying.artwork
+        
+        let subviews = mainView.subviews
+        while imageView.frame.origin.x == 0 && imageView.frame.origin.y == 0 {
+            var f = imageView.frame
+            f.origin = randomPosition()
+            imageView.frame = f
+            imageView.frame = makeFrameForView(v: imageView, subviews: subviews)
+        }
+        
+        print("Adding image at \(NSStringFromRect(imageView.frame))")
     }
     
-    func retrieveMetaData(playerItem: AVPlayerItem) {
-        let metadataList = playerItem.asset.metadata
-        for item in metadataList {
-            guard let commonKey = item.commonKey, let _ = item.value else {
-                print("Failed to get metadata")
-                continue
-            }
-            
-            switch (commonKey) {
-            case AVMetadataKey.commonKeyTitle:
-                self.nowPlaying.title = item.stringValue
-                
-            case AVMetadataKey.commonKeyType:
-                self.nowPlaying.type = item.stringValue
-            case AVMetadataKey.commonKeyAlbumName:
-                self.nowPlaying.albumName = item.stringValue
-            case AVMetadataKey.commonKeyArtist:
-                self.nowPlaying.artist = item.stringValue
-            case AVMetadataKey.commonKeyArtwork:
-                if let data = item.dataValue, let image = NSImage(data: data) {
-                    self.nowPlaying.artwork = image
-                }
-            default:
-                print("NO match for \(commonKey)")
+    func makeFrameForView(v: NSView, subviews: [NSView]) -> NSRect {
+        for v2 in subviews {
+            if v.tag != v2.tag && v.frame.intersects(v2.frame) {
+                return NSRect(x: 0, y: 0, width: v.frame.size.width, height: v.frame.size.height)
             }
         }
+        
+        return v.frame
     }
     
     // Directory management
@@ -134,6 +147,7 @@ class ViewController: NSViewController {
     func startFirstPlaylist() {
         guard self.playlists.count > 0 else { fatalError("No playlists?") }
         self.currentPlaylist = self.playlists[0]
+        loadArtwork()
         play(self.currentPlaylist!)
     }
     
@@ -152,7 +166,6 @@ class ViewController: NSViewController {
         self.player?.play()
         playerIndex += 1
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        showMetaData(playerItem: item)
     }
     
     @objc func playerDidFinishPlaying(note: NSNotification){
