@@ -20,11 +20,11 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        configure()
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
+    func configure () {
+        
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pressed2PlayTextField),
@@ -36,6 +36,21 @@ class ViewController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
                                                name: NSWindow.didResizeNotification, object: nil)
         addInfo()
+
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            self.keyDown(with: $0)
+            return $0
+        }
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        print("\(#function)")
+        switch event.characters {
+        case " ":
+            self.pm?.playOrPause()
+        default:
+            print("unknown key")
+        }
     }
     
     @objc func screenResize() {

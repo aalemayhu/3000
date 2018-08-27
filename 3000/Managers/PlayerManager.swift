@@ -52,4 +52,12 @@ class PlayerManager {
     func tracks() -> [URL] {
         return self.playlist.tracks
     }
+    
+    func playOrPause() {
+        if player?.rate != 0 {
+            player?.pause()
+        } else {
+            player?.play()
+        }
+    }
 }
