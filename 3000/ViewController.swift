@@ -85,6 +85,7 @@ class ViewController: NSViewController {
             imageView.frame = makeFrameForView(v: imageView, subviews: subviews)
         }
         
+        mainView.addSubview(imageView)
         print("Adding image at \(NSStringFromRect(imageView.frame))")
     }
     
