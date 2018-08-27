@@ -81,8 +81,8 @@ class ViewController: NSViewController {
     }
     
     func randomPosition() -> NSPoint {
-        let x = CGFloat(arc4random() % uint(view.bounds.size.height))
-        let y = CGFloat(arc4random() % uint(view.bounds.size.height))
+        let x = CGFloat(arc4random() % uint(view.bounds.size.width-140))
+        let y = CGFloat(arc4random() % uint(view.bounds.size.height-116))
         
         return NSPoint(x: x, y: y)
     }
