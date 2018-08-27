@@ -33,7 +33,26 @@ class ViewController: NSViewController {
                                                name: Notification.Name.StartFirstPlaylist, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
+                                               name: NSWindow.didResizeNotification, object: nil)
         addInfo()
+    }
+    
+    @objc func screenResize() {
+        print("\(#function)")
+        let subviews = self.view.subviews
+        
+        for v in subviews {
+            guard let imageView = v as? NSImageView else {
+                continue
+            }
+
+            imageView.setFrameOrigin(NSPoint.zero)
+            while imageView.frame.origin.x == 0 && imageView.frame.origin.y == 0 {
+                imageView.setFrameOrigin(randomPosition())
+                imageView.frame = makeFrameForView(v: imageView, subviews: subviews)
+            }
+        }
     }
     
     override func viewDidDisappear() {

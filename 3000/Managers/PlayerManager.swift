@@ -20,6 +20,8 @@ class PlayerManager {
         self.playlist = playlist
     }
     
+    // TODO: handle resuming track.
+    // TODO: add random toggle
     // Player tracking
     
     func startPlaylist() {
