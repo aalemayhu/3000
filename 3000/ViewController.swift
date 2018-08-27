@@ -47,11 +47,7 @@ class ViewController: NSViewController {
                 continue
             }
 
-            imageView.setFrameOrigin(NSPoint.zero)
-            while imageView.frame.origin.x == 0 && imageView.frame.origin.y == 0 {
-                imageView.setFrameOrigin(randomPosition())
-                imageView.frame = makeFrameForView(v: imageView, subviews: subviews)
-            }
+            imageView.setFrameOrigin(randomPosition())            
         }
     }
     
@@ -116,26 +112,9 @@ class ViewController: NSViewController {
             return
         }
         
-        let subviews = mainView.subviews
-        while imageView.frame.origin.x == 0 && imageView.frame.origin.y == 0 {
-            var f = imageView.frame
-            f.origin = randomPosition()
-            imageView.frame = f
-            imageView.frame = makeFrameForView(v: imageView, subviews: subviews)
-        }
-        
+        imageView.setFrameOrigin(randomPosition())
         mainView.addSubview(imageView)
         print("Adding image at \(NSStringFromRect(imageView.frame))")
-    }
-    
-    func makeFrameForView(v: NSView, subviews: [NSView]) -> NSRect {
-        for v2 in subviews {
-            if v.tag != v2.tag && v.frame.intersects(v2.frame) {
-                return NSRect(x: 0, y: 0, width: v.frame.size.width, height: v.frame.size.height)
-            }
-        }
-        
-        return v.frame
     }
     
     // Directory management
