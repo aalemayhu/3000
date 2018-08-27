@@ -122,7 +122,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let window = NSApplication.shared.windows.first else { return }
 
         let panel = NSOpenPanel()
-        panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
+        if let lastPath = UserDefaults.standard.url(forKey: "LastPath") {
+            panel.directoryURL = lastPath
+        } else {
+            panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
+        }
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
      
@@ -132,6 +136,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let url = panel.url {
                 self.folders.append(url)
                 NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)
+                
+                // Save the selected path for easier reuse
+                UserDefaults.standard.set(url, forKey: "LastPath")
             }
         }
     }

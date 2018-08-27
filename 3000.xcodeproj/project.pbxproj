@@ -112,8 +112,8 @@
 		8414CE082132D26500CE30F6 /* 3000 */ = {
 			isa = PBXGroup;
 			children = (
+				84D80EC421346D17006C5D14 /* Constants */,
 				84D80EC1213461C4006C5D14 /* Model */,
-				84D80EBF21345D86006C5D14 /* Notifications.swift */,
 				840E299B213456FB00F117BD /* Views */,
 				8414CE092132D26500CE30F6 /* AppDelegate.swift */,
 				8414CE0B2132D26500CE30F6 /* ViewController.swift */,
@@ -150,6 +150,14 @@
 				84D80EC2213461CF006C5D14 /* Playlist.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		84D80EC421346D17006C5D14 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				84D80EBF21345D86006C5D14 /* Notifications.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -11,8 +11,12 @@ import AVFoundation
 
 class ViewController: NSViewController {
     
-    var playlists = [Playlist]()
+    // TODO: move to wrapper class
     var player: AVPlayer?
+    var currentPlaylist: Playlist?
+    var playerIndex = 0
+
+    var playlists = [Playlist]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +35,26 @@ class ViewController: NSViewController {
         }
     }
 
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
+    }
+    
+    // Directory management
+    
     @objc func openedDirectory() {
         guard let delegate = NSApp.delegate as? AppDelegate else {
             return
         }
-        
-        print("opened: \(delegate.folders)")
+        traverseDirectory(delegate.folders)
+    }
+    
+    func traverseDirectory(_ root: [URL]) {
         // TODO: handle duplicated
         // TODO: handle case where no playable files have been found
         
         // Traverse the directory for audio files
-        for folder in delegate.folders {
+        for folder in root {
             // TODO: what happens to nested folders?
             let p = Playlist(name: folder.absoluteString)
             
@@ -51,37 +64,54 @@ class ViewController: NSViewController {
             } catch {
                 continue
             }
+            
+            /*
+             NSString *file = @"…"; // path to some file
+             CFStringRef fileExtension = (CFStringRef) [file pathExtension];
+             CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
+             
+             if (UTTypeConformsTo(fileUTI, kUTTypeImage)) NSLog(@"It's an image");
+             else if (UTTypeConformsTo(fileUTI, kUTTypeMovie)) NSLog(@"It's a movie");
+             else if (UTTypeConformsTo(fileUTI, kUTTypeText)) NSLog(@"It's text");
+             
+             CFRelease(fileUTI);
+             */
             self.playlists.append(p)
         }
         
-        if self.playlists[0].tracks.count > 0 {
-            play(self.playlists[0].tracks[0])
-            print("YEAH")
-            
+        // For now just play the first playlist
+        startFirstPlaylist()
+    }
+    
+    
+    // Player tracking
+    
+    func startFirstPlaylist() {
+        guard self.playlists.count > 0 else { fatalError("No playlists?") }
+        self.currentPlaylist = self.playlists[0]
+        play(self.currentPlaylist!)
+    }
+    
+    func play(_ playlist: Playlist) {
+        if playerIndex == playlist.tracks.count - 1 {
+            print("END reached, what now?")
+            playerIndex = 0
+            return
         }
         
-        /*
-         NSString *file = @"…"; // path to some file
-         CFStringRef fileExtension = (CFStringRef) [file pathExtension];
-         CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
-         
-         if (UTTypeConformsTo(fileUTI, kUTTypeImage)) NSLog(@"It's an image");
-         else if (UTTypeConformsTo(fileUTI, kUTTypeMovie)) NSLog(@"It's a movie");
-         else if (UTTypeConformsTo(fileUTI, kUTTypeText)) NSLog(@"It's text");
-         
-         CFRelease(fileUTI);
- */
-        
-    }
-    
-    func play(_ url: URL) {
-        self.player = AVPlayer(url:url)
+        let u = playlist.tracks[playerIndex]
+        print("playing \(u)")
+        self.player = AVPlayer(url: u)
+//        self.player?.volume = NSSound().volume
         self.player?.play()
+        playerIndex += 1
+        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
+    @objc func playerDidFinishPlaying(note: NSNotification){
+        guard let p = self.currentPlaylist else {
+            return
+        }
+        play(p)
     }
 }
-
