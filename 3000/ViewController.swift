@@ -20,6 +20,10 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
         configure()
     }
     
@@ -35,11 +39,22 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
                                                name: NSWindow.didResizeNotification, object: nil)
-        addInfo()
-
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
             return $0
+        }
+        
+        loadDefaults()
+    }
+    
+    func loadDefaults() {
+        if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
+            let p = Playlist(folder: folder)
+            self.pm = PlayerManager(playlist: p)
+            self.loadArtwork()
+        } else {
+            addInfo()
+            print("No cached folder")
         }
     }
     
@@ -147,26 +162,13 @@ class ViewController: NSViewController {
         
         // Traverse the directory for audio files
         for folder in root {
-            let p = Playlist(name: folder.absoluteString)
-            
-            do {
-                let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
-                print(AVURLAsset.audiovisualTypes())
-                // Use the supported types from AVURLAsset, there might be a simpler way with flatmap
-                p.tracks = files.filter { self.isSupported($0.lastPathComponent.lowercased())}
-            } catch {
-                continue
-            }
             // TODO: what happens to nested folders?
+            let p = Playlist(folder: folder)
             self.pm = PlayerManager(playlist: p)
             break
         }
         
         self.pm?.startPlaylist()
-    }
-    
-    func isSupported(_ type: String) -> Bool {
-        return type.hasSuffix(".mp3") || type.hasSuffix(".wav")
     }
     
     // Notification handlers

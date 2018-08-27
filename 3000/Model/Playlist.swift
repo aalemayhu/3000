@@ -7,13 +7,34 @@
 //
 
 import Foundation
+import AVFoundation
 
 class Playlist {
     
     var tracks = [URL]()
     var name: String
     
-    init(name: String) {
-        self.name = name
+    init(folder: URL) {
+        self.name = folder.absoluteString
+        self.loadFiles(folder)
+        
+    }
+    
+    private func loadFiles(_ folder: URL) {
+        do {
+            let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
+            print(AVURLAsset.audiovisualTypes())
+            // Use the supported types from AVURLAsset, there might be a simpler way with flatmap
+            self.tracks = files.filter {
+                print($0)
+                return self.isSupported($0.lastPathComponent.lowercased())                
+            }
+        } catch {
+            print("CATCH???: \(error)")
+        }
+    }
+    
+    private func isSupported(_ type: String) -> Bool {
+        return type.hasSuffix(".mp3") || type.hasSuffix(".wav")
     }
 }

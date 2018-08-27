@@ -122,7 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let window = NSApplication.shared.windows.first else { return }
 
         let panel = NSOpenPanel()
-        if let lastPath = UserDefaults.standard.url(forKey: "LastPath") {
+        if let lastPath = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
             panel.directoryURL = lastPath
         } else {
             panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
