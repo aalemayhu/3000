@@ -15,6 +15,7 @@ class ViewController: NSViewController {
     var player: AVPlayer?
     var currentPlaylist: Playlist?
     var playerIndex = 0
+    var nowPlaying = NowPlaying()
 
     var playlists = [Playlist]()
     
@@ -38,6 +39,50 @@ class ViewController: NSViewController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
+    }
+    
+    func showMetaData(playerItem: AVPlayerItem?) {
+        guard let playerItem = playerItem else {
+            return
+        }
+        retrieveMetaData(playerItem: playerItem)
+        loadArtwork()
+    }
+    
+    func loadArtwork() {        
+        guard let mainView = self.view as? MainView else {
+            return
+        }
+        // TODO: fallback if no image?
+        mainView.imageView.image = self.nowPlaying.artwork
+    }
+    
+    func retrieveMetaData(playerItem: AVPlayerItem) {
+        let metadataList = playerItem.asset.metadata
+        for item in metadataList {
+            guard let commonKey = item.commonKey, let _ = item.value else {
+                print("Failed to get metadata")
+                continue
+            }
+            
+            switch (commonKey) {
+            case AVMetadataKey.commonKeyTitle:
+                self.nowPlaying.title = item.stringValue
+                
+            case AVMetadataKey.commonKeyType:
+                self.nowPlaying.type = item.stringValue
+            case AVMetadataKey.commonKeyAlbumName:
+                self.nowPlaying.albumName = item.stringValue
+            case AVMetadataKey.commonKeyArtist:
+                self.nowPlaying.artist = item.stringValue
+            case AVMetadataKey.commonKeyArtwork:
+                if let data = item.dataValue, let image = NSImage(data: data) {
+                    self.nowPlaying.artwork = image
+                }
+            default:
+                print("NO match for \(commonKey)")
+            }
+        }
     }
     
     // Directory management
@@ -101,11 +146,13 @@ class ViewController: NSViewController {
         
         let u = playlist.tracks[playerIndex]
         print("playing \(u)")
-        self.player = AVPlayer(url: u)
+        let item = AVPlayerItem(url: u)
+        self.player = AVPlayer(playerItem: item)
 //        self.player?.volume = NSSound().volume
         self.player?.play()
         playerIndex += 1
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        showMetaData(playerItem: item)
     }
     
     @objc func playerDidFinishPlaying(note: NSNotification){

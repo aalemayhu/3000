@@ -413,6 +413,23 @@
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl" customClass="MainView" customModule="_000" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IX0-Eg-vYt">
+                                <rect key="frame" x="170" y="77" width="140" height="116"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="VcY-Kh-z21"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="wQW-dc-Z3f"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="IX0-Eg-vYt" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="77" id="Q00-J8-slt"/>
+                            <constraint firstItem="IX0-Eg-vYt" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="c2a-2C-Pr5"/>
+                            <constraint firstItem="IX0-Eg-vYt" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="hig-du-6Jl"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="imageView" destination="IX0-Eg-vYt" id="SC5-he-4OS"/>
+                        </connections>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

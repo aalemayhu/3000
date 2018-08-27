@@ -10,6 +10,7 @@ import Cocoa
 
 class MainView: NSView {
 
+    @IBOutlet weak var imageView: NSImageView!
     override func menu(for event: NSEvent) -> NSMenu? {
         print("\(#function): \(event)")
         return super.menu(for: event)
