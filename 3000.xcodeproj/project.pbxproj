@@ -16,6 +16,7 @@
 		8414CE202132D26600CE30F6 /* _000Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE1F2132D26600CE30F6 /* _000Tests.swift */; };
 		8414CE2B2132D26600CE30F6 /* _000UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE2A2132D26600CE30F6 /* _000UITests.swift */; };
 		842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842D40A2213489D300AD1FBD /* TrackMetada.swift */; };
+		84C1A0162134A49A00463C37 /* Press2PlayTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1A0152134A49A00463C37 /* Press2PlayTextField.swift */; };
 		84D80EC021345D86006C5D14 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EBF21345D86006C5D14 /* Notifications.swift */; };
 		84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EC2213461CF006C5D14 /* Playlist.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		8414CE2A2132D26600CE30F6 /* _000UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _000UITests.swift; sourceTree = "<group>"; };
 		8414CE2C2132D26600CE30F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842D40A2213489D300AD1FBD /* TrackMetada.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackMetada.swift; sourceTree = "<group>"; };
+		84C1A0152134A49A00463C37 /* Press2PlayTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Press2PlayTextField.swift; sourceTree = "<group>"; };
 		84D80EBF21345D86006C5D14 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		84D80EC2213461CF006C5D14 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				840E299C2134570D00F117BD /* MainView.swift */,
+				84C1A0152134A49A00463C37 /* Press2PlayTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			files = (
 				84D80EC021345D86006C5D14 /* Notifications.swift in Sources */,
 				8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */,
+				84C1A0162134A49A00463C37 /* Press2PlayTextField.swift in Sources */,
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,
 				8414CE0F2132D26500CE30F6 /* _000.xcdatamodeld in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,

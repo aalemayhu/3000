@@ -11,6 +11,9 @@ import AVFoundation
 
 class ViewController: NSViewController {
     
+    // Views
+    var textField: Press2PlayTextField?
+    
     // TODO: move to wrapper class
     var player: AVPlayer?
     var currentPlaylist: Playlist?
@@ -28,6 +31,16 @@ class ViewController: NSViewController {
         super.viewDidAppear()
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pressed2PlayTextField),
+                                               name: Notification.Name.PressedPlayTextField, object: nil)
+
+        addInfo()
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.PressedPlayTextField, object: nil)
     }
 
     override var representedObject: Any? {
@@ -35,10 +48,17 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
+    
+    func addInfo() {
+        self.textField = Press2PlayTextField(string: "Play a directory with music")
+        guard let text = self.textField else { return }
+        let origin = NSPoint(x: view.frame.size.width - text.frame.size.width,
+                             y: view.frame.size.height-text.frame.size.height)
+        text.setFrameOrigin(origin)
+        text.isSelectable = false
+        text.autoresizingMask = [NSView.AutoresizingMask.minXMargin, NSView.AutoresizingMask.maxXMargin,
+                                 NSView.AutoresizingMask.minYMargin, NSView.AutoresizingMask.maxYMargin]
+        view.addSubview(text)
     }
     
     func randomPosition() -> NSPoint {
@@ -174,5 +194,13 @@ class ViewController: NSViewController {
             return
         }
         play(p)
+    }
+    
+    @objc func pressed2PlayTextField(note: NSNotification) {
+        textField?.removeFromSuperview()
+        guard let delegate = NSApp.delegate as? AppDelegate else {
+            return
+        }
+        delegate.openDocument([])
     }
 }

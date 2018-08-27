@@ -10,4 +10,5 @@ import Foundation
 
 extension Notification.Name {
     static let OpenedFolder = Notification.Name("OpenedFolder")
+    static let PressedPlayTextField = Notification.Name("PressedPlayTextField")
 }
