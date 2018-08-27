@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
+    var folders = [URL]()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -118,5 +118,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateNow
     }
 
+    @IBAction func openDocument(_ sender: Any) {
+        guard let window = NSApplication.shared.windows.first else { return }
+
+        let panel = NSOpenPanel()
+        panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+     
+        // Let the user pick a folder to open
+        panel.beginSheetModal(for: window) { (result) in
+            if result.rawValue == NSApplication.ModalResponse.OK.rawValue,
+                let url = panel.url {
+                self.folders.append(url)
+                NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)
+            }
+        }
+    }
 }
 
