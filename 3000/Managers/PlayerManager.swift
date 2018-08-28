@@ -54,7 +54,7 @@ class PlayerManager {
     }
     
     func playOrPause() {
-        if isPlaying() {
+        if !isPlaying() {
             startOrResumeLastTrack()
         } else {
             player?.play()
