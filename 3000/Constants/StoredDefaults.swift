@@ -10,4 +10,5 @@ import Foundation
 
 class StoredDefaults {
     static let LastPath = "LastPath"
+    static let LastTrack = "LastTrack"
 }

@@ -86,6 +86,7 @@ class ViewController: NSViewController {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.PressedPlayTextField, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.StartFirstPlaylist, object: nil)
+        self.pm?.saveLastTrack()
     }
     
     override var representedObject: Any? {

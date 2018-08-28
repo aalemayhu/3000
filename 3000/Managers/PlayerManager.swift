@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 class PlayerManager {
-
+    
     private var playlist: Playlist
     private var player: AVPlayer?
     private var currentPlaylist: Playlist?
@@ -20,7 +20,7 @@ class PlayerManager {
         self.playlist = playlist
     }
     
-    // TODO: handle resuming track.
+    // TODO: handle resuming track time
     // TODO: add random toggle
     // Player tracking
     
@@ -54,10 +54,38 @@ class PlayerManager {
     }
     
     func playOrPause() {
-        if player?.rate != 0 {
-            player?.pause()
+        if isPlaying() {
+            startOrResumeLastTrack()
         } else {
             player?.play()
+        }
+    }
+    
+    func saveLastTrack() {
+        guard isPlaying() else { return }
+        UserDefaults.standard.set(self.playlist.tracks[playerIndex], forKey: StoredDefaults.LastTrack)
+    }
+    
+    func isPlaying() -> Bool {
+        return player?.rate != 0
+    }
+    
+    func startOrResumeLastTrack() {
+        guard let url = UserDefaults.standard.url(forKey: StoredDefaults.LastTrack) else {
+            playerIndex = 0
+            play(self.playlist)
+            return
+        }
+        
+        // Clear last track
+        UserDefaults.standard.set(nil, forKey: StoredDefaults.LastTrack)
+        
+        if !playlist.tracks.contains(url) { return }
+        
+        playerIndex = 0
+        for t in playlist.tracks {
+            if t == url { break }
+            playerIndex = playerIndex + 1
         }
     }
 }
