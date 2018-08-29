@@ -20,10 +20,9 @@ class TrackMetadata {
     static func load(playerItem: AVPlayerItem) -> TrackMetadata {
         let np = TrackMetadata()
         
-        let metadataList = playerItem.asset.metadata
-        for item in metadataList {
+        for item in playerItem.asset.metadata {
             guard let commonKey = item.commonKey, let _ = item.value else {
-                print("Failed to get metadata")
+//                print("Failed to read metadata for \(item)")
                 continue
             }
             

@@ -15,7 +15,6 @@ class ViewController: NSViewController {
     // Views
     var textField: Press2PlayTextField?
     
-    var pm: PlayerManager?
     var cache = [String: Bool]()
     
     override func viewDidLoad() {
@@ -54,7 +53,7 @@ class ViewController: NSViewController {
     func loadDefaults() {
         if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
             let p = Playlist(folder: folder)
-            self.pm = PlayerManager(playlist: p)
+            (NSApp.delegate as? AppDelegate)?.pm = PlayerManager(playlist: p)
             self.loadArtwork()
         } else {
             addInfo()
@@ -66,7 +65,7 @@ class ViewController: NSViewController {
         print("\(#function)")
         switch event.characters {
         case " ":
-            self.pm?.playOrPause()
+            (NSApp.delegate as? AppDelegate)?.pm?.playOrPause()
         default:
             print("unknown key")
         }
@@ -93,7 +92,6 @@ class ViewController: NSViewController {
                   NSWindow.didResizeNotification,NSNotification.Name.StartPlayingItem] {
                     NotificationCenter.default.removeObserver(self, name: n, object: nil)
         }
-        self.pm?.saveLastTrack()
     }
     
     override var representedObject: Any? {
@@ -122,7 +120,7 @@ class ViewController: NSViewController {
     }
     
     @objc func loadArtwork() {
-        guard let tracks = self.pm?.tracks() else {
+        guard let tracks = (NSApp.delegate as? AppDelegate)?.pm?.tracks() else {
             return
         }
         
@@ -173,17 +171,17 @@ class ViewController: NSViewController {
         for folder in root {
             // TODO: what happens to nested folders?
             let p = Playlist(folder: folder)
-            self.pm = PlayerManager(playlist: p)
+            (NSApp.delegate as? AppDelegate)?.pm? = PlayerManager(playlist: p)
             break
         }
         
-        self.pm?.startPlaylist()
+        (NSApp.delegate as? AppDelegate)?.pm?.startPlaylist()
     }
     
     // Notification handlers
     
     @objc func playerDidFinishPlaying(note: NSNotification){
-        self.pm?.playNextTrack()
+        (NSApp.delegate as? AppDelegate)?.pm?.playNextTrack()
     }
     
     @objc func pressed2PlayTextField(note: NSNotification) {
@@ -195,7 +193,7 @@ class ViewController: NSViewController {
     }
     
     @objc func playerDidStart(note: NSNotification){
-        guard let item = self.pm?.currentTrack() else {
+        guard let item = (NSApp.delegate as? AppDelegate)?.pm?.currentTrack() else {
             return
         }
         guard let window = NSApplication.shared.windows.first else { return }

@@ -13,8 +13,10 @@ class Playlist {
     
     var tracks = [URL]()
     var name: String
+    var folder: URL
     
     init(folder: URL) {
+        self.folder = folder
         self.name = folder.absoluteString
         self.loadFiles(folder)
         
