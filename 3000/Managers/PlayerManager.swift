@@ -43,18 +43,9 @@ class PlayerManager {
         self.playItem = AVPlayerItem(url: u)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
-            
-            if let persisted = StoredDefaults.presisted(folder: self.playlist.folder),
-                let playbackItem = persisted[StoredDefaults.PlaybackTimeKey] as? Dictionary<String, Any>,
-                let secondsStr = playbackItem[StoredDefaults.SecondsKey] as? String,
-                let timeScale = playbackItem[StoredDefaults.TimeScaleKey] as? CMTimeScale{
-                // WHAT the fucks SWIFT!
-                if let seconds = Double(secondsStr) {
-                    let time = CMTime(seconds: seconds, preferredTimescale: timeScale)
-                    self.player?.seek(to: time)
-                }
+            if let seekTime = StoredDefaults.seekTime(playlist: self.playlist) {
+                self.player?.seek(to: seekTime)
             }
-            
             self.player?.play()
             NotificationCenter.default.post(name: Notification.Name.StartPlayingItem, object: nil)
         }
@@ -70,7 +61,7 @@ class PlayerManager {
     }
     
     func playOrPause() {
-        let lastTrack = UserDefaults.standard.url(forKey: StoredDefaults.LastTrack)
+        let lastTrack = StoredDefaults.getLastTrack(playlist: self.playlist)
         if let track = lastTrack {
             // There is a stored track
             self.resume(track)
@@ -89,8 +80,6 @@ class PlayerManager {
     func saveLastTrack() {
         guard isPlaying() else { return }
         print("\(#function)")
-        UserDefaults.standard.set(self.playlist.tracks[playerIndex], forKey: StoredDefaults.LastTrack)
-        
         StoredDefaults.save(folder: playlist.folder, data: jsonPayload())
     }
     
@@ -103,10 +92,6 @@ class PlayerManager {
     }
     
     private func resume(_ url: URL) {
-        // Clear last track
-        UserDefaults.standard.set(nil, forKey: StoredDefaults.LastTrack)
-        UserDefaults.standard.synchronize()
-        
         // Make sure the track is present
         if !playlist.tracks.contains(url) {
             fatalError("Unhandled error missing track \(url)")
@@ -125,7 +110,8 @@ class PlayerManager {
         let seconds = currentItem?.getSeconds()
         let timescale = currentItem?.timescale
         
-        let data = [
+        let data: [String: Any] = [
+            StoredDefaults.LastTrackKey: self.playlist.tracks[playerIndex].absoluteString,
             StoredDefaults.PlaybackTimeKey: [
                 StoredDefaults.SecondsKey: seconds!,
                 StoredDefaults.TimeScaleKey: timescale!

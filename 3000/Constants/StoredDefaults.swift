@@ -7,16 +7,18 @@
 //
 
 import Foundation
+import AVFoundation
 
 class StoredDefaults {
-    // TODO: move these from defaults to json
+    
+    //
     static let LastPath = "LastPath"
-    static let LastTrack = "LastTrack"
     
     // JSON
     static let PlaybackTimeKey = "PlaybackTime"
     static let TimeScaleKey = "timeScale"
     static let SecondsKey = "seconds"
+    static let LastTrackKey = "LastTrack"
     
     
     static func save(folder: URL, data: Any) {
@@ -40,5 +42,29 @@ class StoredDefaults {
         }
         
         return nil
+    }
+    
+    static func getLastTrack(playlist: Playlist) -> URL? {
+        guard let persisted = StoredDefaults.presisted(folder: playlist.folder) else {
+            return nil
+        }
+        
+        if let value = persisted[LastTrackKey] as? String {
+            return URL(string: value)
+        }
+        
+        return nil
+    }
+    
+    static func seekTime(playlist: Playlist) -> CMTime? {
+        guard let persisted = StoredDefaults.presisted(folder: playlist.folder),
+            let playback = persisted[StoredDefaults.PlaybackTimeKey] as? Dictionary<String, Double> else {
+                return nil
+        }
+        
+        let seconds = playback[StoredDefaults.SecondsKey]
+        let timeScale = CMTimeScale(playback[StoredDefaults.TimeScaleKey]!)
+        
+        return CMTime(seconds: seconds!, preferredTimescale: timeScale)
     }
 }
