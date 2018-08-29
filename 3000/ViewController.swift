@@ -114,8 +114,8 @@ class ViewController: NSViewController {
     
     func randomPosition() -> NSPoint {
         // Prevent division by zero
-        let minX = max(view.bounds.size.width-140, 140)
-        let minY = max(view.bounds.size.height-116, 116)
+        let minX = max(view.bounds.size.width-ImageSizes.ImageWidth, ImageSizes.ImageWidth)
+        let minY = max(view.bounds.size.height-ImageSizes.imageHeight, ImageSizes.imageHeight)
         let x = CGFloat(arc4random() % uint(minX))
         let y = CGFloat(arc4random() % uint(minY))
         
@@ -133,8 +133,8 @@ class ViewController: NSViewController {
             let playable = TrackMetadata.load(playerItem: item)
             
             var f = CGRect.zero
-            f.size.width = 140
-            f.size.height = 116
+            f.size.width = ImageSizes.ImageWidth
+            f.size.height = ImageSizes.imageHeight
             let imageView = NSImageView(frame: f)
             // TODO: fallback if no image?
             imageView.image = playable.artwork

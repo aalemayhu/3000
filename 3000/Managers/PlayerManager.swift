@@ -65,7 +65,7 @@ class PlayerManager {
         let seekTime = StoredDefaults.seekTime(playlist: self.playlist)
         if let track = lastTrack {
             // There is a stored track
-            self.resume(track)
+            self.resume(track, time: seekTime)
         } else if isPlaying() {
             // Pause since user is already playing a track
             player?.pause()
@@ -74,7 +74,7 @@ class PlayerManager {
             player?.play()
         } else {
             // Start from the beginning
-            self.play(self.playlist, time: seekTime)
+            self.play(self.playlist, time: nil)
         }
     }
     
@@ -92,7 +92,7 @@ class PlayerManager {
         return self.playItem
     }
     
-    private func resume(_ url: URL) {
+    private func resume(_ url: URL, time: CMTime?) {
         // Make sure the track is present
         if !playlist.tracks.contains(url) {
             fatalError("Unhandled error missing track \(url)")
@@ -100,7 +100,7 @@ class PlayerManager {
         
         if let index = playlist.tracks.firstIndex(of: url) {
             self.playerIndex = index
-            self.play(self.playlist, time: nil)
+            self.play(self.playlist, time: time)
         } else {
             fatalError("Unhandled error no match for track \(url)")
         }
