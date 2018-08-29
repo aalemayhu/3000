@@ -151,7 +151,6 @@ class ViewController: NSViewController {
         
         imageView.setFrameOrigin(randomPosition())
         mainView.addSubview(imageView)
-        print("Adding image at \(NSStringFromRect(imageView.frame))")
     }
     
     // Directory management

@@ -28,11 +28,11 @@ class PlayerManager {
     
     func startPlaylist() {
         NotificationCenter.default.post(name: Notification.Name.StartFirstPlaylist, object: nil)
-        play(self.playlist)
+        play(self.playlist, time: nil)
     }
     
     // TODO: drop argument playlist
-    private func play(_ playlist: Playlist) {
+    private func play(_ playlist: Playlist, time: CMTime?) {
         guard playlist.tracks.count > 0 && playerIndex != playlist.tracks.count - 1 else {
             print("END reached, what now?")
             playerIndex = 0
@@ -43,7 +43,7 @@ class PlayerManager {
         self.playItem = AVPlayerItem(url: u)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
-            if let seekTime = StoredDefaults.seekTime(playlist: self.playlist) {
+            if let seekTime = time {
                 self.player?.seek(to: seekTime)
             }
             self.player?.play()
@@ -53,7 +53,7 @@ class PlayerManager {
     
     func playNextTrack() {
         playerIndex += 1
-        play(self.playlist)
+        play(self.playlist, time: nil)
     }
     
     func tracks() -> [URL] {
@@ -62,6 +62,7 @@ class PlayerManager {
     
     func playOrPause() {
         let lastTrack = StoredDefaults.getLastTrack(playlist: self.playlist)
+        let seekTime = StoredDefaults.seekTime(playlist: self.playlist)
         if let track = lastTrack {
             // There is a stored track
             self.resume(track)
@@ -73,7 +74,7 @@ class PlayerManager {
             player?.play()
         } else {
             // Start from the beginning
-            self.play(self.playlist)
+            self.play(self.playlist, time: seekTime)
         }
     }
     
@@ -99,7 +100,7 @@ class PlayerManager {
         
         if let index = playlist.tracks.firstIndex(of: url) {
             self.playerIndex = index
-            self.play(self.playlist)
+            self.play(self.playlist, time: nil)
         } else {
             fatalError("Unhandled error no match for track \(url)")
         }

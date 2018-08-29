@@ -41,7 +41,8 @@ class TrackMetadata {
                     np.artwork = image
                 }
             default:
-                print("NO match for \(commonKey)")
+//                print("NO match for \(commonKey)")
+                continue
             }
         }
         
