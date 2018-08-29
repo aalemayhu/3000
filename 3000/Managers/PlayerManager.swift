@@ -16,6 +16,8 @@ class PlayerManager {
     private var currentPlaylist: Playlist?
     private var playerIndex = 0
     
+    private var playItem: AVPlayerItem?
+    
     init(playlist: Playlist) {
         self.playlist = playlist
     }
@@ -37,12 +39,14 @@ class PlayerManager {
         }
         
         let u = playlist.tracks[playerIndex]
-        print("playing \(u)")
-        let item = AVPlayerItem(url: u)
-        self.player = AVPlayer(playerItem: item)
-        //        self.player?.volume = NSSound().volume
-        self.player?.play()
-        playerIndex += 1
+        self.playItem = AVPlayerItem(url: u)
+        if let item = self.playItem {
+            self.player = AVPlayer(playerItem: item)
+            //        self.player?.volume = NSSound().volume
+            self.player?.play()
+            playerIndex += 1
+            NotificationCenter.default.post(name: Notification.Name.StartPlayingItem, object: nil)
+        }
     }
     
     func playNextTrack() {
@@ -67,7 +71,7 @@ class PlayerManager {
     }
     
     func isPlaying() -> Bool {
-        return player?.rate != 0
+        return self.playItem != nil && player?.rate != 0
     }
     
     func startOrResumeLastTrack() {
@@ -87,5 +91,9 @@ class PlayerManager {
             if t == url { break }
             playerIndex = playerIndex + 1
         }
+    }
+    
+    func currentTrack() -> AVPlayerItem? {
+        return self.playItem
     }
 }

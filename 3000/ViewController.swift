@@ -24,7 +24,8 @@ class ViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        configure()
+        configure()        
+        view.layer?.backgroundColor = NSColor.black.cgColor
     }
     
     func configure () {
@@ -39,6 +40,9 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
                                                name: NSWindow.didResizeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
+                                               name: NSNotification.Name.StartPlayingItem, object: nil)
+
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
             return $0
@@ -83,9 +87,12 @@ class ViewController: NSViewController {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.OpenedFolder, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.PressedPlayTextField, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.StartFirstPlaylist, object: nil)
+        for n in [Notification.Name.OpenedFolder, Notification.Name.PressedPlayTextField,
+                  Notification.Name.StartFirstPlaylist,
+                  NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                  NSWindow.didResizeNotification,NSNotification.Name.StartPlayingItem] {
+                    NotificationCenter.default.removeObserver(self, name: n, object: nil)
+        }
         self.pm?.saveLastTrack()
     }
     
@@ -121,6 +128,7 @@ class ViewController: NSViewController {
         
         for track in tracks {
             let item = AVPlayerItem(url: track)
+            // TODO: cache metadata?
             let playable = TrackMetadata.load(playerItem: item)
             
             var f = CGRect.zero
@@ -184,5 +192,14 @@ class ViewController: NSViewController {
             return
         }
         delegate.openDocument([])
+    }
+    
+    @objc func playerDidStart(note: NSNotification){
+        guard let item = self.pm?.currentTrack() else {
+            return
+        }
+        guard let window = NSApplication.shared.windows.first else { return }
+        
+        window.title = TrackMetadata.load(playerItem: item).title!
     }
 }
