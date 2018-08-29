@@ -54,6 +54,7 @@ class PlayerManager {
     func playNextTrack() {
         playerIndex += 1
         play(self.playlist, time: nil)
+        saveLastTrack()
     }
     
     func tracks() -> [URL] {

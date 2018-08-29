@@ -200,6 +200,10 @@ class ViewController: NSViewController {
         }
         guard let window = NSApplication.shared.windows.first else { return }
         
-        window.title = TrackMetadata.load(playerItem: item).title!
+        let title = TrackMetadata.load(playerItem: item).title!
+        let artist = TrackMetadata.load(playerItem: item).artist!
+        let albumName = TrackMetadata.load(playerItem: item).albumName!
+
+        window.title = "🎵 \(title) ᭼ \(artist) ᭼ \(albumName)"
     }
 }
