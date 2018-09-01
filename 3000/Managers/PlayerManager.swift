@@ -72,6 +72,11 @@ class PlayerManager {
             return
         }
         
+        if lastTrack != nil {
+            // Prevent playing reference to old track
+            StoredDefaults.save(folder: playlist.folder, data: playerState(lastTrack: ""))
+        }
+
         if isPlaying() {
             // Pause since user is already playing a track
             player?.pause()
@@ -98,19 +103,14 @@ class PlayerManager {
     }
     
     private func resume(_ url: URL?, time: CMTime?) -> Bool{
-        // Make sure the track is present
-        // Could be missing for any reason, f. ex. user deleted file
-        guard let url = url, playlist.tracks.contains(url) else {
-            return false
+        guard let url = url, playlist.tracks.contains(url),
+            let index = playlist.tracks.firstIndex(of: url) else {
+                // Make sure the track is present
+                // Could be missing for any reason, f. ex. user deleted file
+                return false
         }
-        
-        if let index = playlist.tracks.firstIndex(of: url) {
-            self.playerIndex = index
-            self.play(self.playlist, time: time)
-        } else {
-            fatalError("Unhandled error no match for track \(url)")
-        }
-        
+        self.playerIndex = index
+        self.play(self.playlist, time: time)
         return true
     }
     

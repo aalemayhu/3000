@@ -28,7 +28,7 @@ class StoredDefaults {
             try serializedData.write(to: fileUrl)
             debug_print("Saved to \(fileUrl)")
         } catch {
-            fatalError(error.localizedDescription)
+            debug_print(error.localizedDescription)
         }
     }
     
