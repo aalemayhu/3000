@@ -151,7 +151,7 @@ class ViewController: NSViewController {
         for v in self.view.subviews {
             if let imageView = v as? NSImageView {
                 imageView.removeFromSuperview()
-                print("XXX: removing")
+                debug_print("Removing old image")
             }
         }
     }
