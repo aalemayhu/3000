@@ -168,24 +168,21 @@ class ViewController: NSViewController {
     // Directory management
     
     @objc func openedDirectory() {
-        guard let delegate = NSApp.delegate as? AppDelegate else {
+        guard let delegate = NSApp.delegate as? AppDelegate,
+        let selectedFolder = delegate.selectedFolder else {
             return
         }
-        traverseDirectory(delegate.folders)
+        (NSApp.delegate as? AppDelegate)?.pm?.resetPlayerState()
+        NSApplication.shared.windows.first?.title = "..."
+        traverseDirectory(selectedFolder)
     }
     
-    func traverseDirectory(_ root: [URL]) {
+    func traverseDirectory(_ folder: URL) {
         // TODO: handle duplicated
         // TODO: handle case where no playable files have been found
-        
-        // Traverse the directory for audio files
-        for folder in root {
-            // TODO: what happens to nested folders?
-            let p = Playlist(folder: folder)
-            (NSApp.delegate as? AppDelegate)?.pm? = PlayerManager(playlist: p)
-            break
-        }
-        
+        // TODO: what happens to nested folders?
+        let p = Playlist(folder: folder)
+        (NSApp.delegate as? AppDelegate)?.pm? = PlayerManager(playlist: p)
         (NSApp.delegate as? AppDelegate)?.pm?.startPlaylist()
     }
     

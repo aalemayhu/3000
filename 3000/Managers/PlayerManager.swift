@@ -128,4 +128,10 @@ class PlayerManager {
             ]
         return data
     }
+    
+    func resetPlayerState() {
+        self.player?.pause()
+        self.playerIndex = 0
+        StoredDefaults.save(folder: playlist.folder, data: [])
+    }
 }

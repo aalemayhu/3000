@@ -22,7 +22,8 @@ class Playlist {
         
     }
     
-    private func loadFiles(_ folder: URL) {
+    private func loadFiles(_ folder: URL) {        
+        // Traverse the directory for audio files
         do {
             let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
             debug_print("\(AVURLAsset.audiovisualTypes())")

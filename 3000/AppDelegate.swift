@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var folders = [URL]()
+    var selectedFolder: URL?
     var pm: PlayerManager?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.beginSheetModal(for: window) { (result) in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue,
                 let url = panel.url {
-                self.folders.append(url)                
+                self.selectedFolder = url
                 // Save the selected path for easier reuse
                 UserDefaults.standard.set(url, forKey: StoredDefaults.LastPath)
                 UserDefaults.standard.synchronize()
