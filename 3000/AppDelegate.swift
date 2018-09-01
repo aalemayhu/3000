@@ -77,7 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        self.pm?.saveLastTrack()
+        self.pm?.saveState()
         return .terminateNow
     }
 

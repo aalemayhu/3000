@@ -54,7 +54,6 @@ class PlayerManager {
     func playNextTrack() {
         playerIndex += 1
         play(self.playlist, time: nil)
-        saveLastTrack()
     }
     
     func tracks() -> [URL] {
@@ -68,6 +67,8 @@ class PlayerManager {
         // Attempt to resume previous track
         let didResume = self.resume(lastTrack, time: seekTime)
         if didResume {
+            // Clear out the last track, it's already handled by saveState(...)
+            StoredDefaults.save(folder: playlist.folder, data: playerState(lastTrack: ""))
             return
         }
         
@@ -83,10 +84,9 @@ class PlayerManager {
         }
     }
     
-    func saveLastTrack() {
-        guard isPlaying() else { return }
-        print("\(#function)")
-        StoredDefaults.save(folder: playlist.folder, data: jsonPayload())
+    func saveState() {
+        let lastTrack = self.playlist.tracks[playerIndex].absoluteString
+        StoredDefaults.save(folder: playlist.folder, data: playerState(lastTrack: lastTrack))
     }
     
     func isPlaying() -> Bool {
@@ -114,13 +114,13 @@ class PlayerManager {
         return true
     }
     
-    private func jsonPayload() -> Any {
+    private func playerState(lastTrack: String) -> Any {
         let currentItem = self.player?.currentTime()
         let seconds = currentItem?.getSeconds()
         let timescale = currentItem?.timescale
         
         let data: [String: Any] = [
-            StoredDefaults.LastTrackKey: self.playlist.tracks[playerIndex].absoluteString,
+            StoredDefaults.LastTrackKey: lastTrack,
             StoredDefaults.PlaybackTimeKey: [
                 StoredDefaults.SecondsKey: seconds!,
                 StoredDefaults.TimeScaleKey: timescale!
