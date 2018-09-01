@@ -26,7 +26,7 @@ class StoredDefaults {
         do {
             let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
             try serializedData.write(to: fileUrl)
-            print("Saved to \(fileUrl)")
+            debug_print("Saved to \(fileUrl)")
         } catch {
             fatalError(error.localizedDescription)
         }
@@ -38,7 +38,7 @@ class StoredDefaults {
             let dict = try JSONSerialization.jsonObject(with: data, options: []) as?  Dictionary<String, Any>
             return dict
         } catch  {
-            print("error: \(error)")
+            debug_print("error: \(error)")
         }
         
         return nil

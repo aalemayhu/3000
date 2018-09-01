@@ -25,13 +25,13 @@ class Playlist {
     private func loadFiles(_ folder: URL) {
         do {
             let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
-//            print(AVURLAsset.audiovisualTypes())
+            debug_print("\(AVURLAsset.audiovisualTypes())")
             // Use the supported types from AVURLAsset, there might be a simpler way with flatmap
             self.tracks = files.filter {
                 return self.isSupported($0.lastPathComponent.lowercased())                
             }
         } catch {
-            print("CATCH???: \(error)")
+            debug_print("CATCH???: \(error)")
         }
     }
     

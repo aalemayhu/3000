@@ -57,22 +57,22 @@ class ViewController: NSViewController {
             self.loadArtwork()
         } else {
             addInfo()
-            print("No cached folder")
+            debug_print("No cached folder")
         }
     }
     
     override func keyDown(with event: NSEvent) {
-        print("\(#function)")
+        debug_print("\(#function)")
         switch event.characters {
         case " ":
             (NSApp.delegate as? AppDelegate)?.pm?.playOrPause()
         default:
-            print("unknown key")
+            debug_print("unknown key")
         }
     }
     
     @objc func screenResize() {
-        print("\(#function)")
+        debug_print("\(#function)")
         let subviews = self.view.subviews
         
         for v in subviews {

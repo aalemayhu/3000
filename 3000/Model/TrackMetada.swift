@@ -22,7 +22,7 @@ class TrackMetadata {
         
         for item in playerItem.asset.metadata {
             guard let commonKey = item.commonKey, let _ = item.value else {
-//                print("Failed to read metadata for \(item)")
+                debug_print("Failed to read metadata for \(item)")
                 continue
             }
             
@@ -41,7 +41,7 @@ class TrackMetadata {
                     np.artwork = image
                 }
             default:
-//                print("NO match for \(commonKey)")
+                debug_print("NO match for \(commonKey)")
                 continue
             }
         }

@@ -34,7 +34,7 @@ class PlayerManager {
     // TODO: drop argument playlist
     private func play(_ playlist: Playlist, time: CMTime?) {
         guard playlist.tracks.count > 0 && playerIndex != playlist.tracks.count - 1 else {
-            print("END reached, what now?")
+            debug_print("END reached, what now?")
             playerIndex = 0
             return
         }
