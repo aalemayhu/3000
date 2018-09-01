@@ -123,10 +123,10 @@ class ViewController: NSViewController {
     }
     
     @objc func loadArtwork() {
+        removeOldArtwork()
         guard let tracks = (NSApp.delegate as? AppDelegate)?.pm?.tracks() else {
             return
         }
-        
         for track in tracks {
             let item = AVPlayerItem(url: track)
             // TODO: cache metadata?
@@ -147,6 +147,15 @@ class ViewController: NSViewController {
         }
     }
     
+    func removeOldArtwork() {
+        for v in self.view.subviews {
+            if let imageView = v as? NSImageView {
+                imageView.removeFromSuperview()
+                print("XXX: removing")
+            }
+        }
+    }
+
     func addNewImageView(imageView: NSImageView) {
         guard let mainView = self.view as? MainView else {
             return
