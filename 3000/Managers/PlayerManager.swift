@@ -104,7 +104,7 @@ class PlayerManager {
     
     private func resume(_ url: URL?, time: CMTime?) -> Bool{
         guard let url = url, playlist.tracks.contains(url),
-            let index = playlist.tracks.firstIndex(of: url) else {
+            let index = playlist.tracks.index(of: url) else {
                 // Make sure the track is present
                 // Could be missing for any reason, f. ex. user deleted file
                 return false
@@ -121,7 +121,7 @@ class PlayerManager {
         ]
         
         // Save the player time
-        if let seconds = currentItem?.getSeconds(),
+        if let seconds = currentItem?.seconds,
             let timescale = currentItem?.timescale {
             data[StoredDefaults.PlaybackTimeKey] = [
                 StoredDefaults.SecondsKey: seconds,
