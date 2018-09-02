@@ -15,9 +15,11 @@ class ViewController: NSViewController {
     let PlayableCollectionViewItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "PlayableCollectionViewItem")
 
     // Views
-    var textField: Press2PlayTextField?
-    
+    @IBOutlet weak var randomButton: NSButton!
     @IBOutlet weak var artworkCollectionView: NSCollectionView!
+    @IBOutlet weak var loopButton: NSButton!
+    @IBOutlet weak var trackInfoLabel: NSTextField!
+    
     var cache = [String: Bool]()
     
     override func viewDidLoad() {
@@ -27,15 +29,13 @@ class ViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         configure()
-        configureCollectionView()
     }
     
     func configure () {
-        
+        self.configureCollectionView()
+        configureButtons()
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(pressed2PlayTextField),
-                                               name: Notification.Name.PressedPlayTextField, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loadArtwork),
                                                name: Notification.Name.StartFirstPlaylist, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
@@ -49,6 +49,14 @@ class ViewController: NSViewController {
         }
         
         loadDefaults()
+    }
+    
+    func configureButtons() {
+        loopButton.target = self
+        loopButton.action = #selector(ViewController.pressedLoop)
+        
+        randomButton.target = self
+        randomButton.action = #selector(ViewController.pressedRandomButton)
     }
     
     func loadDefaults() {
@@ -74,7 +82,7 @@ class ViewController: NSViewController {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        for n in [Notification.Name.OpenedFolder, Notification.Name.PressedPlayTextField,
+        for n in [Notification.Name.OpenedFolder,
                   Notification.Name.StartFirstPlaylist,
                   NSNotification.Name.AVPlayerItemDidPlayToEndTime,
                   NSNotification.Name.StartPlayingItem] {
@@ -82,22 +90,16 @@ class ViewController: NSViewController {
         }
     }
     
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
-    }
-    
     func addInfo() {
-        self.textField = Press2PlayTextField(string: "Play a directory with music")
-        guard let text = self.textField else { return }
-        let origin = NSPoint(x: view.frame.size.width - text.frame.size.width,
-                             y: view.frame.size.height-text.frame.size.height)
-        text.setFrameOrigin(origin)
-        text.isSelectable = false
-        text.autoresizingMask = [NSView.AutoresizingMask.minXMargin, NSView.AutoresizingMask.maxXMargin,
-                                 NSView.AutoresizingMask.minYMargin, NSView.AutoresizingMask.maxYMargin]
-        view.addSubview(text)
+//        self.textField = Press2PlayTextField(string: "Play a directory with music")
+//        guard let text = self.textField else { return }
+//        let origin = NSPoint(x: view.frame.size.width - text.frame.size.width,
+//                             y: view.frame.size.height-text.frame.size.height)
+//        text.setFrameOrigin(origin)
+//        text.isSelectable = false
+//        text.autoresizingMask = [NSView.AutoresizingMask.minXMargin, NSView.AutoresizingMask.maxXMargin,
+//                                 NSView.AutoresizingMask.minYMargin, NSView.AutoresizingMask.maxYMargin]
+//        view.addSubview(text)
     }
     
     func randomPosition() -> NSPoint {
@@ -151,39 +153,29 @@ class ViewController: NSViewController {
         (NSApp.delegate as? AppDelegate)?.pm?.playNextTrack()
     }
     
-    @objc func pressed2PlayTextField(note: NSNotification) {
-        textField?.removeFromSuperview()
-        guard let delegate = NSApp.delegate as? AppDelegate else {
-            return
-        }
-        delegate.openDocument([])
-    }
-    
     @objc func playerDidStart(note: NSNotification){
         guard let item = (NSApp.delegate as? AppDelegate)?.pm?.currentTrack() else {
             return
         }
-        guard let window = NSApplication.shared.windows.first else { return }
         
         let title = TrackMetadata.load(playerItem: item).title!
         let artist = TrackMetadata.load(playerItem: item).artist!
         let albumName = TrackMetadata.load(playerItem: item).albumName!
 
-        window.title = "🎵 \(title) ᭼ \(artist) ᭼ \(albumName)"
+        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(artist) ᭼ \(albumName)"
+    }
+        
+    @objc func pressedRandomButton() {
+        print("\(#function)")
     }
     
-    // https://www.raywenderlich.com/783-nscollectionview-tutorial
-    fileprivate func configureCollectionView() {
-        // 1
-        let flowLayout = NSCollectionViewFlowLayout()
-        flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
-        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
-        flowLayout.minimumInteritemSpacing = 20.0
-        flowLayout.minimumLineSpacing = 20.0
-        self.artworkCollectionView.collectionViewLayout = flowLayout
-        // 2
-        view.wantsLayer = true
-        // 3
-        self.artworkCollectionView.layer?.backgroundColor = NSColor.black.cgColor
+    @objc func pressedLoop() {
+        print("\(#function)")
+        if (randomButton.state == NSControl.StateValue.on) {
+            randomButton.state = NSControl.StateValue.off
+        } else {
+            randomButton.state = NSControl.StateValue.on
+        }
+//        randomButton.setNextState()
     }
 }

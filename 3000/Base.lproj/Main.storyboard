@@ -414,14 +414,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="499" height="389"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hv3-fJ-f97">
-                                <rect key="frame" x="0.0" y="0.0" width="499" height="369"/>
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hv3-fJ-f97">
+                                <rect key="frame" x="0.0" y="0.0" width="499" height="343"/>
                                 <clipView key="contentView" drawsBackground="NO" id="COV-U4-Eex">
-                                    <rect key="frame" x="1" y="1" width="497" height="367"/>
+                                    <rect key="frame" x="1" y="1" width="497" height="341"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" allowsEmptySelection="NO" id="hj1-Bl-KJo">
-                                            <rect key="frame" x="0.0" y="0.0" width="497" height="158"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="497" height="341"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="YpV-CF-xZE">
                                                 <size key="itemSize" width="140" height="116"/>
@@ -436,7 +436,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="bmo-3r-Aa5">
-                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="OFN-sD-8Q0">
@@ -444,21 +444,49 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C3n-L1-hR1">
+                                <rect key="frame" x="20" y="352" width="61" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" title="Random" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6Ib-XC-kZ6">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1ec-M0-KqP">
+                                <rect key="frame" x="89" y="352" width="53" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" title="Loop" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" inset="2" id="Z57-1I-R78">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-IQ-gcw">
+                                <rect key="frame" x="150" y="357" width="331" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Press space 2 play or use CMD+O to pick a folder" id="VN8-RX-2u0">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Hv3-fJ-f97" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="6so-pv-Ilv"/>
-                            <constraint firstItem="Hv3-fJ-f97" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" constant="10" id="bgh-iT-8jC"/>
+                            <constraint firstItem="Hv3-fJ-f97" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="46" id="6so-pv-Ilv"/>
+                            <constraint firstItem="Hv3-fJ-f97" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" constant="23" id="bgh-iT-8jC"/>
                             <constraint firstItem="Hv3-fJ-f97" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="fzp-Jj-wzm"/>
                             <constraint firstItem="Hv3-fJ-f97" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="pg5-z4-ZtW"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="artworkCollectionView" destination="hj1-Bl-KJo" id="3of-5C-L3e"/>
+                        <outlet property="loopButton" destination="1ec-M0-KqP" id="KC8-hu-X8N"/>
+                        <outlet property="randomButton" destination="C3n-L1-hR1" id="hvu-iQ-ncG"/>
+                        <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="84.5" y="714.5"/>
+            <point key="canvasLocation" x="-201.5" y="716.5"/>
         </scene>
     </scenes>
 </document>
