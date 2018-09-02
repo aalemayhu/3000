@@ -116,16 +116,18 @@ class PlayerManager {
     
     private func playerState(lastTrack: String) -> Any {
         let currentItem = self.player?.currentTime()
-        let seconds = currentItem?.getSeconds()
-        let timescale = currentItem?.timescale
+        var data: [String: Any] = [
+            StoredDefaults.LastTrackKey: lastTrack
+        ]
         
-        let data: [String: Any] = [
-            StoredDefaults.LastTrackKey: lastTrack,
-            StoredDefaults.PlaybackTimeKey: [
-                StoredDefaults.SecondsKey: seconds!,
-                StoredDefaults.TimeScaleKey: timescale!
-            ],
+        // Save the player time
+        if let seconds = currentItem?.getSeconds(),
+            let timescale = currentItem?.timescale {
+            data[StoredDefaults.PlaybackTimeKey] = [
+                StoredDefaults.SecondsKey: seconds,
+                StoredDefaults.TimeScaleKey: timescale
             ]
+        }
         return data
     }
     
