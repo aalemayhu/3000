@@ -12,9 +12,12 @@ import Foundation
 
 class ViewController: NSViewController {
     
+    let PlayableItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "CollectionViewItem")
+    
     // Views
     var textField: Press2PlayTextField?
     
+    @IBOutlet weak var artworkCollectionView: NSCollectionView!
     var cache = [String: Bool]()
     
     override func viewDidLoad() {
@@ -37,8 +40,6 @@ class ViewController: NSViewController {
                                                name: Notification.Name.StartFirstPlaylist, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
-                                               name: NSWindow.didResizeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
 
@@ -48,6 +49,12 @@ class ViewController: NSViewController {
         }
         
         loadDefaults()
+        
+        
+        artworkCollectionView.isSelectable = true
+        artworkCollectionView.register(PlayableItem.self, forItemWithIdentifier: PlayableItemIdentifier)
+        artworkCollectionView?.delegate = self
+        artworkCollectionView?.dataSource = self
     }
     
     func loadDefaults() {
@@ -71,25 +78,12 @@ class ViewController: NSViewController {
         }
     }
     
-    @objc func screenResize() {
-        debug_print("\(#function)")
-        let subviews = self.view.subviews
-        
-        for v in subviews {
-            guard let imageView = v as? NSImageView else {
-                continue
-            }
-
-            imageView.setFrameOrigin(randomPosition())            
-        }
-    }
-    
     override func viewDidDisappear() {
         super.viewDidDisappear()
         for n in [Notification.Name.OpenedFolder, Notification.Name.PressedPlayTextField,
                   Notification.Name.StartFirstPlaylist,
                   NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                  NSWindow.didResizeNotification,NSNotification.Name.StartPlayingItem] {
+                  NSNotification.Name.StartPlayingItem] {
                     NotificationCenter.default.removeObserver(self, name: n, object: nil)
         }
     }
@@ -123,39 +117,9 @@ class ViewController: NSViewController {
     }
     
     @objc func loadArtwork() {
-        removeOldArtwork()
-        guard let tracks = (NSApp.delegate as? AppDelegate)?.pm?.tracks() else {
-            return
-        }
-        for track in tracks {
-            let item = AVPlayerItem(url: track)
-            // TODO: cache metadata?
-            let playable = TrackMetadata.load(playerItem: item)
-            
-            var f = CGRect.zero
-            f.size.width = ImageSizes.ImageWidth
-            f.size.height = ImageSizes.imageHeight
-            let imageView = NSImageView(frame: f)
-            // TODO: fallback if no image?
-            imageView.image = playable.artwork
-            // failed attempt at circular imageviews
-            if let layer = imageView.layer {
-                layer.cornerRadius = 25
-                layer.masksToBounds = true
-            }
-            addNewImageView(imageView: imageView)
-        }
+      self.artworkCollectionView.reloadData()
     }
     
-    func removeOldArtwork() {
-        for v in self.view.subviews {
-            if let imageView = v as? NSImageView {
-                imageView.removeFromSuperview()
-                debug_print("Removing old image")
-            }
-        }
-    }
-
     func addNewImageView(imageView: NSImageView) {
         guard let mainView = self.view as? MainView else {
             return
@@ -175,6 +139,7 @@ class ViewController: NSViewController {
         (NSApp.delegate as? AppDelegate)?.pm?.resetPlayerState()
         NSApplication.shared.windows.first?.title = "..."
         traverseDirectory(selectedFolder)
+        self.artworkCollectionView.reloadData()
     }
     
     func traverseDirectory(_ folder: URL) {

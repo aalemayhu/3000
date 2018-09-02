@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB45EF213AE1C10082B462 /* DebugHelper.swift */; };
+		50118A89213C3FDD002CFD4A /* PlayableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A87213C3FDD002CFD4A /* PlayableItem.swift */; };
+		50118A8A213C3FDD002CFD4A /* PlayableItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50118A88213C3FDD002CFD4A /* PlayableItem.xib */; };
+		50118A8D213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A8C213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift */; };
+		50118A8F213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A8E213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift */; };
 		840E299D2134570D00F117BD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840E299C2134570D00F117BD /* MainView.swift */; };
 		8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE092132D26500CE30F6 /* AppDelegate.swift */; };
 		8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE0B2132D26500CE30F6 /* ViewController.swift */; };
@@ -44,6 +48,10 @@
 
 /* Begin PBXFileReference section */
 		2DCB45EF213AE1C10082B462 /* DebugHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHelper.swift; sourceTree = "<group>"; };
+		50118A87213C3FDD002CFD4A /* PlayableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableItem.swift; sourceTree = "<group>"; };
+		50118A88213C3FDD002CFD4A /* PlayableItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayableItem.xib; sourceTree = "<group>"; };
+		50118A8C213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+NSCollectionViewDatasource.swift"; sourceTree = "<group>"; };
+		50118A8E213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+NSCollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		840E299C2134570D00F117BD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8414CE062132D26500CE30F6 /* 3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8414CE092132D26500CE30F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,11 +101,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50118A8B213C4490002CFD4A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8414CE0B2132D26500CE30F6 /* ViewController.swift */,
+				50118A8C213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift */,
+				50118A8E213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		840E299B213456FB00F117BD /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				840E299C2134570D00F117BD /* MainView.swift */,
 				84C1A0152134A49A00463C37 /* Press2PlayTextField.swift */,
+				50118A87213C3FDD002CFD4A /* PlayableItem.swift */,
+				50118A88213C3FDD002CFD4A /* PlayableItem.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,12 +145,12 @@
 		8414CE082132D26500CE30F6 /* 3000 */ = {
 			isa = PBXGroup;
 			children = (
+				50118A8B213C4490002CFD4A /* Controllers */,
 				84C1A0172134A95500463C37 /* Managers */,
 				84D80EC421346D17006C5D14 /* Constants */,
 				84D80EC1213461C4006C5D14 /* Model */,
 				840E299B213456FB00F117BD /* Views */,
 				8414CE092132D26500CE30F6 /* AppDelegate.swift */,
-				8414CE0B2132D26500CE30F6 /* ViewController.swift */,
 				8414CE102132D26600CE30F6 /* Assets.xcassets */,
 				8414CE122132D26600CE30F6 /* Main.storyboard */,
 				8414CE152132D26600CE30F6 /* Info.plist */,
@@ -254,6 +274,7 @@
 				TargetAttributes = {
 					8414CE052132D26500CE30F6 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 0940;
 					};
 					8414CE1A2132D26600CE30F6 = {
 						CreatedOnToolsVersion = 10.0;
@@ -292,6 +313,7 @@
 			files = (
 				8414CE112132D26600CE30F6 /* Assets.xcassets in Resources */,
 				8414CE142132D26600CE30F6 /* Main.storyboard in Resources */,
+				50118A8A213C3FDD002CFD4A /* PlayableItem.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,13 +343,16 @@
 				84D60C7521371B90005FA309 /* ImageSizes.swift in Sources */,
 				84C1A0162134A49A00463C37 /* Press2PlayTextField.swift in Sources */,
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,
+				50118A89213C3FDD002CFD4A /* PlayableItem.swift in Sources */,
 				84C1A01B2134C10000463C37 /* StoredDefaults.swift in Sources */,
 				8414CE0F2132D26500CE30F6 /* _000.xcdatamodeld in Sources */,
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
+				50118A8D213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
 				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,
 				84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */,
 				2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */,
+				50118A8F213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +518,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = 3000/_000.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -504,6 +530,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alemayhu.-000";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -512,6 +540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = 3000/_000.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -523,6 +552,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alemayhu.-000";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;

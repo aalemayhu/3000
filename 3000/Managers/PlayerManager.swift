@@ -51,6 +51,12 @@ class PlayerManager {
         }
     }
     
+    func playFrom(_ index: Int) {
+        self.playerIndex = index
+        self.player?.pause()
+        self.play(self.playlist, time: nil)
+    }
+    
     func playNextTrack() {
         playerIndex += 1
         play(self.playlist, time: nil)
