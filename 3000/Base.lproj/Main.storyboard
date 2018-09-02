@@ -420,13 +420,17 @@
                                     <rect key="frame" x="1" y="1" width="497" height="367"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView id="hj1-Bl-KJo">
+                                        <collectionView selectable="YES" allowsEmptySelection="NO" id="hj1-Bl-KJo">
                                             <rect key="frame" x="0.0" y="0.0" width="497" height="158"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="YpV-CF-xZE">
                                                 <size key="itemSize" width="140" height="116"/>
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="XfG-lQ-9wD" id="vlB-SP-Clj"/>
+                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="AgZ-NI-l24"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

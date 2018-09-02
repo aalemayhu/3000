@@ -11,9 +11,9 @@ import AVFoundation
 import Foundation
 
 class ViewController: NSViewController {
-    
-    let PlayableItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "CollectionViewItem")
-    
+
+    let PlayableCollectionViewItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "PlayableCollectionViewItem")
+
     // Views
     var textField: Press2PlayTextField?
     
@@ -26,8 +26,8 @@ class ViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        configure()        
-        view.layer?.backgroundColor = NSColor.black.cgColor
+        configure()
+        configureCollectionView()
     }
     
     func configure () {
@@ -49,12 +49,6 @@ class ViewController: NSViewController {
         }
         
         loadDefaults()
-        
-        
-        artworkCollectionView.isSelectable = true
-        artworkCollectionView.register(PlayableItem.self, forItemWithIdentifier: PlayableItemIdentifier)
-        artworkCollectionView?.delegate = self
-        artworkCollectionView?.dataSource = self
     }
     
     func loadDefaults() {
@@ -176,5 +170,20 @@ class ViewController: NSViewController {
         let albumName = TrackMetadata.load(playerItem: item).albumName!
 
         window.title = "🎵 \(title) ᭼ \(artist) ᭼ \(albumName)"
+    }
+    
+    // https://www.raywenderlich.com/783-nscollectionview-tutorial
+    fileprivate func configureCollectionView() {
+        // 1
+        let flowLayout = NSCollectionViewFlowLayout()
+        flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
+        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+        flowLayout.minimumInteritemSpacing = 20.0
+        flowLayout.minimumLineSpacing = 20.0
+        self.artworkCollectionView.collectionViewLayout = flowLayout
+        // 2
+        view.wantsLayer = true
+        // 3
+        self.artworkCollectionView.layer?.backgroundColor = NSColor.black.cgColor
     }
 }

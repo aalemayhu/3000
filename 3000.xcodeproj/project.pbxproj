@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB45EF213AE1C10082B462 /* DebugHelper.swift */; };
-		50118A89213C3FDD002CFD4A /* PlayableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A87213C3FDD002CFD4A /* PlayableItem.swift */; };
-		50118A8A213C3FDD002CFD4A /* PlayableItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50118A88213C3FDD002CFD4A /* PlayableItem.xib */; };
+		50118A89213C3FDD002CFD4A /* PlayableCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A87213C3FDD002CFD4A /* PlayableCollectionViewItem.swift */; };
+		50118A8A213C3FDD002CFD4A /* PlayableCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50118A88213C3FDD002CFD4A /* PlayableCollectionViewItem.xib */; };
 		50118A8D213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A8C213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift */; };
 		50118A8F213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A8E213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift */; };
 		840E299D2134570D00F117BD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840E299C2134570D00F117BD /* MainView.swift */; };
@@ -48,8 +48,8 @@
 
 /* Begin PBXFileReference section */
 		2DCB45EF213AE1C10082B462 /* DebugHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHelper.swift; sourceTree = "<group>"; };
-		50118A87213C3FDD002CFD4A /* PlayableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableItem.swift; sourceTree = "<group>"; };
-		50118A88213C3FDD002CFD4A /* PlayableItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayableItem.xib; sourceTree = "<group>"; };
+		50118A87213C3FDD002CFD4A /* PlayableCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableCollectionViewItem.swift; sourceTree = "<group>"; };
+		50118A88213C3FDD002CFD4A /* PlayableCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayableCollectionViewItem.xib; sourceTree = "<group>"; };
 		50118A8C213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+NSCollectionViewDatasource.swift"; sourceTree = "<group>"; };
 		50118A8E213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+NSCollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		840E299C2134570D00F117BD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -116,8 +116,8 @@
 			children = (
 				840E299C2134570D00F117BD /* MainView.swift */,
 				84C1A0152134A49A00463C37 /* Press2PlayTextField.swift */,
-				50118A87213C3FDD002CFD4A /* PlayableItem.swift */,
-				50118A88213C3FDD002CFD4A /* PlayableItem.xib */,
+				50118A87213C3FDD002CFD4A /* PlayableCollectionViewItem.swift */,
+				50118A88213C3FDD002CFD4A /* PlayableCollectionViewItem.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 			files = (
 				8414CE112132D26600CE30F6 /* Assets.xcassets in Resources */,
 				8414CE142132D26600CE30F6 /* Main.storyboard in Resources */,
-				50118A8A213C3FDD002CFD4A /* PlayableItem.xib in Resources */,
+				50118A8A213C3FDD002CFD4A /* PlayableCollectionViewItem.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +343,7 @@
 				84D60C7521371B90005FA309 /* ImageSizes.swift in Sources */,
 				84C1A0162134A49A00463C37 /* Press2PlayTextField.swift in Sources */,
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,
-				50118A89213C3FDD002CFD4A /* PlayableItem.swift in Sources */,
+				50118A89213C3FDD002CFD4A /* PlayableCollectionViewItem.swift in Sources */,
 				84C1A01B2134C10000463C37 /* StoredDefaults.swift in Sources */,
 				8414CE0F2132D26500CE30F6 /* _000.xcdatamodeld in Sources */,
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,

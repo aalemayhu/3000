@@ -20,20 +20,12 @@ extension ViewController: NSCollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        print("indexPath: \(indexPath)")
-        let collectionViewItem = collectionView.makeItem(withIdentifier: PlayableItemIdentifier, for: indexPath)
-        // TODO: use a subclass?
-        
-        if let tracks = (NSApp.delegate as? AppDelegate)?.pm?.tracks(),
-            let playableItem = collectionViewItem as? PlayableItem{
-            // TODO: bounds check
-            print("\(#function): item=\(indexPath.item)")
+        let collectionViewItem = collectionView.makeItem(withIdentifier: PlayableCollectionViewItemIdentifier, for: indexPath)
+        guard let playableItem = collectionViewItem as? PlayableCollectionViewItem else { return collectionViewItem }        
+        if let tracks = (NSApp.delegate as? AppDelegate)?.pm?.tracks() {
             let playerItem = AVPlayerItem(url: tracks[indexPath.item])
             playableItem.configure(playerItem)
         }
-        print("subview count = \(collectionViewItem.view.subviews.count)")
-        //        print("\(collectionViewItem.collectionView)")
-        
         return collectionViewItem
     }
 }
