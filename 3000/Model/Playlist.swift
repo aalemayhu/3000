@@ -37,6 +37,6 @@ class Playlist {
     }
     
     private func isSupported(_ type: String) -> Bool {
-        return type.hasSuffix(".mp3") || type.hasSuffix(".wav")
+        return type.hasSuffix(".mp3") || type.hasSuffix(".wav") || type.hasSuffix(".m4a")
     }
 }
