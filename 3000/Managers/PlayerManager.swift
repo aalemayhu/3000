@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-class PlayerManager {
+class PlayerManager: NSObject {
     
     private var playlist: Playlist
     private var player: AVPlayer?
@@ -17,18 +17,10 @@ class PlayerManager {
     private var isLooping = false
     private var playItem: AVPlayerItem?
     
+    private var observerContext = 0
+    
     init(playlist: Playlist) {
         self.playlist = playlist
-        
-        // TODO: observe the duration instead of timer
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (_) in
-            let pt = self.playTime()
-            guard let currentTime = pt.currentTime,
-            let duration = self.playItem?.asset.duration else {
-                    return
-            }
-            print("\(CMTimeGetSeconds(currentTime)) / \(CMTimeGetSeconds(duration))\n")
-        }.fire()
     }
     
     // TODO: handle resuming track time
@@ -50,6 +42,7 @@ class PlayerManager {
         
         let u = playlist.tracks[playerIndex]
         self.playItem = AVPlayerItem(url: u)
+        self.playItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.duration), options: [.old, .new], context: &observerContext)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
             if let seekTime = time {
@@ -178,5 +171,24 @@ class PlayerManager {
     @objc func didFinishPlaying(note: NSNotification) {
         guard isLooping else { return }
         self.play(time: nil)
+    }
+    
+    // Observers
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard context == &observerContext else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            return
+        }
+        
+        if keyPath == #keyPath(AVPlayerItem.duration) {
+            print("\(#function): test caller")
+            let pt = self.playTime()
+            guard let currentTime = pt.currentTime,
+                let duration = self.playItem?.asset.duration else {
+                    return
+            }
+            print("\(CMTimeGetSeconds(currentTime)) / \(CMTimeGetSeconds(duration))\n")
+        }
     }
 }
