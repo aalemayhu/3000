@@ -166,7 +166,10 @@ class ViewController: NSViewController {
     }
         
     @objc func pressedRandomButton() {
-        print("\(#function)")
+        guard let pm = (NSApp.delegate as? AppDelegate)?.pm else {
+            return
+        }
+        pm.playRandomTrack()
     }
     
     @objc func pressedLoop() {

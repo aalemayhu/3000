@@ -62,6 +62,12 @@ class PlayerManager {
         play(self.playlist, time: nil)
     }
     
+    func playRandomTrack() {
+        let upperBound = UInt32(self.playlist.tracks.count)
+        playerIndex = Int(arc4random_uniform(upperBound))
+        self.play(self.playlist, time: nil)
+    }
+    
     func tracks() -> [URL] {
         return self.playlist.tracks
     }
