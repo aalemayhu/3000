@@ -16,11 +16,12 @@ class PlayerManager: NSObject {
     private var playerIndex = 0
     private var isLooping = false
     private var playItem: AVPlayerItem?
-    
+    private var storage: StoredDefaults
     private var observerContext = 0
     
     init(playlist: Playlist) {
         self.playlist = playlist
+        self.storage = StoredDefaults(folder: playlist.folder)
     }
     
     // TODO: handle resuming track time
@@ -86,8 +87,8 @@ class PlayerManager: NSObject {
     }
     
     func playOrPause() {
-        let lastTrack = StoredDefaults.getLastTrack(playlist: self.playlist)
-        let seekTime = StoredDefaults.seekTime(playlist: self.playlist)
+        let lastTrack = self.storage.getLastTrack(playlist: self.playlist)
+        let seekTime = self.storage.seekTime(playlist: self.playlist)
         
         // Attempt to resume previous track
         let didResume = self.resume(lastTrack, time: seekTime)

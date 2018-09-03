@@ -20,9 +20,23 @@ class StoredDefaults {
     static let SecondsKey = "seconds"
     static let LastTrackKey = "LastTrack"
     
+    static let folderInfo = ".3000.json"
+    
+    var data: Dictionary<String, Any>?
+    
+    init(folder: URL) {
+        do {
+            let data = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
+            let dict = try JSONSerialization.jsonObject(with: data, options: []) as?  Dictionary<String, Any>
+            self.data = dict
+        } catch  {
+            debug_print("error: \(error)")
+        }
+    }
+    
     
     static func save(folder: URL, data: Any) {
-        let fileUrl = folder.appendingPathComponent(".3000.json")        
+        let fileUrl = folder.appendingPathComponent(folderInfo)
         do {
             let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
             try serializedData.write(to: fileUrl)
@@ -32,33 +46,17 @@ class StoredDefaults {
         }
     }
     
-    static func presisted(folder: URL) -> Dictionary<String, Any>? {
-        do {
-            let data = try Data(contentsOf: folder.appendingPathComponent(".3000.json"))
-            let dict = try JSONSerialization.jsonObject(with: data, options: []) as?  Dictionary<String, Any>
-            return dict
-        } catch  {
-            debug_print("error: \(error)")
+    func getLastTrack(playlist: Playlist) -> URL? {
+        guard let data = self.data,
+            let value = data[StoredDefaults.LastTrackKey] as? String else {
+                return nil
         }
-        
-        return nil
+        return URL(string: value)
     }
     
-    static func getLastTrack(playlist: Playlist) -> URL? {
-        guard let persisted = StoredDefaults.presisted(folder: playlist.folder) else {
-            return nil
-        }
-        
-        if let value = persisted[LastTrackKey] as? String {
-            return URL(string: value)
-        }
-        
-        return nil
-    }
-    
-    static func seekTime(playlist: Playlist) -> CMTime? {
-        guard let persisted = StoredDefaults.presisted(folder: playlist.folder),
-            let playback = persisted[StoredDefaults.PlaybackTimeKey] as? Dictionary<String, Double> else {
+    func seekTime(playlist: Playlist) -> CMTime? {
+        guard let data = self.data,
+            let playback = data[StoredDefaults.PlaybackTimeKey] as? Dictionary<String, Double> else {
                 return nil
         }
         
