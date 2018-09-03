@@ -13,6 +13,5 @@ class MainView: NSView {
     override func menu(for event: NSEvent) -> NSMenu? {
         debug_print("\(#function): \(event)")
         return super.menu(for: event)
-    }
-    
+    }   
 }

@@ -21,6 +21,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var trackInfoLabel: NSTextField!
     
     var cache = [String: Bool]()
+    var pm: PlayerManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,10 @@ class ViewController: NSViewController {
     func loadDefaults() {
         if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
             let p = Playlist(folder: folder)
-            (NSApp.delegate as? AppDelegate)?.pm = PlayerManager(playlist: p)
+            self.pm = PlayerManager(playlist: p)
+            if let delegate = NSApp.delegate as? AppDelegate {
+                delegate.pm = self.pm
+            }
             self.loadArtwork()
         } else {
             addInfo()
@@ -74,7 +78,7 @@ class ViewController: NSViewController {
         debug_print("\(#function)")
         switch event.characters {
         case " ":
-            (NSApp.delegate as? AppDelegate)?.pm?.playOrPause()
+            self.pm?.playOrPause()
         default:
             debug_print("unknown key")
         }
@@ -132,29 +136,25 @@ class ViewController: NSViewController {
         let selectedFolder = delegate.selectedFolder else {
             return
         }
-        (NSApp.delegate as? AppDelegate)?.pm?.resetPlayerState()
-        NSApplication.shared.windows.first?.title = "..."
-        traverseDirectory(selectedFolder)
-        self.artworkCollectionView.reloadData()
-    }
-    
-    func traverseDirectory(_ folder: URL) {
         // TODO: handle duplicated
         // TODO: handle case where no playable files have been found
-        // TODO: what happens to nested folders?
-        let p = Playlist(folder: folder)
-        (NSApp.delegate as? AppDelegate)?.pm? = PlayerManager(playlist: p)
-        (NSApp.delegate as? AppDelegate)?.pm?.startPlaylist()
+        // TODO: what happens to nested folders?        
+        self.pm?.resetPlayerState()
+        let p = Playlist(folder: selectedFolder)
+        self.pm = PlayerManager(playlist: p)
+        delegate.pm = self.pm
+        self.pm?.startPlaylist()
+        self.artworkCollectionView.reloadData()
     }
     
     // Notification handlers
     
     @objc func playerDidFinishPlaying(note: NSNotification){
-        (NSApp.delegate as? AppDelegate)?.pm?.playNextTrack()
+        self.pm?.playNextTrack()
     }
     
     @objc func playerDidStart(note: NSNotification){
-        guard let item = (NSApp.delegate as? AppDelegate)?.pm?.currentTrack() else {
+        guard let item = self.pm?.currentTrack() else {
             return
         }
         
@@ -166,19 +166,22 @@ class ViewController: NSViewController {
     }
         
     @objc func pressedRandomButton() {
-        guard let pm = (NSApp.delegate as? AppDelegate)?.pm else {
-            return
-        }
+        guard let pm = self.pm else { return }
         pm.playRandomTrack()
     }
     
     @objc func pressedLoop() {
-        print("\(#function)")
-        if (randomButton.state == NSControl.StateValue.on) {
-            randomButton.state = NSControl.StateValue.off
+        guard let pm = self.pm else { return }
+        
+        if (loopButton.title == "loop") {
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+            loopButton.title = "loop=on"
+            pm.loopTrack()
         } else {
-            randomButton.state = NSControl.StateValue.on
+            pm.stopLooping()
+            loopButton.title = "loop"
+            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
+                                                   name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         }
-//        randomButton.setNextState()
     }
 }

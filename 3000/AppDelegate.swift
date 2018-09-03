@@ -12,6 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var selectedFolder: URL?
+    
+    // TODO: get pm out of here
     var pm: PlayerManager?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {

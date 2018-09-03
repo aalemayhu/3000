@@ -13,13 +13,22 @@ class PlayerManager {
     
     private var playlist: Playlist
     private var player: AVPlayer?
-    private var currentPlaylist: Playlist?
     private var playerIndex = 0
-    
+    private var isLooping = false
     private var playItem: AVPlayerItem?
     
     init(playlist: Playlist) {
         self.playlist = playlist
+        
+        // TODO: observe the duration instead of timer
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (_) in
+            let pt = self.playTime()
+            guard let currentTime = pt.currentTime,
+            let duration = self.playItem?.asset.duration else {
+                    return
+            }
+            print("\(CMTimeGetSeconds(currentTime)) / \(CMTimeGetSeconds(duration))\n")
+        }.fire()
     }
     
     // TODO: handle resuming track time
@@ -28,11 +37,11 @@ class PlayerManager {
     
     func startPlaylist() {
         NotificationCenter.default.post(name: Notification.Name.StartFirstPlaylist, object: nil)
-        play(self.playlist, time: nil)
+        play(time: nil)
     }
     
     // TODO: drop argument playlist
-    private func play(_ playlist: Playlist, time: CMTime?) {
+    private func play(time: CMTime?) {
         guard playlist.tracks.count > 0 && playerIndex != playlist.tracks.count - 1 else {
             debug_print("END reached, what now?")
             playerIndex = 0
@@ -54,18 +63,29 @@ class PlayerManager {
     func playFrom(_ index: Int) {
         self.playerIndex = index
         self.player?.pause()
-        self.play(self.playlist, time: nil)
+        self.play(time: nil)
     }
     
     func playNextTrack() {
         playerIndex += 1
-        play(self.playlist, time: nil)
+        play(time: nil)
     }
     
     func playRandomTrack() {
         let upperBound = UInt32(self.playlist.tracks.count)
         playerIndex = Int(arc4random_uniform(upperBound))
-        self.play(self.playlist, time: nil)
+        self.play(time: nil)
+    }
+    
+    func loopTrack() {
+        isLooping = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishPlaying(note:)),
+                                               name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+    }
+    
+    func stopLooping() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        isLooping = false
     }
     
     func tracks() -> [URL] {
@@ -97,7 +117,7 @@ class PlayerManager {
             player?.play()
         } else {
             // Start from the beginning
-            self.play(self.playlist, time: nil)
+            self.play(time: nil)
         }
     }
     
@@ -122,7 +142,7 @@ class PlayerManager {
                 return false
         }
         self.playerIndex = index
-        self.play(self.playlist, time: time)
+        self.play(time: time)
         return true
     }
     
@@ -147,5 +167,16 @@ class PlayerManager {
         self.player?.pause()
         self.playerIndex = 0
         StoredDefaults.save(folder: playlist.folder, data: [])
+    }
+    
+    func playTime() -> (currentTime: CMTime?, duration: CMTime?) {
+        return (self.playItem?.currentTime(), self.playItem?.duration)
+    }
+    
+    // Notifications
+    
+    @objc func didFinishPlaying(note: NSNotification) {
+        guard isLooping else { return }
+        self.play(time: nil)
     }
 }

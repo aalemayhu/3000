@@ -13,9 +13,9 @@ extension ViewController: NSCollectionViewDelegate {
     
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         debug_print("\(#function)")
-        guard let pm = (NSApp.delegate as? AppDelegate)?.pm,
-        let indexPath = indexPaths.first else {
-            return
+        guard let indexPath = indexPaths.first,
+            let pm = self.pm else {
+                return
         }
         pm.playFrom(indexPath.item)
     }
