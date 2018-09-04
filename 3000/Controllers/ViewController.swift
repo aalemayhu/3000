@@ -17,7 +17,7 @@ class ViewController: NSViewController {
     // Views
     @IBOutlet weak var randomButton: NSButton!
     @IBOutlet weak var artworkCollectionView: NSCollectionView!
-    @IBOutlet weak var loopButton: NSButton!
+    @IBOutlet weak var loopButton: LoopButton!
     @IBOutlet weak var trackInfoLabel: NSTextField!
     
     var cache = [String: Bool]()
@@ -172,14 +172,13 @@ class ViewController: NSViewController {
     
     @objc func pressedLoop() {
         guard let pm = self.pm else { return }
-        
-        if (loopButton.title == "loop") {
+        if (!pm.getIsLooping()) {
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-            loopButton.title = "loop=on"
+            loopButton.isLooping = false
             pm.loopTrack()
         } else {
             pm.stopLooping()
-            loopButton.title = "loop"
+            loopButton.isLooping = true
             NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                    name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         }

@@ -77,6 +77,10 @@ class PlayerManager: NSObject {
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
+    func getIsLooping() -> Bool{
+        return isLooping
+    }
+    
     func stopLooping() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         isLooping = false
@@ -182,13 +186,11 @@ class PlayerManager: NSObject {
             return
         }
         
-        if keyPath == #keyPath(AVPlayerItem.duration) {
-            print("\(#function): test caller")
-            let pt = self.playTime()
-            guard let currentTime = pt.currentTime,
-                let duration = self.playItem?.asset.duration else {
-                    return
-            }
+        if keyPath == #keyPath(AVPlayerItem.duration),
+            let currentItem = self.player?.currentItem {
+            let duration = currentItem.duration
+            let currentTime = currentItem.currentTime()
+            
             print("\(CMTimeGetSeconds(currentTime)) / \(CMTimeGetSeconds(duration))\n")
         }
     }

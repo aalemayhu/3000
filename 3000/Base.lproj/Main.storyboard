@@ -454,7 +454,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1ec-M0-KqP">
+                            <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1ec-M0-KqP" customClass="LoopButton" customModule="_000" customModuleProvider="target">
                                 <rect key="frame" x="98" y="352" width="45" height="25"/>
                                 <buttonCell key="cell" type="roundTextured" title="Loop" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" inset="2" id="Z57-1I-R78">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -490,7 +490,7 @@
                     </view>
                     <connections>
                         <outlet property="artworkCollectionView" destination="hj1-Bl-KJo" id="3of-5C-L3e"/>
-                        <outlet property="loopButton" destination="1ec-M0-KqP" id="KC8-hu-X8N"/>
+                        <outlet property="loopButton" destination="1ec-M0-KqP" id="GKc-q8-piB"/>
                         <outlet property="randomButton" destination="C3n-L1-hR1" id="hvu-iQ-ncG"/>
                         <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
                     </connections>
