@@ -19,8 +19,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var artworkCollectionView: NSCollectionView!
     @IBOutlet weak var loopButton: LoopButton!
     @IBOutlet weak var trackInfoLabel: NSTextField!
-    
+    @IBOutlet weak var trackArtistLabel: NSTextField!
     @IBOutlet weak var volumeSlider: NSSlider!
+    
     var cache = [String: Bool]()
     var pm: PlayerManager?
     
@@ -172,7 +173,8 @@ class ViewController: NSViewController {
         let artist = TrackMetadata.load(playerItem: item).artist!
         let albumName = TrackMetadata.load(playerItem: item).albumName!
 
-        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(artist) ᭼ \(albumName)"
+        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
+        self.trackArtistLabel.stringValue = "\(artist)"
     }
         
     @objc func pressedRandomButton() {
