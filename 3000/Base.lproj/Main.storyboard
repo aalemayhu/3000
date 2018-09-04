@@ -502,6 +502,7 @@
                                     <constraint firstAttribute="bottom" secondItem="Yhi-IQ-gcw" secondAttribute="bottom" constant="14" id="fLJ-Yx-p1x"/>
                                     <constraint firstItem="Yhi-IQ-gcw" firstAttribute="width" secondItem="FII-no-gWg" secondAttribute="width" id="hMz-e2-QZY"/>
                                     <constraint firstItem="bwC-NT-8zW" firstAttribute="leading" secondItem="1ec-M0-KqP" secondAttribute="trailing" constant="8" symbolic="YES" id="ha4-4X-iul"/>
+                                    <constraint firstItem="XGC-cc-PWz" firstAttribute="top" secondItem="C3n-L1-hR1" secondAttribute="bottom" constant="8" symbolic="YES" id="kW8-jm-Jzu"/>
                                     <constraint firstItem="bwC-NT-8zW" firstAttribute="top" secondItem="FII-no-gWg" secondAttribute="top" constant="14" id="qEX-zE-grn"/>
                                     <constraint firstItem="C3n-L1-hR1" firstAttribute="baseline" secondItem="1ec-M0-KqP" secondAttribute="baseline" id="qeo-gt-eLA"/>
                                     <constraint firstItem="Yhi-IQ-gcw" firstAttribute="centerX" secondItem="FII-no-gWg" secondAttribute="centerX" id="urj-hY-OMx"/>
@@ -511,12 +512,11 @@
                         <constraints>
                             <constraint firstItem="FII-no-gWg" firstAttribute="width" secondItem="hj1-Bl-KJo" secondAttribute="width" id="0Vf-kd-kcY"/>
                             <constraint firstItem="FII-no-gWg" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="4Zb-aB-27A"/>
-                            <constraint firstAttribute="bottom" secondItem="FII-no-gWg" secondAttribute="bottom" constant="293" id="CU8-Y2-Bd5"/>
                             <constraint firstItem="FII-no-gWg" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="WB1-J9-EuO"/>
                             <constraint firstAttribute="trailing" secondItem="FII-no-gWg" secondAttribute="trailing" id="Zej-ce-sfe"/>
                             <constraint firstAttribute="bottom" secondItem="Hv3-fJ-f97" secondAttribute="bottom" id="asM-59-CeL"/>
+                            <constraint firstItem="FII-no-gWg" firstAttribute="baseline" secondItem="hj1-Bl-KJo" secondAttribute="firstBaseline" id="b55-If-rW4"/>
                             <constraint firstItem="FII-no-gWg" firstAttribute="leading" secondItem="Hv3-fJ-f97" secondAttribute="leading" id="eJC-o7-Rhp"/>
-                            <constraint firstItem="hj1-Bl-KJo" firstAttribute="top" secondItem="FII-no-gWg" secondAttribute="bottom" id="qYZ-US-Jos"/>
                         </constraints>
                     </view>
                     <connections>

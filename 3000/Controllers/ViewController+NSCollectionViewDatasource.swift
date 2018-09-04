@@ -21,10 +21,12 @@ extension ViewController: NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let collectionViewItem = collectionView.makeItem(withIdentifier: PlayableCollectionViewItemIdentifier, for: indexPath)
-        guard let playableItem = collectionViewItem as? PlayableCollectionViewItem else { return collectionViewItem }        
-        if let tracks = self.pm?.tracks() {
+        guard let playableItem = collectionViewItem as? PlayableCollectionViewItem else { return collectionViewItem }
+        
+        if playableItem.trackData == nil, let tracks = self.pm?.tracks() {
             let playerItem = AVPlayerItem(url: tracks[indexPath.item])
-            playableItem.configure(playerItem)
+            playableItem.trackData = TrackMetadata.load(playerItem: playerItem)
+
         }
         return collectionViewItem
     }

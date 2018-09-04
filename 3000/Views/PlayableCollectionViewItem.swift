@@ -10,6 +10,14 @@ import Cocoa
 import AVFoundation
 
 class PlayableCollectionViewItem: NSCollectionViewItem {
+    
+    var trackData : TrackMetadata? {
+        didSet {
+            guard let trackData = trackData else { return }
+            setTitle(title: trackData.title)
+            setImage(image: trackData.artwork)
+        }
+    }
 
     func setTitle(title: String?) {
         guard let title = title else { return }
@@ -18,11 +26,5 @@ class PlayableCollectionViewItem: NSCollectionViewItem {
     
     func setImage(image: NSImage?) {
         self.imageView?.image = image
-    }
-    
-    func configure(_ playerItem: AVPlayerItem) {
-        let playable = TrackMetadata.load(playerItem: playerItem)
-        setTitle(title: playable.title)
-        setImage(image: playable.artwork)
     }
 }
