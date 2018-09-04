@@ -12,12 +12,13 @@ import AVFoundation
 class PlayerManager: NSObject {
     
     private var playlist: Playlist
-    private var player: AVPlayer?
     private var playerIndex = 0
     private var isLooping = false
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
-    private var observerContext = 0
+
+    var player: AVPlayer?
+
     
     init(playlist: Playlist) {
         self.playlist = playlist
@@ -43,7 +44,6 @@ class PlayerManager: NSObject {
         
         let u = playlist.tracks[playerIndex]
         self.playItem = AVPlayerItem(url: u)
-        self.playItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.duration), options: [.old, .new], context: &observerContext)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
             if let seekTime = time {
@@ -197,22 +197,5 @@ class PlayerManager: NSObject {
     @objc func didFinishPlaying(note: NSNotification) {
         guard isLooping else { return }
         self.play(time: nil)
-    }
-    
-    // Observers
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard context == &observerContext else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-            return
-        }
-        
-        if keyPath == #keyPath(AVPlayerItem.duration),
-            let currentItem = self.player?.currentItem {
-            let duration = currentItem.duration
-            let currentTime = currentItem.currentTime()
-            
-            print("\(CMTimeGetSeconds(currentTime)) / \(CMTimeGetSeconds(duration))\n")
-        }
     }
 }

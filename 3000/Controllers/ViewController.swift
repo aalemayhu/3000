@@ -24,6 +24,8 @@ class ViewController: NSViewController {
     var cache = [String: Bool]()
     var pm: PlayerManager?
     
+    var timeObserverToken: Any?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -165,7 +167,7 @@ class ViewController: NSViewController {
         guard let item = self.pm?.currentTrack() else {
             return
         }
-        
+        self.addPeriodicTimeObserver()
         let title = TrackMetadata.load(playerItem: item).title!
         let artist = TrackMetadata.load(playerItem: item).artist!
         let albumName = TrackMetadata.load(playerItem: item).albumName!
@@ -201,5 +203,32 @@ class ViewController: NSViewController {
             volume = volume / 10
         }
         pm.setVolume(volume: Float(volume))
+    }
+    
+    // Player observers
+    
+    func playerTimeProgressed() {
+        print("\(#function)")
+    }
+    
+    func addPeriodicTimeObserver() {
+        guard let pm = self.pm, let player = pm.player else { return }
+        // Notify every half second
+        let timeScale = CMTimeScale(NSEC_PER_SEC)
+        let time = CMTime(seconds: 0.5, preferredTimescale: timeScale)
+        
+        timeObserverToken = player.addPeriodicTimeObserver(forInterval: time,
+                                                           queue: .main) {
+                                                            [weak self] time in
+                                                            self?.playerTimeProgressed()
+        }
+    }
+    
+    func removePeriodicTimeObserver() {
+        guard let pm = self.pm, let player = pm.player else { return }
+        if let timeObserverToken = timeObserverToken {
+            player.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
     }
 }
