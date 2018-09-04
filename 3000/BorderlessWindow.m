@@ -13,7 +13,7 @@
                     defer:(BOOL)deferCreation
 {
     if((self = [super initWithContentRect:contentRect
-                                styleMask:NSBorderlessWindowMask
+                                styleMask:NSWindowStyleMaskBorderless
                                   backing:NSBackingStoreBuffered
                                     defer:NO]))
     {
@@ -40,15 +40,15 @@
 
 - (void)sendEvent:(NSEvent *)theEvent
 {
-    if([theEvent type] == NSKeyDown)
+    if([theEvent type] == NSEventTypeKeyDown)
     {
         if([theEvent keyCode] == 36)
             return;
     }
     
-    if([theEvent type] == NSLeftMouseDown)
+    if([theEvent type] == NSEventTypeLeftMouseDown)
         [self mouseDown:theEvent];
-    else if([theEvent type] == NSLeftMouseDragged)
+    else if([theEvent type] == NSEventTypeLeftMouseDragged)
         [self mouseDragged:theEvent];
     
     [super sendEvent:theEvent];
