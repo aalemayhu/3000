@@ -68,6 +68,13 @@ class PlayerManager: NSObject {
         return player.volume
     }
     
+    func setVolume(volume: Float) {
+        guard let player = self.player else {
+            return
+        }
+        player.volume = volume
+    }
+    
     func playFrom(_ index: Int) {
         self.playerIndex = index
         self.player?.pause()

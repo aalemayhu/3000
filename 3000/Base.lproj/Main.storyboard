@@ -461,14 +461,22 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-IQ-gcw">
-                                <rect key="frame" x="197" y="357" width="305" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-IQ-gcw">
+                                <rect key="frame" x="252" y="357" width="250" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Press space 2 play or use CMD+O to pick a folder" id="VN8-RX-2u0">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-NT-8zW">
+                                <rect key="frame" x="149" y="355" width="96" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="10" doubleValue="4" tickMarkPosition="above" sliderType="linear" id="KfB-IU-QaS"/>
+                                <connections>
+                                    <action selector="sliderDidChange:" target="XfG-lQ-9wD" id="MLO-wW-hgQ"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <constraints>
                             <constraint firstItem="hj1-Bl-KJo" firstAttribute="top" secondItem="C3n-L1-hR1" secondAttribute="bottom" constant="12" id="32v-08-pvp"/>
@@ -493,11 +501,12 @@
                         <outlet property="loopButton" destination="1ec-M0-KqP" id="GKc-q8-piB"/>
                         <outlet property="randomButton" destination="C3n-L1-hR1" id="hvu-iQ-ncG"/>
                         <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
+                        <outlet property="volumeSlider" destination="bwC-NT-8zW" id="bmG-Mg-DGo"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-202" y="716.5"/>
+            <point key="canvasLocation" x="-528" y="653"/>
         </scene>
     </scenes>
 </document>

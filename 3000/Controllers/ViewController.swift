@@ -20,6 +20,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var loopButton: LoopButton!
     @IBOutlet weak var trackInfoLabel: NSTextField!
     
+    @IBOutlet weak var volumeSlider: NSSlider!
     var cache = [String: Bool]()
     var pm: PlayerManager?
     
@@ -81,9 +82,11 @@ class ViewController: NSViewController {
         case " ":
             pm.playOrPause()
         case "+":
-            pm.changeVolume(change: 0.1)            
+            volumeSlider.doubleValue = volumeSlider.doubleValue + 1
+            pm.changeVolume(change: 0.1)
         case "-":
             pm.changeVolume(change: -0.1)
+            volumeSlider.doubleValue = volumeSlider.doubleValue - 1
         default:
             debug_print("unknown key")
         }
@@ -187,5 +190,16 @@ class ViewController: NSViewController {
             NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                    name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         }
+    }
+    
+    // Control events
+    
+    @IBAction func sliderDidChange(_ sender: NSSlider) {
+        guard let pm = self.pm else { return }
+        var volume = volumeSlider.doubleValue
+        if (volume > 0) {
+            volume = volume / 10
+        }
+        pm.setVolume(volume: Float(volume))
     }
 }
