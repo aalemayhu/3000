@@ -162,9 +162,11 @@ class ViewController: NSViewController {
             return
         }
         self.addPeriodicTimeObserver()
-        let title = TrackMetadata.load(playerItem: item).title!
-        let artist = TrackMetadata.load(playerItem: item).artist!
-        let albumName = TrackMetadata.load(playerItem: item).albumName!
+        // TODO: handle no metadata case
+        let meta = TrackMetadata.load(playerItem: item)
+        let title = meta.title ?? ""
+        let artist = meta.artist ?? ""
+        let albumName = meta.albumName ?? ""
 
         self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
         self.trackArtistLabel.stringValue = "\(artist)"
