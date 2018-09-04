@@ -15,12 +15,9 @@ class ViewController: NSViewController {
     let PlayableCollectionViewItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "PlayableCollectionViewItem")
 
     // Views
-    @IBOutlet weak var randomButton: NSButton!
-    @IBOutlet weak var artworkCollectionView: NSCollectionView!
-    @IBOutlet weak var loopButton: LoopButton!
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
-    @IBOutlet weak var volumeSlider: NSSlider!
+    @IBOutlet weak var imageView: NSImageView!
     
     var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
@@ -30,6 +27,10 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let newFrame = NSApplication.shared.windows.first?.contentView?.bounds {
+            self.view.frame = newFrame
+        }        
     }
     
     override func viewDidAppear() {
@@ -38,11 +39,9 @@ class ViewController: NSViewController {
     }
     
     func configure () {
-        self.configureCollectionView()
-        configureButtons()
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadArtwork),
+        NotificationCenter.default.addObserver(self, selector: #selector(loadTrackMetadata),
                                                name: Notification.Name.StartFirstPlaylist, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
@@ -57,18 +56,10 @@ class ViewController: NSViewController {
         loadDefaults()
     }
     
-    func configureButtons() {
-        loopButton.target = self
-        loopButton.action = #selector(ViewController.pressedLoop)
-        
-        randomButton.target = self
-        randomButton.action = #selector(ViewController.pressedRandomButton)
-    }
-    
     func loadDefaults() {
         if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
             self.load(folder)
-            self.loadArtwork()
+            self.loadTrackMetadata()
         } else {
             debug_print("No cached folder")
         }
@@ -81,11 +72,13 @@ class ViewController: NSViewController {
         case " ":
             pm.playOrPause()
         case "+":
-            volumeSlider.doubleValue = volumeSlider.doubleValue + 1
             pm.changeVolume(change: 0.1)
         case "-":
             pm.changeVolume(change: -0.1)
-            volumeSlider.doubleValue = volumeSlider.doubleValue - 1
+        case "l":
+            self.toggleLoop()
+        case "r":
+            self.pm?.playRandomTrack()
         default:
             debug_print("unknown key")
         }
@@ -101,12 +94,24 @@ class ViewController: NSViewController {
         }
     }
     
+    func toggleLoop() {
+            guard let pm = self.pm else { return }
+            if (!pm.getIsLooping()) {
+                NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+                pm.loopTrack()
+            } else {
+                pm.stopLooping()
+                NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
+                                                       name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+            }
+    }
+    
     func load(_ folder: URL) {                
         let p = Playlist(folder: folder)
         self.pm = PlayerManager(playlist: p)
         self.cachedTracksData = p.loadFiles(folder)
 
-        self.artworkCollectionView.reloadData()
+        self.loadTrackMetadata()
 
         if let delegate = NSApp.delegate as? AppDelegate {
             delegate.pm = self.pm
@@ -123,8 +128,14 @@ class ViewController: NSViewController {
         return NSPoint(x: x, y: y)
     }
     
-    @objc func loadArtwork() {
-      self.artworkCollectionView.reloadData()
+    @objc func loadTrackMetadata() {
+        self.imageView.image = self.cachedTracksData[pm?.getIndex() ?? 0].artwork
+        let title = self.cachedTracksData[0].title ?? ""
+        let artist = self.cachedTracksData[0].artist ?? ""
+        let albumName = self.cachedTracksData[0].albumName ?? ""
+        
+        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
+        self.trackArtistLabel.stringValue = "\(artist)"
     }
     
     func addNewImageView(imageView: NSImageView) {
@@ -158,18 +169,8 @@ class ViewController: NSViewController {
     }
     
     @objc func playerDidStart(note: NSNotification){
-        guard let item = self.pm?.currentTrack() else {
-            return
-        }
+        self.loadTrackMetadata()
         self.addPeriodicTimeObserver()
-        // TODO: handle no metadata case
-        let meta = TrackMetadata.load(playerItem: item)
-        let title = meta.title ?? ""
-        let artist = meta.artist ?? ""
-        let albumName = meta.albumName ?? ""
-
-        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
-        self.trackArtistLabel.stringValue = "\(artist)"
     }
         
     @objc func pressedRandomButton() {
@@ -188,18 +189,7 @@ class ViewController: NSViewController {
                                                    name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         }
     }
-    
-    // Control events
-    
-    @IBAction func sliderDidChange(_ sender: NSSlider) {
-        guard let pm = self.pm else { return }
-        var volume = volumeSlider.doubleValue
-        if (volume > 0) {
-            volume = volume / 10
-        }
-        pm.setVolume(volume: Float(volume))
-    }
-    
+
     // Player observers
     
     func playerTimeProgressed() {

@@ -75,6 +75,10 @@ class PlayerManager: NSObject {
         player.volume = volume
     }
     
+    func getIndex() -> Int {
+        return playerIndex
+    }
+    
     func playFrom(_ index: Int) {
         debug_print("\(#function): \(index)")
         self.playerIndex = index
