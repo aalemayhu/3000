@@ -208,7 +208,15 @@ class ViewController: NSViewController {
     // Player observers
     
     func playerTimeProgressed() {
-        print("\(#function)")
+        guard let pm = self.pm, let player = pm.player,
+        let currentItem = player.currentItem else { return }
+
+        let currentTime = currentItem.currentTime()
+        let duration = currentItem.duration
+        
+        let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
+        let durationInSeconds = CMTimeGetSeconds(duration)
+        print("\(#function): \(currentTimeInSeconds) / \(durationInSeconds)")
     }
     
     func addPeriodicTimeObserver() {

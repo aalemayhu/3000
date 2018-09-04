@@ -36,7 +36,7 @@ class PlayerManager: NSObject {
     
     // TODO: drop argument playlist
     private func play(time: CMTime?) {
-        guard playlist.tracks.count > 0 && playerIndex != playlist.tracks.count - 1 else {
+        guard playlist.tracks.count > 0 && playerIndex < playlist.tracks.count else {
             debug_print("END reached, what now?")
             playerIndex = 0
             return
@@ -76,6 +76,7 @@ class PlayerManager: NSObject {
     }
     
     func playFrom(_ index: Int) {
+        debug_print("\(#function): \(index)")
         self.playerIndex = index
         self.player?.pause()
         self.play(time: nil)
