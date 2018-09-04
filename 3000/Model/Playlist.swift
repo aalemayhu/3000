@@ -18,11 +18,10 @@ class Playlist {
     init(folder: URL) {
         self.folder = folder
         self.name = folder.absoluteString
-        self.loadFiles(folder)
-        
     }
     
-    private func loadFiles(_ folder: URL) {        
+    func loadFiles(_ folder: URL) -> [TrackMetadata] {
+        var metadata = [TrackMetadata]()
         // Traverse the directory for audio files
         do {
             let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
@@ -31,9 +30,16 @@ class Playlist {
             self.tracks = files.filter {
                 return self.isSupported($0.lastPathComponent.lowercased())                
             }
+            
+            for track in tracks {
+                let item = AVPlayerItem(url: track)
+                let m = TrackMetadata.load(playerItem: item)
+                metadata.append(m)
+            }
         } catch {
             debug_print("CATCH???: \(error)")
         }
+        return metadata
     }
     
     private func isSupported(_ type: String) -> Bool {

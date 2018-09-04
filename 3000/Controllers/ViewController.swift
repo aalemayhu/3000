@@ -22,6 +22,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var trackArtistLabel: NSTextField!
     @IBOutlet weak var volumeSlider: NSSlider!
     
+    var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
     var pm: PlayerManager?
     
@@ -66,14 +67,9 @@ class ViewController: NSViewController {
     
     func loadDefaults() {
         if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
-            let p = Playlist(folder: folder)
-            self.pm = PlayerManager(playlist: p)
-            if let delegate = NSApp.delegate as? AppDelegate {
-                delegate.pm = self.pm
-            }
+            self.load(folder)
             self.loadArtwork()
         } else {
-            addInfo()
             debug_print("No cached folder")
         }
     }
@@ -105,16 +101,16 @@ class ViewController: NSViewController {
         }
     }
     
-    func addInfo() {
-//        self.textField = Press2PlayTextField(string: "Play a directory with music")
-//        guard let text = self.textField else { return }
-//        let origin = NSPoint(x: view.frame.size.width - text.frame.size.width,
-//                             y: view.frame.size.height-text.frame.size.height)
-//        text.setFrameOrigin(origin)
-//        text.isSelectable = false
-//        text.autoresizingMask = [NSView.AutoresizingMask.minXMargin, NSView.AutoresizingMask.maxXMargin,
-//                                 NSView.AutoresizingMask.minYMargin, NSView.AutoresizingMask.maxYMargin]
-//        view.addSubview(text)
+    func load(_ folder: URL) {                
+        let p = Playlist(folder: folder)
+        self.pm = PlayerManager(playlist: p)
+        self.cachedTracksData = p.loadFiles(folder)
+
+        self.artworkCollectionView.reloadData()
+
+        if let delegate = NSApp.delegate as? AppDelegate {
+            delegate.pm = self.pm
+        }
     }
     
     func randomPosition() -> NSPoint {
@@ -151,11 +147,8 @@ class ViewController: NSViewController {
         // TODO: handle case where no playable files have been found
         // TODO: what happens to nested folders?        
         self.pm?.resetPlayerState()
-        let p = Playlist(folder: selectedFolder)
-        self.pm = PlayerManager(playlist: p)
-        delegate.pm = self.pm
+        self.load(selectedFolder)
         self.pm?.startPlaylist()
-        self.artworkCollectionView.reloadData()
     }
     
     // Notification handlers
