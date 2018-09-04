@@ -13,6 +13,7 @@
 		50118A8D213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A8C213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift */; };
 		50118A8F213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50118A8E213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift */; };
 		50301643213ED81700060881 /* LoopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50301642213ED81700060881 /* LoopButton.swift */; };
+		50301645213EEA9400060881 /* PlayerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50301644213EEA9400060881 /* PlayerItemView.swift */; };
 		5078BBA3213C735D00D575C1 /* ViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078BBA2213C735D00D575C1 /* ViewController+Layout.swift */; };
 		840E299D2134570D00F117BD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840E299C2134570D00F117BD /* MainView.swift */; };
 		8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE092132D26500CE30F6 /* AppDelegate.swift */; };
@@ -54,6 +55,7 @@
 		50118A8C213C44AC002CFD4A /* ViewController+NSCollectionViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+NSCollectionViewDatasource.swift"; sourceTree = "<group>"; };
 		50118A8E213C4500002CFD4A /* ViewController+NSCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+NSCollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		50301642213ED81700060881 /* LoopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopButton.swift; sourceTree = "<group>"; };
+		50301644213EEA9400060881 /* PlayerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemView.swift; sourceTree = "<group>"; };
 		5078BBA2213C735D00D575C1 /* ViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Layout.swift"; sourceTree = "<group>"; };
 		840E299C2134570D00F117BD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8414CE062132D26500CE30F6 /* 3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +123,7 @@
 				50118A87213C3FDD002CFD4A /* PlayableCollectionViewItem.swift */,
 				50118A88213C3FDD002CFD4A /* PlayableCollectionViewItem.xib */,
 				50301642213ED81700060881 /* LoopButton.swift */,
+				50301644213EEA9400060881 /* PlayerItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				50301643213ED81700060881 /* LoopButton.swift in Sources */,
 				8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */,
 				84D60C7521371B90005FA309 /* ImageSizes.swift in Sources */,
+				50301645213EEA9400060881 /* PlayerItemView.swift in Sources */,
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,
 				50118A89213C3FDD002CFD4A /* PlayableCollectionViewItem.swift in Sources */,
 				84C1A01B2134C10000463C37 /* StoredDefaults.swift in Sources */,
