@@ -184,11 +184,9 @@ class ViewController: NSViewController {
         guard let pm = self.pm else { return }
         if (!pm.getIsLooping()) {
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-            loopButton.isLooping = false
             pm.loopTrack()
         } else {
             pm.stopLooping()
-            loopButton.isLooping = true
             NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                    name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         }

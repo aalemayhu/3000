@@ -459,8 +459,8 @@
                                     </button>
                                     <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1ec-M0-KqP" customClass="LoopButton" customModule="_000" customModuleProvider="target">
                                         <rect key="frame" x="98" y="62" width="45" height="25"/>
-                                        <buttonCell key="cell" type="roundTextured" title="Loop" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" inset="2" id="Z57-1I-R78">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" title="Loop" bezelStyle="texturedRounded" alignment="center" borderStyle="border" inset="2" id="Z57-1I-R78">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
@@ -517,7 +517,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-678" y="650.5"/>
+            <point key="canvasLocation" x="-905" y="617"/>
         </scene>
     </scenes>
 </document>
