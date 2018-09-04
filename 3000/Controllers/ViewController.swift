@@ -129,10 +129,11 @@ class ViewController: NSViewController {
     }
     
     @objc func loadTrackMetadata() {
-        self.imageView.image = self.cachedTracksData[pm?.getIndex() ?? 0].artwork
-        let title = self.cachedTracksData[0].title ?? ""
-        let artist = self.cachedTracksData[0].artist ?? ""
-        let albumName = self.cachedTracksData[0].albumName ?? ""
+        let index = pm?.getIndex() ?? 0
+        self.imageView.image = self.cachedTracksData[index].artwork
+        let title = self.cachedTracksData[index].title ?? ""
+        let artist = self.cachedTracksData[index].artist ?? ""
+        let albumName = self.cachedTracksData[index].albumName ?? ""
         
         self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
         self.trackArtistLabel.stringValue = "\(artist)"
@@ -172,24 +173,7 @@ class ViewController: NSViewController {
         self.loadTrackMetadata()
         self.addPeriodicTimeObserver()
     }
-        
-    @objc func pressedRandomButton() {
-        guard let pm = self.pm else { return }
-        pm.playRandomTrack()
-    }
     
-    @objc func pressedLoop() {
-        guard let pm = self.pm else { return }
-        if (!pm.getIsLooping()) {
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-            pm.loopTrack()
-        } else {
-            pm.stopLooping()
-            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
-                                                   name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        }
-    }
-
     // Player observers
     
     func playerTimeProgressed() {

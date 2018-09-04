@@ -414,6 +414,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="250" height="440"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-EG-qca">
+                                <rect key="frame" x="20" y="211" width="210" height="209"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="209" id="6J9-LQ-reh"/>
+                                    <constraint firstAttribute="width" constant="210" id="afE-Bh-7sc"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
+                            </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
                                 <rect key="frame" x="18" y="186" width="214" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Artist" id="SMl-Rv-3kZ">
@@ -434,26 +442,34 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-EG-qca">
-                                <rect key="frame" x="20" y="211" width="210" height="209"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="209" id="6J9-LQ-reh"/>
-                                    <constraint firstAttribute="width" constant="210" id="afE-Bh-7sc"/>
-                                </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
-                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SOa-jw-xuV" customClass="CloseAppLabel" customModule="_000" customModuleProvider="target">
+                                <rect key="frame" x="223" y="400" width="17" height="32"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ˣ" id="nPf-VK-7U2">
+                                    <font key="font" size="26" name="Helvetica"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="closeLabel:" target="XfG-lQ-9wD" id="BZP-s7-zrx"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="217-2g-1ZJ"/>
                             <constraint firstItem="Yhi-IQ-gcw" firstAttribute="top" secondItem="XGC-cc-PWz" secondAttribute="bottom" constant="8" symbolic="YES" id="Adh-5D-YmB"/>
                             <constraint firstItem="XGC-cc-PWz" firstAttribute="top" secondItem="UFg-EG-qca" secondAttribute="bottom" constant="8" id="Jcy-Zq-gx1"/>
                             <constraint firstItem="XGC-cc-PWz" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" constant="-40" id="Kzo-5N-J83"/>
+                            <constraint firstAttribute="bottom" secondItem="SOa-jw-xuV" secondAttribute="bottom" constant="400" id="LvS-Bx-Ygt"/>
                             <constraint firstItem="XGC-cc-PWz" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="PGf-vW-ODZ"/>
+                            <constraint firstItem="SOa-jw-xuV" firstAttribute="leading" secondItem="UFg-EG-qca" secondAttribute="trailing" constant="-5" id="R1b-HP-27w"/>
+                            <constraint firstAttribute="trailing" secondItem="SOa-jw-xuV" secondAttribute="trailing" constant="12" id="VDg-Ba-Viu"/>
                             <constraint firstAttribute="trailing" secondItem="Yhi-IQ-gcw" secondAttribute="trailing" constant="20" id="Xil-f9-PnI"/>
                             <constraint firstAttribute="trailing" secondItem="XGC-cc-PWz" secondAttribute="trailing" constant="20" id="eTr-mN-8l0"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="o8y-LO-Cn4"/>
+                            <constraint firstItem="SOa-jw-xuV" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="q2A-rd-OQW"/>
                             <constraint firstItem="Yhi-IQ-gcw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="xrx-Dp-TDX"/>
                             <constraint firstAttribute="bottom" secondItem="Yhi-IQ-gcw" secondAttribute="bottom" constant="161" id="yIp-If-l4v"/>
+                            <constraint firstItem="SOa-jw-xuV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="225" id="ykU-zU-GLK"/>
                         </constraints>
                     </view>
                     <connections>
@@ -464,7 +480,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2282" y="873"/>
+            <point key="canvasLocation" x="-2504" y="841"/>
         </scene>
     </scenes>
 </document>
