@@ -76,9 +76,14 @@ class ViewController: NSViewController {
     
     override func keyDown(with event: NSEvent) {
         debug_print("\(#function)")
+        guard let pm = self.pm else { return }
         switch event.characters {
         case " ":
-            self.pm?.playOrPause()
+            pm.playOrPause()
+        case "+":
+            pm.changeVolume(change: 0.1)            
+        case "-":
+            pm.changeVolume(change: -0.1)
         default:
             debug_print("unknown key")
         }
