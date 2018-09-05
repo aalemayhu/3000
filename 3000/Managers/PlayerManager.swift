@@ -131,18 +131,12 @@ class PlayerManager: NSObject {
         let seekTime = self.storage.seekTime(playlist: self.playlist)
         
         // Attempt to resume previous track
-        let didResume = self.resume(lastTrack, time: seekTime)
-        if didResume {
-            // Clear out the last track, it's already handled by saveState(...)
-            StoredDefaults.save(folder: playlist.folder, data: playerState(lastTrack: ""))
+        let didResume = self.resume(lastTrack, time: seekTime)        
+        guard !didResume else {
+            storage.save(folder: playlist.folder, data: [])
             return
         }
-        
-        if lastTrack != nil {
-            // Prevent playing reference to old track
-            StoredDefaults.save(folder: playlist.folder, data: playerState(lastTrack: ""))
-        }
-
+    
         if isPlaying() {
             // Pause since user is already playing a track
             player?.pause()
@@ -157,7 +151,7 @@ class PlayerManager: NSObject {
     
     func saveState() {
         let lastTrack = self.playlist.tracks[playerIndex].absoluteString
-        StoredDefaults.save(folder: playlist.folder, data: playerState(lastTrack: lastTrack))
+        storage.save(folder: playlist.folder, data: playerState(lastTrack: lastTrack))
     }
     
     func isPlaying() -> Bool {
@@ -200,7 +194,7 @@ class PlayerManager: NSObject {
     func resetPlayerState() {
         self.player?.pause()
         self.playerIndex = 0
-        StoredDefaults.save(folder: playlist.folder, data: [])
+        storage.save(folder: playlist.folder, data: [])
     }
     
     func playTime() -> (currentTime: CMTime?, duration: CMTime?) {

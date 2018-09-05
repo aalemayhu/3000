@@ -25,6 +25,10 @@ class StoredDefaults {
     var data: Dictionary<String, Any>?
     
     init(folder: URL) {
+      self.load(folder)
+    }
+    
+    private func load(_ folder: URL) {
         do {
             let data = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
             let dict = try JSONSerialization.jsonObject(with: data, options: []) as?  Dictionary<String, Any>
@@ -35,8 +39,8 @@ class StoredDefaults {
     }
     
     
-    static func save(folder: URL, data: Any) {
-        let fileUrl = folder.appendingPathComponent(folderInfo)
+    func save(folder: URL, data: Any) {
+        let fileUrl = folder.appendingPathComponent(StoredDefaults.folderInfo)
         do {
             let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
             try serializedData.write(to: fileUrl)
@@ -44,6 +48,9 @@ class StoredDefaults {
         } catch {
             debug_print(error.localizedDescription)
         }
+        
+        // Reload cached data
+        self.load(folder)
     }
     
     func getLastTrack(playlist: Playlist) -> URL? {

@@ -28,6 +28,8 @@ class ViewController: NSViewController {
     
     var timeObserverToken: Any?
     
+    // View
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +43,18 @@ class ViewController: NSViewController {
         configure()
     }
     
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        for n in [Notification.Name.OpenedFolder,
+                  Notification.Name.StartFirstPlaylist,
+                  NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                  NSNotification.Name.StartPlayingItem] {
+                    NotificationCenter.default.removeObserver(self, name: n, object: nil)
+        }
+    }
+    
+    // ---
+    
     func configure () {
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
@@ -53,7 +67,7 @@ class ViewController: NSViewController {
         
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
-            return $0
+            return nil
         }
         
         loadDefaults()
@@ -83,16 +97,6 @@ class ViewController: NSViewController {
             self.pm?.playRandomTrack()
         default:
             debug_print("unknown key")
-        }
-    }
-    
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
-        for n in [Notification.Name.OpenedFolder,
-                  Notification.Name.StartFirstPlaylist,
-                  NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                  NSNotification.Name.StartPlayingItem] {
-                    NotificationCenter.default.removeObserver(self, name: n, object: nil)
         }
     }
     
