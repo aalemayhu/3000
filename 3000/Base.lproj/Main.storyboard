@@ -460,22 +460,24 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
-                                <rect key="frame" x="177" y="20" width="55" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="duration" id="Yag-BR-T3g">
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-Pi-QHm">
+                                <rect key="frame" x="18" y="18" width="214" height="19"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" target="XfG-lQ-9wD" id="HBs-ec-R4X"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x3w-Bo-YQR">
+                                <rect key="frame" x="18" y="43" width="41" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00:00" id="Ve0-P6-dpS">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-Pi-QHm">
-                                <rect key="frame" x="18" y="90" width="214" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF"/>
-                            </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x3w-Bo-YQR">
-                                <rect key="frame" x="18" y="20" width="78" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="currentTime" id="Ve0-P6-dpS">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
+                                <rect key="frame" x="197" y="43" width="35" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="??:??" id="Yag-BR-T3g">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -483,12 +485,17 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="1kq-Hc-Vuf"/>
-                            <constraint firstAttribute="bottom" secondItem="agG-90-gvG" secondAttribute="bottom" constant="20" id="GWh-RG-bin"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="8" id="FYl-JP-hDG"/>
+                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="GP8-ZX-MPu"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="Goi-pG-QzQ"/>
+                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="THJ-Xi-uZd"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="agG-90-gvG" secondAttribute="bottom" constant="8" id="cKg-bR-34e"/>
+                            <constraint firstAttribute="bottom" secondItem="hXk-Pi-QHm" secondAttribute="bottom" constant="20" id="faZ-j7-dTF"/>
+                            <constraint firstAttribute="trailing" secondItem="hXk-Pi-QHm" secondAttribute="trailing" constant="20" id="o39-75-8Zq"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="of2-Ru-TCI"/>
-                            <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="yOb-ec-U4e"/>
-                            <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="ziO-Qm-ZeM"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="20" symbolic="YES" id="po2-55-sZo"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="tPc-Q4-4s3"/>
+                            <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="wYI-0j-YHI"/>
                         </constraints>
                     </view>
                     <connections>

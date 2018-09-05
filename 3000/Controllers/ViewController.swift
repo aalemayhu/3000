@@ -143,6 +143,14 @@ class ViewController: NSViewController {
         self.progressSlider.maxValue = Double(max)
     }
     
+    @IBAction func sliderValueChanged(_ sender: NSSlider) {
+        guard let pm = self.pm, let player = pm.player else {
+            return
+        }
+        
+        let seekTime = CMTime(seconds: sender.doubleValue, preferredTimescale: 1000000000)        
+        player.seek(to: seekTime)
+    }
     // Directory management
     
     @objc func openedDirectory() {
