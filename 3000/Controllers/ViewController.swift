@@ -18,6 +18,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
     @IBOutlet weak var imageView: NSImageView!
+    @IBOutlet weak var currentTimeLabel: NSTextField!
+    @IBOutlet weak var durationLabel: NSTextField!
     
     var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
@@ -165,6 +167,16 @@ class ViewController: NSViewController {
         
         let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
         let durationInSeconds = CMTimeGetSeconds(duration)
+        
+        let start = Date(timeIntervalSince1970: currentTimeInSeconds)
+        let end = Date(timeIntervalSince1970: durationInSeconds)
+        
+        // TODO: handle hours
+        let fmt = DateFormatter()
+        fmt.dateFormat = "mm:ss"
+        
+        currentTimeLabel.stringValue = fmt.string(from: start)
+        durationLabel.stringValue = fmt.string(from: end)
         print("\(#function): \(currentTimeInSeconds) / \(durationInSeconds)")
     }
     
@@ -172,7 +184,7 @@ class ViewController: NSViewController {
         guard let pm = self.pm, let player = pm.player else { return }
         // Notify every half second
         let timeScale = CMTimeScale(NSEC_PER_SEC)
-        let time = CMTime(seconds: 0.5, preferredTimescale: timeScale)
+        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
         
         timeObserverToken = player.addPeriodicTimeObserver(forInterval: time,
                                                            queue: .main) {

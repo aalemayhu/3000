@@ -438,7 +438,6 @@
                                         <rect key="frame" x="-2" y="0.0" width="214" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="210" id="FMG-VF-mhQ"/>
-                                            <constraint firstAttribute="height" constant="17" id="Sev-vD-yKT"/>
                                         </constraints>
                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or use CMD+O to pick a folder" id="VN8-RX-2u0">
                                             <font key="font" metaFont="system"/>
@@ -461,13 +460,35 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
+                                <rect key="frame" x="177" y="20" width="55" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="duration" id="Yag-BR-T3g">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x3w-Bo-YQR">
+                                <rect key="frame" x="18" y="20" width="78" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="currentTime" id="Ve0-P6-dpS">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="1kq-Hc-Vuf"/>
+                            <constraint firstAttribute="bottom" secondItem="agG-90-gvG" secondAttribute="bottom" constant="20" id="GWh-RG-bin"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="Goi-pG-QzQ"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="of2-Ru-TCI"/>
+                            <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="yOb-ec-U4e"/>
+                            <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="ziO-Qm-ZeM"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="currentTimeLabel" destination="x3w-Bo-YQR" id="M2c-uF-h7j"/>
+                        <outlet property="durationLabel" destination="agG-90-gvG" id="h2z-3I-bLS"/>
                         <outlet property="imageView" destination="UFg-EG-qca" id="uac-Li-Fav"/>
                         <outlet property="trackArtistLabel" destination="XGC-cc-PWz" id="w7V-1N-aib"/>
                         <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
