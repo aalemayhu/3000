@@ -16,7 +16,7 @@ class PlayerManager: NSObject {
     private var isLooping = false
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
-
+    
     var player: AVPlayer?
 
     
@@ -194,7 +194,7 @@ class PlayerManager: NSObject {
     }
     
     func playTime() -> (currentTime: CMTime?, duration: CMTime?) {
-        return (self.playItem?.currentTime(), self.playItem?.duration)
+        return (self.playItem?.currentTime(), self.playItem?.asset.duration)
     }
     
     // Notifications

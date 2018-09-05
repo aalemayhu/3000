@@ -11,15 +11,16 @@ import AVFoundation
 import Foundation
 
 class ViewController: NSViewController {
-
+    
     let PlayableCollectionViewItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "PlayableCollectionViewItem")
-
+    
     // Views
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
+    @IBOutlet weak var progressSlider: NSSlider!
     
     var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
@@ -43,13 +44,13 @@ class ViewController: NSViewController {
     func configure () {
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadTrackMetadata),
+        NotificationCenter.default.addObserver(self, selector: #selector(updateView),
                                                name: Notification.Name.StartFirstPlaylist, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
-
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
             return $0
@@ -96,46 +97,58 @@ class ViewController: NSViewController {
     }
     
     func toggleLoop() {
-            guard let pm = self.pm else { return }
-            if (!pm.getIsLooping()) {
-                NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-                pm.loopTrack()
-            } else {
-                pm.stopLooping()
-                NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
-                                                       name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-            }
+        guard let pm = self.pm else { return }
+        if (!pm.getIsLooping()) {
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+            pm.loopTrack()
+        } else {
+            pm.stopLooping()
+            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
+                                                   name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        }
     }
     
     func load(_ folder: URL) {                
         let p = Playlist(folder: folder)
         self.pm = PlayerManager(playlist: p)
         self.cachedTracksData = p.loadFiles(folder)
-
-        self.loadTrackMetadata()
-
+        
+        self.updateView()
+        
         if let delegate = NSApp.delegate as? AppDelegate {
             delegate.pm = self.pm
         }
     }
     
-    @objc func loadTrackMetadata() {
+    @objc func updateView() {
         let index = pm?.getIndex() ?? 0
-        self.imageView.image = self.cachedTracksData[index].artwork
-        let title = self.cachedTracksData[index].title ?? ""
-        let artist = self.cachedTracksData[index].artist ?? ""
-        let albumName = self.cachedTracksData[index].albumName ?? ""
+        let track = self.cachedTracksData[index]
+        self.imageView.image = track.artwork
+        let title = track.title ?? ""
+        let artist = track.artist ?? ""
+        let albumName = track.albumName ?? ""
         
         self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
         self.trackArtistLabel.stringValue = "\(artist)"
+        
+        self.setupProgressSlider()
+    }
+    
+    func setupProgressSlider() {
+        guard let pm = self.pm, let duration = pm.playTime().duration else {
+            return
+        }
+        let max = CMTimeGetSeconds(duration)
+        self.progressSlider.minValue = 0
+        self.progressSlider.maxValue = Double(max)
     }
     
     // Directory management
     
     @objc func openedDirectory() {
         guard let delegate = NSApp.delegate as? AppDelegate,
-        let selectedFolder = delegate.selectedFolder else {
-            return
+            let selectedFolder = delegate.selectedFolder else {
+                return
         }
         // TODO: handle duplicated
         // TODO: handle case where no playable files have been found
@@ -152,21 +165,25 @@ class ViewController: NSViewController {
     }
     
     @objc func playerDidStart(note: NSNotification){
-        self.loadTrackMetadata()
+        self.updateView()
         self.addPeriodicTimeObserver()
     }
     
     // Player observers
     
     func playerTimeProgressed() {
-        guard let pm = self.pm, let player = pm.player,
-        let currentItem = player.currentItem else { return }
-
-        let currentTime = currentItem.currentTime()
-        let duration = currentItem.duration
+        guard let pm = self.pm else { return }
+        let playTime = pm.playTime()
+        
+        guard  let currentTime = playTime.currentTime,
+            let duration = playTime.duration else {
+                return
+        }
         
         let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
         let durationInSeconds = CMTimeGetSeconds(duration)
+        
+        self.progressSlider.doubleValue = Double(currentTimeInSeconds)
         
         let start = Date(timeIntervalSince1970: currentTimeInSeconds)
         let end = Date(timeIntervalSince1970: durationInSeconds)
