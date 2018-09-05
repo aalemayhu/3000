@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -414,46 +415,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="250" height="440"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-EG-qca">
-                                <rect key="frame" x="20" y="211" width="210" height="209"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aov-gK-BgN">
+                                <rect key="frame" x="20" y="161" width="210" height="259"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-EG-qca">
+                                        <rect key="frame" x="0.0" y="50" width="210" height="209"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="209" id="6J9-LQ-reh"/>
+                                            <constraint firstAttribute="width" constant="210" id="afE-Bh-7sc"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
+                                        <rect key="frame" x="-2" y="25" width="174" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Artist" id="SMl-Rv-3kZ">
+                                            <font key="font" metaFont="systemBold"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-IQ-gcw">
+                                        <rect key="frame" x="-2" y="0.0" width="214" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="210" id="FMG-VF-mhQ"/>
+                                            <constraint firstAttribute="height" constant="17" id="Sev-vD-yKT"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or use CMD+O to pick a folder" id="VN8-RX-2u0">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="209" id="6J9-LQ-reh"/>
-                                    <constraint firstAttribute="width" constant="210" id="afE-Bh-7sc"/>
+                                    <constraint firstItem="XGC-cc-PWz" firstAttribute="width" secondItem="Aov-gK-BgN" secondAttribute="width" constant="-40" id="TLf-0r-bw1"/>
                                 </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
-                            </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
-                                <rect key="frame" x="18" y="186" width="214" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Artist" id="SMl-Rv-3kZ">
-                                    <font key="font" metaFont="systemBold"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-IQ-gcw">
-                                <rect key="frame" x="18" y="161" width="214" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="210" id="FMG-VF-mhQ"/>
-                                    <constraint firstAttribute="height" constant="17" id="Sev-vD-yKT"/>
-                                </constraints>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or use CMD+O to pick a folder" id="VN8-RX-2u0">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="UFg-EG-qca" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="217-2g-1ZJ"/>
-                            <constraint firstItem="Yhi-IQ-gcw" firstAttribute="top" secondItem="XGC-cc-PWz" secondAttribute="bottom" constant="8" symbolic="YES" id="Adh-5D-YmB"/>
-                            <constraint firstItem="XGC-cc-PWz" firstAttribute="top" secondItem="UFg-EG-qca" secondAttribute="bottom" constant="8" id="Jcy-Zq-gx1"/>
-                            <constraint firstItem="XGC-cc-PWz" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" constant="-40" id="Kzo-5N-J83"/>
-                            <constraint firstItem="XGC-cc-PWz" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="PGf-vW-ODZ"/>
-                            <constraint firstAttribute="trailing" secondItem="Yhi-IQ-gcw" secondAttribute="trailing" constant="20" id="Xil-f9-PnI"/>
-                            <constraint firstAttribute="trailing" secondItem="XGC-cc-PWz" secondAttribute="trailing" constant="20" id="eTr-mN-8l0"/>
-                            <constraint firstItem="UFg-EG-qca" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="o8y-LO-Cn4"/>
-                            <constraint firstItem="Yhi-IQ-gcw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="xrx-Dp-TDX"/>
-                            <constraint firstAttribute="bottom" secondItem="Yhi-IQ-gcw" secondAttribute="bottom" constant="161" id="yIp-If-l4v"/>
+                            <constraint firstItem="Aov-gK-BgN" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="Goi-pG-QzQ"/>
+                            <constraint firstItem="Aov-gK-BgN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="of2-Ru-TCI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -464,7 +475,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2504" y="841"/>
+            <point key="canvasLocation" x="-2482" y="840"/>
         </scene>
     </scenes>
 </document>

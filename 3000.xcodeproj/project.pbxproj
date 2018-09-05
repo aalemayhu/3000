@@ -20,7 +20,6 @@
 		84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1A0182134A96700463C37 /* PlayerManager.swift */; };
 		84C1A01B2134C10000463C37 /* StoredDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1A01A2134C10000463C37 /* StoredDefaults.swift */; };
 		84CDE9BE213F2493002B3FFB /* BorderlessWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDE9BD213F2493002B3FFB /* BorderlessWindow.m */; };
-		84CDE9C0213F2701002B3FFB /* CloseAppLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CDE9BF213F2701002B3FFB /* CloseAppLabel.swift */; };
 		84D60C7521371B90005FA309 /* ImageSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D60C7421371B90005FA309 /* ImageSizes.swift */; };
 		84D80EC021345D86006C5D14 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EBF21345D86006C5D14 /* Notifications.swift */; };
 		84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EC2213461CF006C5D14 /* Playlist.swift */; };
@@ -66,7 +65,6 @@
 		84CDE9BB213F2493002B3FFB /* 3000-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "3000-Bridging-Header.h"; sourceTree = "<group>"; };
 		84CDE9BC213F2493002B3FFB /* BorderlessWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BorderlessWindow.h; sourceTree = "<group>"; };
 		84CDE9BD213F2493002B3FFB /* BorderlessWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BorderlessWindow.m; sourceTree = "<group>"; };
-		84CDE9BF213F2701002B3FFB /* CloseAppLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseAppLabel.swift; sourceTree = "<group>"; };
 		84D60C7421371B90005FA309 /* ImageSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSizes.swift; sourceTree = "<group>"; };
 		84D80EBF21345D86006C5D14 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		84D80EC2213461CF006C5D14 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				840E299C2134570D00F117BD /* MainView.swift */,
-				84CDE9BF213F2701002B3FFB /* CloseAppLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -341,7 +338,6 @@
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
 				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,
-				84CDE9C0213F2701002B3FFB /* CloseAppLabel.swift in Sources */,
 				84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */,
 				84CDE9BE213F2493002B3FFB /* BorderlessWindow.m in Sources */,
 				2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */,
