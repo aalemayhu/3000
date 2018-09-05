@@ -35,7 +35,7 @@ class ViewController: NSViewController {
         
         if let newFrame = NSApplication.shared.windows.first?.contentView?.bounds {
             self.view.frame = newFrame
-        }        
+        }
     }
     
     override func viewDidAppear() {
@@ -71,6 +71,8 @@ class ViewController: NSViewController {
         }
         
         loadDefaults()
+        
+        progressSlider.trackFillColor = NSColor.gray
     }
     
     func loadDefaults() {
@@ -177,7 +179,6 @@ class ViewController: NSViewController {
         
         currentTimeLabel.stringValue = fmt.string(from: start)
         durationLabel.stringValue = fmt.string(from: end)
-        print("\(#function): \(currentTimeInSeconds) / \(durationInSeconds)")
     }
     
     // Directory management

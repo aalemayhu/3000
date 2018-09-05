@@ -462,7 +462,7 @@
                             </stackView>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-Pi-QHm">
                                 <rect key="frame" x="18" y="18" width="214" height="19"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF" customClass="TrackProgressSliderCell" customModule="_000" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" target="XfG-lQ-9wD" id="HBs-ec-R4X"/>
                                 </connections>
