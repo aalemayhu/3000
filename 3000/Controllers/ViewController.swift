@@ -123,21 +123,26 @@ class ViewController: NSViewController {
     @objc func updateView() {
         let index = pm?.getIndex() ?? 0
         let track = self.cachedTracksData[index]
-        self.imageView.image = track.artwork
         let title = track.title ?? ""
         let artist = track.artist ?? ""
         let albumName = track.albumName ?? ""
-        
+
+        // Album image
+        self.imageView.image = track.artwork
+        // Track info
         self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
         self.trackArtistLabel.stringValue = "\(artist)"
+
+        // Either use the playing items duration or load from currently not playing item
+        guard let pm = self.pm else { return }
+        let playTime = pm.playTime()
+        let duration = playTime.duration ?? AVPlayerItem(url: pm.tracks()[index]).asset.duration
         
-        self.setupProgressSlider()
+        self.setupProgressSlider(duration)
+        self.updatePlayTimeLabels(CMTime(seconds: 0, preferredTimescale: 1000000000), duration)
     }
     
-    func setupProgressSlider() {
-        guard let pm = self.pm, let duration = pm.playTime().duration else {
-            return
-        }
+    func setupProgressSlider(_ duration: CMTime) {
         let max = CMTimeGetSeconds(duration)
         self.progressSlider.minValue = 0
         self.progressSlider.maxValue = Double(max)
@@ -148,9 +153,29 @@ class ViewController: NSViewController {
             return
         }
         
-        let seekTime = CMTime(seconds: sender.doubleValue, preferredTimescale: 1000000000)        
+        let seekTime = CMTime(seconds: sender.doubleValue, preferredTimescale: 1000000000)
         player.seek(to: seekTime)
     }
+    
+    func updatePlayTimeLabels(_ currentTime: CMTime, _ duration: CMTime) {
+        
+        let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
+        let durationInSeconds = CMTimeGetSeconds(duration)
+        
+        self.progressSlider.doubleValue = Double(currentTimeInSeconds)
+        
+        let start = Date(timeIntervalSince1970: currentTimeInSeconds)
+        let end = Date(timeIntervalSince1970: durationInSeconds)
+        
+        // TODO: handle hours
+        let fmt = DateFormatter()
+        fmt.dateFormat = "mm:ss"
+        
+        currentTimeLabel.stringValue = fmt.string(from: start)
+        durationLabel.stringValue = fmt.string(from: end)
+        print("\(#function): \(currentTimeInSeconds) / \(durationInSeconds)")
+    }
+    
     // Directory management
     
     @objc func openedDirectory() {
@@ -188,21 +213,7 @@ class ViewController: NSViewController {
                 return
         }
         
-        let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
-        let durationInSeconds = CMTimeGetSeconds(duration)
-        
-        self.progressSlider.doubleValue = Double(currentTimeInSeconds)
-        
-        let start = Date(timeIntervalSince1970: currentTimeInSeconds)
-        let end = Date(timeIntervalSince1970: durationInSeconds)
-        
-        // TODO: handle hours
-        let fmt = DateFormatter()
-        fmt.dateFormat = "mm:ss"
-        
-        currentTimeLabel.stringValue = fmt.string(from: start)
-        durationLabel.stringValue = fmt.string(from: end)
-        print("\(#function): \(currentTimeInSeconds) / \(durationInSeconds)")
+        updatePlayTimeLabels(currentTime, duration)
     }
     
     func addPeriodicTimeObserver() {
