@@ -74,9 +74,9 @@ class ViewController: NSViewController {
         case " ":
             pm.playOrPause()
         case "+":
-            pm.changeVolume(change: 0.1)
+            pm.changeVolume(change: 0.01)
         case "-":
-            pm.changeVolume(change: -0.1)
+            pm.changeVolume(change: -0.01)
         case "l":
             self.toggleLoop()
         case "r":
