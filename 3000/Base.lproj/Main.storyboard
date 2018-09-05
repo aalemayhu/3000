@@ -414,6 +414,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="250" height="440"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-EG-qca">
+                                <rect key="frame" x="20" y="211" width="210" height="209"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="209" id="6J9-LQ-reh"/>
+                                    <constraint firstAttribute="width" constant="210" id="afE-Bh-7sc"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
+                            </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
                                 <rect key="frame" x="18" y="186" width="214" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Artist" id="SMl-Rv-3kZ">
@@ -436,16 +444,20 @@
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="UFg-EG-qca" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="217-2g-1ZJ"/>
                             <constraint firstItem="Yhi-IQ-gcw" firstAttribute="top" secondItem="XGC-cc-PWz" secondAttribute="bottom" constant="8" symbolic="YES" id="Adh-5D-YmB"/>
+                            <constraint firstItem="XGC-cc-PWz" firstAttribute="top" secondItem="UFg-EG-qca" secondAttribute="bottom" constant="8" id="Jcy-Zq-gx1"/>
                             <constraint firstItem="XGC-cc-PWz" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" constant="-40" id="Kzo-5N-J83"/>
                             <constraint firstItem="XGC-cc-PWz" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="PGf-vW-ODZ"/>
                             <constraint firstAttribute="trailing" secondItem="Yhi-IQ-gcw" secondAttribute="trailing" constant="20" id="Xil-f9-PnI"/>
                             <constraint firstAttribute="trailing" secondItem="XGC-cc-PWz" secondAttribute="trailing" constant="20" id="eTr-mN-8l0"/>
+                            <constraint firstItem="UFg-EG-qca" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="o8y-LO-Cn4"/>
                             <constraint firstItem="Yhi-IQ-gcw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="xrx-Dp-TDX"/>
                             <constraint firstAttribute="bottom" secondItem="Yhi-IQ-gcw" secondAttribute="bottom" constant="161" id="yIp-If-l4v"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="UFg-EG-qca" id="uac-Li-Fav"/>
                         <outlet property="trackArtistLabel" destination="XGC-cc-PWz" id="w7V-1N-aib"/>
                         <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
                     </connections>

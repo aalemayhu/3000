@@ -59,7 +59,6 @@ class ViewController: NSViewController {
     func loadDefaults() {
         if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
             self.load(folder)
-            self.loadTrackMetadata()
         } else {
             debug_print("No cached folder")
         }
