@@ -117,16 +117,6 @@ class ViewController: NSViewController {
         }
     }
     
-    func randomPosition() -> NSPoint {
-        // Prevent division by zero
-        let minX = max(view.bounds.size.width-ImageSizes.ImageWidth, ImageSizes.ImageWidth)
-        let minY = max(view.bounds.size.height-ImageSizes.imageHeight, ImageSizes.imageHeight)
-        let x = CGFloat(arc4random() % uint(minX))
-        let y = CGFloat(arc4random() % uint(minY))
-        
-        return NSPoint(x: x, y: y)
-    }
-    
     @objc func loadTrackMetadata() {
         let index = pm?.getIndex() ?? 0
         self.imageView.image = self.cachedTracksData[index].artwork
@@ -136,15 +126,6 @@ class ViewController: NSViewController {
         
         self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
         self.trackArtistLabel.stringValue = "\(artist)"
-    }
-    
-    func addNewImageView(imageView: NSImageView) {
-        guard let mainView = self.view as? MainView else {
-            return
-        }
-        
-        imageView.setFrameOrigin(randomPosition())
-        mainView.addSubview(imageView)
     }
     
     // Directory management
