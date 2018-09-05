@@ -17,6 +17,14 @@ class PlayerManager: NSObject {
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
     
+    // TODO: persist volume value
+    private var volume: Float? {
+        didSet {
+            guard let volume = self.volume else { return }
+            self.player?.volume = volume
+        }
+    }
+
     var player: AVPlayer?
 
     
@@ -46,6 +54,11 @@ class PlayerManager: NSObject {
         self.playItem = AVPlayerItem(url: u)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
+            // Use previous volume
+            if let volume = self.volume {
+                self.player?.volume = volume
+            }
+            self.volume = player?.volume
             if let seekTime = time {
                 self.player?.seek(to: seekTime)
             }
@@ -58,14 +71,11 @@ class PlayerManager: NSObject {
         guard let player = self.player else {
             return
         }
-        player.volume = player.volume+change < 0 ? 0 : player.volume + change
+        self.volume = player.volume+change < 0 ? 0 : player.volume + change
     }
     
     func getVolume() -> Float? {
-        guard let player = self.player else {
-            return nil
-        }
-        return player.volume
+        return self.volume
     }
     
     func setVolume(volume: Float) {
