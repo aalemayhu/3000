@@ -129,6 +129,7 @@ class PlayerManager: NSObject {
     func playOrPause() {
         let lastTrack = self.storage.getLastTrack(playlist: self.playlist)
         let seekTime = self.storage.seekTime(playlist: self.playlist)
+        self.volume = self.storage.getVolumeLevel()
         
         // Attempt to resume previous track
         let didResume = self.resume(lastTrack, time: seekTime)        
@@ -177,7 +178,8 @@ class PlayerManager: NSObject {
     private func playerState(lastTrack: String) -> Any {
         let currentItem = self.player?.currentTime()
         var data: [String: Any] = [
-            StoredDefaults.LastTrackKey: lastTrack
+            StoredDefaults.LastTrackKey: lastTrack,
+            StoredDefaults.VolumeLevel: volume as Any
         ]
         
         // Save the player time

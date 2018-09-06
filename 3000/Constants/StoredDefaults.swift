@@ -19,7 +19,7 @@ class StoredDefaults {
     static let TimeScaleKey = "timeScale"
     static let SecondsKey = "seconds"
     static let LastTrackKey = "LastTrack"
-    
+    static let VolumeLevel = "VolumeLevel"
     static let folderInfo = ".3000.json"
     
     var data: Dictionary<String, Any>?
@@ -59,6 +59,13 @@ class StoredDefaults {
                 return nil
         }
         return URL(string: value)
+    }
+    
+    func getVolumeLevel() -> Float? {
+        guard let data = self.data, let value = data[StoredDefaults.VolumeLevel] as? Float else {
+            return nil
+        }
+        return value
     }
     
     func seekTime(playlist: Playlist) -> CMTime? {

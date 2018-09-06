@@ -78,13 +78,15 @@ class ViewController: NSViewController {
     }
     
     func updateVolume(change: Float) {
-        guard let pm = self.pm, let v = pm.getVolume() else { return }
+        guard let pm = self.pm else { return }
         // TODO: prevent going beyond 100%
         // Change the player volume
         pm.changeVolume(change: change)
         // Show new volume
-        let sv = String.init(format: "%.f", v*100)
-        self.volumeLabel.stringValue = "\(sv)%🔊"
+        if let v = pm.getVolume() {
+            let sv = String.init(format: "%.f", v*100)
+            self.volumeLabel.stringValue = "\(sv)%🔊"
+        }
     }
     
     
