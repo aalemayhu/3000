@@ -412,7 +412,7 @@
             <objects>
                 <viewController title="3000" id="XfG-lQ-9wD" customClass="ViewController" customModule="_000" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl" customClass="MainView" customModule="_000" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="440"/>
+                        <rect key="frame" x="0.0" y="0.0" width="270" height="440"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aov-gK-BgN">
@@ -461,7 +461,7 @@
                                 </customSpacing>
                             </stackView>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-Pi-QHm">
-                                <rect key="frame" x="18" y="18" width="214" height="19"/>
+                                <rect key="frame" x="18" y="18" width="234" height="19"/>
                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF" customClass="TrackProgressSliderCell" customModule="_000" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" target="XfG-lQ-9wD" id="HBs-ec-R4X"/>
@@ -476,8 +476,20 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
-                                <rect key="frame" x="197" y="61" width="35" height="17"/>
+                                <rect key="frame" x="217" y="61" width="35" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="??:??" id="Yag-BR-T3g">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dmR-KO-ut1">
+                                <rect key="frame" x="107" y="61" width="57" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="53" id="tiz-pZ-zy6"/>
+                                    <constraint firstAttribute="height" constant="17" id="wU7-mB-oKe"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="100%🔊" id="b0g-M6-vN7">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -485,11 +497,14 @@
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="dmR-KO-ut1" secondAttribute="trailing" constant="57" id="Dz7-aa-y66"/>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="26" id="FYl-JP-hDG"/>
                             <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="GP8-ZX-MPu"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="Goi-pG-QzQ"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="THJ-Xi-uZd"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="dmR-KO-ut1" secondAttribute="bottom" constant="26" id="bnP-el-W5O"/>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="agG-90-gvG" secondAttribute="bottom" constant="26" id="cKg-bR-34e"/>
+                            <constraint firstItem="dmR-KO-ut1" firstAttribute="leading" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="52" id="cj0-qW-Djd"/>
                             <constraint firstAttribute="bottom" secondItem="hXk-Pi-QHm" secondAttribute="bottom" constant="20" id="faZ-j7-dTF"/>
                             <constraint firstAttribute="trailing" secondItem="hXk-Pi-QHm" secondAttribute="trailing" constant="20" id="o39-75-8Zq"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="of2-Ru-TCI"/>
@@ -505,11 +520,12 @@
                         <outlet property="progressSlider" destination="hXk-Pi-QHm" id="fad-Ui-aIf"/>
                         <outlet property="trackArtistLabel" destination="XGC-cc-PWz" id="w7V-1N-aib"/>
                         <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
+                        <outlet property="volumeLabel" destination="dmR-KO-ut1" id="29C-Ij-IZg"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2601" y="840"/>
+            <point key="canvasLocation" x="-2800" y="866"/>
         </scene>
     </scenes>
 </document>

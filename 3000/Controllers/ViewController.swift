@@ -21,6 +21,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var progressSlider: NSSlider!
+    @IBOutlet weak var volumeLabel: NSTextField!
     
     var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
@@ -52,6 +53,41 @@ class ViewController: NSViewController {
                     NotificationCenter.default.removeObserver(self, name: n, object: nil)
         }
     }
+    
+    // View changes
+    
+    @objc func updateView() {
+        let index = pm?.getIndex() ?? 0
+        let track = self.cachedTracksData[index]
+        let title = track.title ?? ""
+        let artist = track.artist ?? ""
+        let albumName = track.albumName ?? ""
+        
+        // Album image
+        self.imageView.image = track.artwork
+        // Track info
+        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
+        self.trackArtistLabel.stringValue = "\(artist)"
+        
+        // Either use the playing items duration or load from currently not playing item
+        guard let pm = self.pm else { return }
+        let playTime = pm.playTime()
+        let duration = playTime.duration ?? AVPlayerItem(url: pm.tracks()[index]).asset.duration
+        
+        self.setupProgressSlider(duration)
+        self.updatePlayTimeLabels(CMTime(seconds: 0, preferredTimescale: 1000000000), duration)
+    }
+    
+    func updateVolume(change: Float) {
+        guard let pm = self.pm, let v = pm.getVolume() else { return }
+        // TODO: prevent going beyond 100%
+        // Change the player volume
+        pm.changeVolume(change: change)
+        // Show new volume
+        let sv = String.init(format: "%.f", v*100)
+        self.volumeLabel.stringValue = "\(sv)%🔊"
+    }
+    
     
     // ---
     
@@ -90,9 +126,9 @@ class ViewController: NSViewController {
         case " ":
             pm.playOrPause()
         case "+":
-            pm.changeVolume(change: 0.01)
+            self.updateVolume(change: 0.01)
         case "-":
-            pm.changeVolume(change: -0.01)
+            self.updateVolume(change: -0.01)
         case "l":
             self.toggleLoop()
         case "r":
@@ -124,28 +160,6 @@ class ViewController: NSViewController {
         if let delegate = NSApp.delegate as? AppDelegate {
             delegate.pm = self.pm
         }
-    }
-    
-    @objc func updateView() {
-        let index = pm?.getIndex() ?? 0
-        let track = self.cachedTracksData[index]
-        let title = track.title ?? ""
-        let artist = track.artist ?? ""
-        let albumName = track.albumName ?? ""
-
-        // Album image
-        self.imageView.image = track.artwork
-        // Track info
-        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
-        self.trackArtistLabel.stringValue = "\(artist)"
-
-        // Either use the playing items duration or load from currently not playing item
-        guard let pm = self.pm else { return }
-        let playTime = pm.playTime()
-        let duration = playTime.duration ?? AVPlayerItem(url: pm.tracks()[index]).asset.duration
-        
-        self.setupProgressSlider(duration)
-        self.updatePlayTimeLabels(CMTime(seconds: 0, preferredTimescale: 1000000000), duration)
     }
     
     func setupProgressSlider(_ duration: CMTime) {
