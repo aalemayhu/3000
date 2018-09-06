@@ -102,6 +102,12 @@ class PlayerManager: NSObject {
         play(time: nil)
     }
     
+    func playPreviousTrack() {
+        guard playerIndex > 0 else { return }
+        playerIndex += -1
+        play(time: nil)
+    }
+    
     func playRandomTrack() {
         let upperBound = UInt32(self.playlist.tracks.count)
         playerIndex = Int(arc4random_uniform(upperBound))

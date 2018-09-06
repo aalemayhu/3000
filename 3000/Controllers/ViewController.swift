@@ -137,6 +137,10 @@ class ViewController: NSViewController {
             self.toggleLoop()
         case "r":
             self.pm?.playRandomTrack()
+        case "p":
+            self.pm?.playPreviousTrack()
+        case "n":
+            self.pm?.playNextTrack()
         default:
             debug_print("unknown key")
         }
