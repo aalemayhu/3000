@@ -61,6 +61,12 @@ class StoredDefaults {
         return URL(string: value)
     }
     
+    func removeLastTrack() {
+        guard var data = self.data else { return }
+        data.removeValue(forKey: StoredDefaults.LastTrackKey)
+        self.data = data        
+    }
+    
     func getVolumeLevel() -> Float? {
         guard let data = self.data, let value = data[StoredDefaults.VolumeLevel] as? Float else {
             return nil

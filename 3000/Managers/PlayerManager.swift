@@ -98,11 +98,13 @@ class PlayerManager: NSObject {
     }
     
     func playNextTrack() {
+        self.storage.removeLastTrack()
         playerIndex += 1
         play(time: nil)
     }
     
     func playPreviousTrack() {
+        self.storage.removeLastTrack()
         guard playerIndex > 0 else { return }
         playerIndex += -1
         play(time: nil)
@@ -116,6 +118,7 @@ class PlayerManager: NSObject {
     }
     
     func playRandomTrack() {
+        self.storage.removeLastTrack()
         let upperBound = UInt32(self.playlist.tracks.count)
         playerIndex = Int(arc4random_uniform(upperBound))
         self.play(time: nil)
