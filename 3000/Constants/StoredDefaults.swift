@@ -53,7 +53,7 @@ class StoredDefaults {
         self.load(folder)
     }
     
-    func getLastTrack(playlist: Playlist) -> URL? {
+    func getLastTrack() -> URL? {
         guard let data = self.data,
             let value = data[StoredDefaults.LastTrackKey] as? String else {
                 return nil

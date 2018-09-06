@@ -18,9 +18,8 @@ class PlayerManager: NSObject {
     private var storage: StoredDefaults
     
     // TODO: persist volume value
-    private var volume: Float? {
+    private var volume: Float {
         didSet {
-            guard let volume = self.volume else { return }
             self.player?.volume = volume
         }
     }
@@ -31,6 +30,8 @@ class PlayerManager: NSObject {
     init(playlist: Playlist) {
         self.playlist = playlist
         self.storage = StoredDefaults(folder: playlist.folder)
+        self.volume = 0.3
+        super.init()
     }
     
     // TODO: handle resuming track time
@@ -55,10 +56,7 @@ class PlayerManager: NSObject {
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
             // Use previous volume
-            if let volume = self.volume {
-                self.player?.volume = volume
-            }
-            self.volume = player?.volume
+            self.player?.volume = volume
             if let seekTime = time {
                 self.player?.seek(to: seekTime)
             }
@@ -69,9 +67,12 @@ class PlayerManager: NSObject {
     
     func changeVolume(change: Float) {
         guard let player = self.player else {
+            self.volume = self.volume+change < 0 ? 0 : self.volume + change
+            self.volume = self.volume > 1 ? 1 : self.volume
             return
         }
         self.volume = player.volume+change < 0 ? 0 : player.volume + change
+        self.volume = self.volume > 1 ? 1 : self.volume
     }
     
     func getVolume() -> Float? {
@@ -126,10 +127,17 @@ class PlayerManager: NSObject {
         return self.playlist.tracks
     }
     
+    func useCache(playlist: Playlist) {
+        if let url = self.storage.getLastTrack(),
+            let index = self.indexFor(url: url, playlist: playlist) {
+            self.playerIndex = index
+        }        
+        self.volume = self.storage.getVolumeLevel() ?? self.volume
+    }
+    
     func playOrPause() {
-        let lastTrack = self.storage.getLastTrack(playlist: self.playlist)
+        let lastTrack = self.storage.getLastTrack()
         let seekTime = self.storage.seekTime(playlist: self.playlist)
-        self.volume = self.storage.getVolumeLevel()
         
         // Attempt to resume previous track
         let didResume = self.resume(lastTrack, time: seekTime)        
@@ -163,9 +171,15 @@ class PlayerManager: NSObject {
         return self.playItem
     }
     
+    func indexFor(url: URL, playlist: Playlist) -> Int? {
+        guard playlist.tracks.contains(url) else {
+            return nil
+        }        
+        return playlist.tracks.index(of: url)
+    }
+    
     private func resume(_ url: URL?, time: CMTime?) -> Bool{
-        guard let url = url, playlist.tracks.contains(url),
-            let index = playlist.tracks.index(of: url) else {
+        guard let url = url, let index = self.indexFor(url: url, playlist: self.playlist) else {
                 // Make sure the track is present
                 // Could be missing for any reason, f. ex. user deleted file
                 return false

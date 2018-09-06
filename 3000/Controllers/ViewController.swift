@@ -75,18 +75,18 @@ class ViewController: NSViewController {
         
         self.setupProgressSlider(duration)
         self.updatePlayTimeLabels(CMTime(seconds: 0, preferredTimescale: 1000000000), duration)
+        self.updateVolumeLabel()
     }
     
-    func updateVolume(change: Float) {
-        guard let pm = self.pm else { return }
-        // TODO: prevent going beyond 100%
-        // Change the player volume
-        pm.changeVolume(change: change)
-        // Show new volume
-        if let v = pm.getVolume() {
-            let sv = String.init(format: "%.f", v*100)
-            self.volumeLabel.stringValue = "\(sv)%🔊"
+    func updateVolumeLabel() {
+        guard let v = pm?.getVolume() else {
+            // TODO: handle volume is not set
+            return
         }
+        
+        // Show new volume
+        let sv = String.init(format: "%.f", v*100)
+        self.volumeLabel.stringValue = "\(sv)%🔊"
     }
     
     
@@ -127,9 +127,12 @@ class ViewController: NSViewController {
         case " ":
             pm.playOrPause()
         case "+":
-            self.updateVolume(change: 0.01)
+            // TODO: prevent going beyond 100%
+            self.pm?.changeVolume(change: 0.01)
+            self.updateVolumeLabel()
         case "-":
-            self.updateVolume(change: -0.01)
+            self.pm?.changeVolume(change: -0.01)
+            self.updateVolumeLabel()
         case "l":
             self.toggleLoop()
         case "r":
@@ -155,6 +158,7 @@ class ViewController: NSViewController {
         let p = Playlist(folder: folder)
         self.pm = PlayerManager(playlist: p)
         self.cachedTracksData = p.loadFiles(folder)
+        self.pm?.useCache(playlist: p)
         
         self.updateView()
         
