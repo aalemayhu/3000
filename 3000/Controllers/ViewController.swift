@@ -61,12 +61,11 @@ class ViewController: NSViewController {
         let track = self.cachedTracksData[index]
         let title = track.title ?? ""
         let artist = track.artist ?? ""
-        let albumName = track.albumName ?? ""
         
         // Album image
         self.imageView.image = track.artwork
         // Track info
-        self.trackInfoLabel.stringValue = "🎵 \(title) ᭼ \(albumName)"
+        self.trackInfoLabel.stringValue = "🎵 \(title)"
         self.trackArtistLabel.stringValue = "\(artist)"
         
         // Either use the playing items duration or load from currently not playing item

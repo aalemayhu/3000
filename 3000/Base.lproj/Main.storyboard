@@ -412,14 +412,14 @@
             <objects>
                 <viewController title="3000" id="XfG-lQ-9wD" customClass="ViewController" customModule="_000" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl" customClass="MainView" customModule="_000" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="270" height="440"/>
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="440"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aov-gK-BgN">
-                                <rect key="frame" x="20" y="161" width="210" height="259"/>
+                                <rect key="frame" x="20" y="155" width="210" height="265"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-EG-qca">
-                                        <rect key="frame" x="0.0" y="50" width="210" height="209"/>
+                                        <rect key="frame" x="0.0" y="56" width="210" height="209"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="209" id="6J9-LQ-reh"/>
                                             <constraint firstAttribute="width" constant="210" id="afE-Bh-7sc"/>
@@ -427,20 +427,20 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
-                                        <rect key="frame" x="-2" y="25" width="174" height="17"/>
+                                        <rect key="frame" x="-2" y="28" width="174" height="20"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Artist" id="SMl-Rv-3kZ">
-                                            <font key="font" metaFont="systemBold"/>
+                                            <font key="font" size="13" name="HelveticaNeue-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-IQ-gcw">
-                                        <rect key="frame" x="-2" y="0.0" width="214" height="17"/>
+                                        <rect key="frame" x="-2" y="0.0" width="214" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="210" id="FMG-VF-mhQ"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="FMG-VF-mhQ"/>
                                         </constraints>
-                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or use CMD+O to pick a folder" id="VN8-RX-2u0">
-                                            <font key="font" metaFont="system"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or CMD+O" id="VN8-RX-2u0">
+                                            <font key="font" size="13" name="HelveticaNeue-Thin"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -448,6 +448,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="XGC-cc-PWz" firstAttribute="width" secondItem="Aov-gK-BgN" secondAttribute="width" constant="-40" id="TLf-0r-bw1"/>
+                                    <constraint firstItem="Yhi-IQ-gcw" firstAttribute="width" secondItem="Aov-gK-BgN" secondAttribute="width" id="Zer-ye-8nY"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
@@ -461,7 +462,7 @@
                                 </customSpacing>
                             </stackView>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-Pi-QHm">
-                                <rect key="frame" x="18" y="18" width="234" height="19"/>
+                                <rect key="frame" x="18" y="18" width="214" height="19"/>
                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF" customClass="TrackProgressSliderCell" customModule="_000" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" target="XfG-lQ-9wD" id="HBs-ec-R4X"/>
@@ -475,18 +476,9 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
-                                <rect key="frame" x="217" y="61" width="35" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="??:??" id="Yag-BR-T3g">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dmR-KO-ut1">
-                                <rect key="frame" x="107" y="61" width="57" height="17"/>
+                                <rect key="frame" x="97" y="61" width="57" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="53" id="tiz-pZ-zy6"/>
                                     <constraint firstAttribute="height" constant="17" id="wU7-mB-oKe"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="100%🔊" id="b0g-M6-vN7">
@@ -495,22 +487,29 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
+                                <rect key="frame" x="197" y="61" width="35" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="??:??" id="Yag-BR-T3g">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="dmR-KO-ut1" secondAttribute="trailing" constant="57" id="Dz7-aa-y66"/>
-                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="26" id="FYl-JP-hDG"/>
-                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="GP8-ZX-MPu"/>
+                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="C1I-GN-02l"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="dmR-KO-ut1" secondAttribute="bottom" constant="26" id="Fms-J0-O4z"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="Goi-pG-QzQ"/>
-                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="THJ-Xi-uZd"/>
-                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="dmR-KO-ut1" secondAttribute="bottom" constant="26" id="bnP-el-W5O"/>
-                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="agG-90-gvG" secondAttribute="bottom" constant="26" id="cKg-bR-34e"/>
-                            <constraint firstItem="dmR-KO-ut1" firstAttribute="leading" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="52" id="cj0-qW-Djd"/>
+                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Im6-3w-xd2"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="20" symbolic="YES" id="JRZ-jA-by1"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="Aov-gK-BgN" secondAttribute="leading" id="SJ7-3K-XXX"/>
                             <constraint firstAttribute="bottom" secondItem="hXk-Pi-QHm" secondAttribute="bottom" constant="20" id="faZ-j7-dTF"/>
-                            <constraint firstAttribute="trailing" secondItem="hXk-Pi-QHm" secondAttribute="trailing" constant="20" id="o39-75-8Zq"/>
+                            <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="fiZ-0w-5Jf"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="26" id="g73-XJ-hCD"/>
+                            <constraint firstItem="dmR-KO-ut1" firstAttribute="centerX" secondItem="hXk-Pi-QHm" secondAttribute="centerX" id="i7s-na-95Z"/>
                             <constraint firstItem="Aov-gK-BgN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="of2-Ru-TCI"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="20" symbolic="YES" id="po2-55-sZo"/>
-                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="tPc-Q4-4s3"/>
-                            <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="wYI-0j-YHI"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="agG-90-gvG" secondAttribute="bottom" constant="26" id="t1p-H5-fCE"/>
+                            <constraint firstAttribute="trailing" secondItem="hXk-Pi-QHm" secondAttribute="trailing" constant="20" id="tL9-wd-e6c"/>
                         </constraints>
                     </view>
                     <connections>
@@ -525,7 +524,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2800" y="866"/>
+            <point key="canvasLocation" x="-2810" y="866"/>
         </scene>
     </scenes>
 </document>
