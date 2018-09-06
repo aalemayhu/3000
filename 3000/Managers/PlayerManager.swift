@@ -108,6 +108,13 @@ class PlayerManager: NSObject {
         play(time: nil)
     }
     
+    func mute() {
+        guard let player = self.player else {
+            return
+        }
+        player.isMuted = !player.isMuted
+    }
+    
     func playRandomTrack() {
         let upperBound = UInt32(self.playlist.tracks.count)
         playerIndex = Int(arc4random_uniform(upperBound))

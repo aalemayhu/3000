@@ -141,6 +141,8 @@ class ViewController: NSViewController {
             self.pm?.playPreviousTrack()
         case "n":
             self.pm?.playNextTrack()
+        case "m":
+            self.pm?.mute()
         default:
             debug_print("unknown key")
         }
