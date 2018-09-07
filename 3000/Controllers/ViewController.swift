@@ -70,11 +70,13 @@ class ViewController: NSViewController {
         
         // Either use the playing items duration or load from currently not playing item
         guard let pm = self.pm else { return }
-        let playTime = pm.playTime()
+        let playTime = pm.playTime(index: index)
+        
         let duration = playTime.duration ?? AVPlayerItem(url: pm.tracks()[index]).asset.duration
+        let currentTime = playTime.currentTime ?? CMTime(seconds: 0, preferredTimescale: 1000000000)
         
         self.setupProgressSlider(duration)
-        self.updatePlayTimeLabels(CMTime(seconds: 0, preferredTimescale: 1000000000), duration)
+        self.updatePlayTimeLabels(currentTime, duration)
         self.updateVolumeLabel()
     }
     

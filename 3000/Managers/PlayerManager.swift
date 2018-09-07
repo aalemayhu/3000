@@ -229,7 +229,13 @@ class PlayerManager: NSObject {
         storage.save(folder: playlist.folder, data: [])
     }
     
-    func playTime() -> (currentTime: CMTime?, duration: CMTime?) {
+    func playTime(index: Int? = nil) -> (currentTime: CMTime?, duration: CMTime?) {
+        if let index = index,
+            self.indexFor(url: self.tracks()[index], playlist: self.playlist) == index {
+            let currentTime = self.storage.seekTime(playlist: self.playlist)            
+            return (currentTime, AVPlayerItem(url: self.tracks()[index]).asset.duration)
+
+        }
         return (self.playItem?.currentTime(), self.playItem?.asset.duration)
     }
     
