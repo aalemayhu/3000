@@ -24,6 +24,7 @@
 		84D60C7521371B90005FA309 /* ImageSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D60C7421371B90005FA309 /* ImageSizes.swift */; };
 		84D80EC021345D86006C5D14 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EBF21345D86006C5D14 /* Notifications.swift */; };
 		84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D80EC2213461CF006C5D14 /* Playlist.swift */; };
+		84F1439721433E5B006D481E /* Keybinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1439621433E5B006D481E /* Keybinding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		84D60C7421371B90005FA309 /* ImageSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSizes.swift; sourceTree = "<group>"; };
 		84D80EBF21345D86006C5D14 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		84D80EC2213461CF006C5D14 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		84F1439621433E5B006D481E /* Keybinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keybinding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 				84D80EBF21345D86006C5D14 /* Notifications.swift */,
 				84C1A01A2134C10000463C37 /* StoredDefaults.swift */,
 				84D60C7421371B90005FA309 /* ImageSizes.swift */,
+				84F1439621433E5B006D481E /* Keybinding.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,
 				84C1A01B2134C10000463C37 /* StoredDefaults.swift in Sources */,
 				8414CE0F2132D26500CE30F6 /* _000.xcdatamodeld in Sources */,
+				84F1439721433E5B006D481E /* Keybinding.swift in Sources */,
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
 				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,

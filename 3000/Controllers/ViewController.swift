@@ -91,8 +91,13 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
         
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
-            self.keyDown(with: $0)
-            return nil
+            // Only handle supported keybindings
+            if let key = $0.characters, Keybinding(rawValue: key) != nil {
+                self.keyDown(with: $0)
+                return nil
+            }
+            // Allow system to handle all other defaults, like CMD+O, etc.
+            return $0
         }
         
         loadDefaults()
@@ -112,24 +117,24 @@ class ViewController: NSViewController {
         debug_print("\(#function)")
         guard let pm = self.pm else { return }
         switch event.characters {
-        case " ":
+        case Keybinding.PlayOrPause.rawValue:
             pm.playOrPause()
-        case "+":
+        case Keybinding.VolumeUp.rawValue:
             // TODO: prevent going beyond 100%
             self.pm?.changeVolume(change: 0.01)
             self.updateVolumeLabel()
-        case "-":
+        case Keybinding.VolumeDown.rawValue:
             self.pm?.changeVolume(change: -0.01)
             self.updateVolumeLabel()
-        case "l":
+        case Keybinding.Loop.rawValue:
             self.toggleLoop()
-        case "r":
+        case Keybinding.Random.rawValue:
             self.pm?.playRandomTrack()
-        case "p":
+        case Keybinding.Previous.rawValue:
             self.pm?.playPreviousTrack()
-        case "n":
+        case Keybinding.Next.rawValue:
             self.pm?.playNextTrack()
-        case "m":
+        case Keybinding.Mute.rawValue:
             self.pm?.mute()
         default:
             debug_print("unknown key")
