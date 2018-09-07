@@ -424,7 +424,7 @@
                                             <constraint firstAttribute="height" constant="209" id="6J9-LQ-reh"/>
                                             <constraint firstAttribute="width" constant="210" id="afE-Bh-7sc"/>
                                         </constraints>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="deI-jG-hJY"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
                                         <rect key="frame" x="18" y="28" width="174" height="20"/>
