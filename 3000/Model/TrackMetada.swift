@@ -17,10 +17,10 @@ class TrackMetadata {
     var artist: String?
     var artwork: NSImage?
     
-    static func load(playerItem: AVPlayerItem) -> TrackMetadata {
+    static func load(asset: AVURLAsset) -> TrackMetadata {
         let np = TrackMetadata()
         
-        for item in playerItem.asset.metadata {
+        for item in asset.metadata {
             guard let commonKey = item.commonKey, let _ = item.value else {
                 debug_print("Failed to read metadata for \(item)")
                 continue

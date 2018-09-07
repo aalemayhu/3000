@@ -26,11 +26,14 @@ class PlayerManager: NSObject {
 
     var player: AVPlayer?
 
+    public static let AssetOptions = [
+        AVURLAssetPreferPreciseDurationAndTimingKey: true
+    ]
     
     init(playlist: Playlist) {
         self.playlist = playlist
         self.storage = StoredDefaults(folder: playlist.folder)
-        self.volume = 0.3
+        self.volume = self.storage.getVolumeLevel() ?? 0.3
         super.init()
     }
     
@@ -77,13 +80,6 @@ class PlayerManager: NSObject {
     
     func getVolume() -> Float? {
         return self.volume
-    }
-    
-    func setVolume(volume: Float) {
-        guard let player = self.player else {
-            return
-        }
-        player.volume = volume
     }
     
     func getIndex() -> Int {
@@ -158,7 +154,7 @@ class PlayerManager: NSObject {
         // Attempt to resume previous track
         let didResume = self.resume(lastTrack, time: seekTime)        
         guard !didResume else {
-            storage.save(folder: playlist.folder, data: [])
+            self.storage.removeLastTrack()
             return
         }
     
@@ -207,9 +203,9 @@ class PlayerManager: NSObject {
     
     private func playerState(lastTrack: String) -> Any {
         let currentItem = self.player?.currentTime()
-        var data: [String: Any] = [
+        var data: [String: Any?] = [
             StoredDefaults.LastTrackKey: lastTrack,
-            StoredDefaults.VolumeLevel: volume as Any
+            StoredDefaults.VolumeLevel: volume
         ]
         
         // Save the player time
@@ -226,14 +222,14 @@ class PlayerManager: NSObject {
     func resetPlayerState() {
         self.player?.pause()
         self.playerIndex = 0
-        storage.save(folder: playlist.folder, data: [])
+        storage.save(folder: playlist.folder, data: [StoredDefaults.VolumeLevel: volume])
     }
     
     func playTime(index: Int? = nil) -> (currentTime: CMTime?, duration: CMTime?) {
         if let index = index,
             self.indexFor(url: self.tracks()[index], playlist: self.playlist) == index {
-            let currentTime = self.storage.seekTime(playlist: self.playlist)            
-            return (currentTime, AVPlayerItem(url: self.tracks()[index]).asset.duration)
+            let currentTime = self.storage.seekTime(playlist: self.playlist)
+            return (currentTime, AVURLAsset(url: self.tracks()[index], options: PlayerManager.AssetOptions).duration)
 
         }
         return (self.playItem?.currentTime(), self.playItem?.asset.duration)

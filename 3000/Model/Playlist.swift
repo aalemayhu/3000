@@ -32,8 +32,8 @@ class Playlist {
             }
             
             for track in tracks {
-                let item = AVPlayerItem(url: track)
-                let m = TrackMetadata.load(playerItem: item)
+                let asset = AVURLAsset(url: track, options: PlayerManager.AssetOptions)
+                let m = TrackMetadata.load(asset: asset)
                 metadata.append(m)
             }
         } catch {

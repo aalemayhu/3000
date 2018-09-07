@@ -30,9 +30,19 @@ class StoredDefaults {
     
     private func load(_ folder: URL) {
         do {
-            let data = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
-            let dict = try JSONSerialization.jsonObject(with: data, options: []) as?  Dictionary<String, Any>
-            self.data = dict
+            let playlistData = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
+            let newDict = try JSONSerialization.jsonObject(with: playlistData, options: []) as?  Dictionary<String, Any>
+
+            // Perserve the volume level if playlist has no default
+            let oldVolume = self.getVolumeLevel()
+            self.data = newDict
+            if var data = self.data {
+                if data[StoredDefaults.VolumeLevel] == nil {
+                    data.updateValue(oldVolume as Any, forKey: StoredDefaults.VolumeLevel)
+                } else {
+                    print("XXX: not nil")
+                }
+            }
         } catch  {
             debug_print("error: \(error)")
         }
@@ -50,7 +60,7 @@ class StoredDefaults {
         }
         
         // Reload cached data
-        self.load(folder)
+//        self.load(folder)
     }
     
     func getLastTrack() -> URL? {
@@ -68,10 +78,8 @@ class StoredDefaults {
     }
     
     func getVolumeLevel() -> Float? {
-        guard let data = self.data, let value = data[StoredDefaults.VolumeLevel] as? Float else {
-            return nil
-        }
-        return value
+        guard let data = self.data, let v = data[StoredDefaults.VolumeLevel] else { return nil }
+        return (v as AnyObject).floatValue
     }
     
     func seekTime(playlist: Playlist) -> CMTime? {

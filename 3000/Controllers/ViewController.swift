@@ -37,23 +37,10 @@ class ViewController: NSViewController {
         if let newFrame = NSApplication.shared.windows.first?.contentView?.bounds {
             self.view.frame = newFrame
         }
-    }
-    
-    override func viewDidAppear() {
-        super.viewDidAppear()
         configure()
+
     }
-    
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
-        for n in [Notification.Name.OpenedFolder,
-                  Notification.Name.StartFirstPlaylist,
-                  NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                  NSNotification.Name.StartPlayingItem] {
-                    NotificationCenter.default.removeObserver(self, name: n, object: nil)
-        }
-    }
-    
+
     // View changes
     
     @objc func updateView() {
@@ -71,8 +58,7 @@ class ViewController: NSViewController {
         // Either use the playing items duration or load from currently not playing item
         guard let pm = self.pm else { return }
         let playTime = pm.playTime(index: index)
-        
-        let duration = playTime.duration ?? AVPlayerItem(url: pm.tracks()[index]).asset.duration
+        let duration = playTime.duration ?? AVURLAsset(url: pm.tracks()[index], options: PlayerManager.AssetOptions).duration
         let currentTime = playTime.currentTime ?? CMTime(seconds: 0, preferredTimescale: 1000000000)
         
         self.setupProgressSlider(duration)
