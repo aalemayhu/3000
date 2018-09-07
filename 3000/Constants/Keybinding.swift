@@ -9,7 +9,7 @@
 import Foundation
 
 enum Keybinding: String {
-    case PlayOrPause = ""
+    case PlayOrPause = " "
     case VolumeUp = "+"
     case VolumeDown = "-"
     case Loop = "l"
