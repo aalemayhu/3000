@@ -427,7 +427,7 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="deI-jG-hJY"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
-                                        <rect key="frame" x="-2" y="28" width="174" height="20"/>
+                                        <rect key="frame" x="18" y="28" width="174" height="20"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Artist" id="SMl-Rv-3kZ">
                                             <font key="font" size="13" name="HelveticaNeue-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -449,6 +449,8 @@
                                 <constraints>
                                     <constraint firstItem="XGC-cc-PWz" firstAttribute="width" secondItem="Aov-gK-BgN" secondAttribute="width" constant="-40" id="TLf-0r-bw1"/>
                                     <constraint firstItem="Yhi-IQ-gcw" firstAttribute="width" secondItem="Aov-gK-BgN" secondAttribute="width" id="Zer-ye-8nY"/>
+                                    <constraint firstItem="Yhi-IQ-gcw" firstAttribute="centerX" secondItem="Aov-gK-BgN" secondAttribute="centerX" id="keI-hu-CcT"/>
+                                    <constraint firstItem="XGC-cc-PWz" firstAttribute="centerX" secondItem="Aov-gK-BgN" secondAttribute="centerX" id="lIf-R1-l2k"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
