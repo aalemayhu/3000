@@ -50,7 +50,23 @@ class ViewController: NSViewController {
         let artist = track.artist ?? ""
         
         // Album image
+//        if let image = track.artwork {
+//            var inputImage = CIImage(data: image.tiffRepresentation!)
+//            if let filter = CIFilter(name: "CIGaussianBlur") {
+//                filter.setDefaults()
+//                filter.setValue(inputImage, forKey: kCIInputImageKey)
+//                var outputImage = filter.value(forKey: kCIOutputImageKey) as! CIImage
+//                var outputImageRect = NSRectFromCGRect(outputImage.extent)
+//                var blurredImage = NSImage(size: outputImageRect.size)
+//                blurredImage.lockFocus()
+//                outputImage.draw(at: NSZeroPoint, from: outputImageRect, operation: NSCompositingOperation.clear, fraction: 1.0)
+//                blurredImage.unlockFocus()
+//            }
+//        } else {
+//        }
         self.imageView.image = track.artwork
+
+        
         // Track info
         self.trackInfoLabel.stringValue = "🎵 \(title)"
         self.trackArtistLabel.stringValue = "\(artist)"
