@@ -440,7 +440,7 @@
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="FMG-VF-mhQ"/>
                                         </constraints>
                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or CMD+O" id="VN8-RX-2u0">
-                                            <font key="font" size="13" name="HelveticaNeue-Thin"/>
+                                            <font key="font" size="13" name="HelveticaNeue-Light"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
