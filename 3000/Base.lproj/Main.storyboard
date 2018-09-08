@@ -234,7 +234,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
-                                <rect key="frame" x="192" y="20" width="41" height="17"/>
+                                <rect key="frame" x="198" y="20" width="35" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="??:??" id="Yag-BR-T3g">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -278,8 +278,8 @@
                             <constraint firstItem="dmR-KO-ut1" firstAttribute="centerX" secondItem="UFg-EG-qca" secondAttribute="centerX" id="Bp5-jf-cWd"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="20" symbolic="YES" id="MjX-sm-iC9"/>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="b2i-w6-9Wo" secondAttribute="bottom" constant="20" id="N9y-nz-eiJ"/>
+                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Nzp-ny-mVh"/>
                             <constraint firstAttribute="bottom" secondItem="dmR-KO-ut1" secondAttribute="bottom" constant="20" id="Opn-rf-h2f"/>
-                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="dmR-KO-ut1" secondAttribute="trailing" constant="42" id="Qcg-j9-NtK"/>
                             <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="W15-V8-Ttz"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="XL1-8g-J44"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="YBV-NC-SD1"/>
