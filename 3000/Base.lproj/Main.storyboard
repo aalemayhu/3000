@@ -467,7 +467,7 @@
                                 </textFieldCell>
                             </textField>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b2i-w6-9Wo">
-                                <rect key="frame" x="38" y="104" width="175" height="44"/>
+                                <rect key="frame" x="38" y="103" width="175" height="44"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
                                         <rect key="frame" x="67" y="24" width="42" height="20"/>
@@ -498,6 +498,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="0zL-hi-rMV"/>
+                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="1Br-vO-pFM"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="baseline" secondItem="dmR-KO-ut1" secondAttribute="baseline" id="4UJ-Np-QLa"/>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="x3w-Bo-YQR" secondAttribute="leading" id="5ce-f2-Ldx"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="97n-HK-BM6"/>
@@ -510,10 +511,14 @@
                             <constraint firstItem="UFg-EG-qca" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="XL1-8g-J44"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerY" secondItem="UFg-EG-qca" secondAttribute="centerY" id="XkT-YA-k4l"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="YBV-NC-SD1"/>
-                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="199" id="Ze4-Li-bt5"/>
+                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Ze4-Li-bt5"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="bMX-1d-IOT"/>
+                            <constraint firstAttribute="bottom" secondItem="dmR-KO-ut1" secondAttribute="bottom" constant="20" id="eDQ-Fl-CPW"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="centerX" secondItem="dmR-KO-ut1" secondAttribute="centerX" id="k9o-i3-N0H"/>
+                            <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="ooC-UM-34J"/>
+                            <constraint firstAttribute="bottom" secondItem="agG-90-gvG" secondAttribute="bottom" constant="20" id="qse-hz-zVw"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerX" secondItem="UFg-EG-qca" secondAttribute="centerX" id="sZz-hZ-XEo"/>
+                            <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="z74-wK-2hr"/>
                         </constraints>
                     </view>
                     <connections>

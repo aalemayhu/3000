@@ -33,12 +33,7 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        
-//        if let newFrame = NSApplication.shared.windows.first?.contentView?.bounds {
-//            self.view.frame = newFrame
-//        }
         configure()
-
     }
 
     // View changes
@@ -50,22 +45,7 @@ class ViewController: NSViewController {
         let artist = track.artist ?? ""
         
         // Album image
-//        if let image = track.artwork {
-//            var inputImage = CIImage(data: image.tiffRepresentation!)
-//            if let filter = CIFilter(name: "CIGaussianBlur") {
-//                filter.setDefaults()
-//                filter.setValue(inputImage, forKey: kCIInputImageKey)
-//                var outputImage = filter.value(forKey: kCIOutputImageKey) as! CIImage
-//                var outputImageRect = NSRectFromCGRect(outputImage.extent)
-//                var blurredImage = NSImage(size: outputImageRect.size)
-//                blurredImage.lockFocus()
-//                outputImage.draw(at: NSZeroPoint, from: outputImageRect, operation: NSCompositingOperation.clear, fraction: 1.0)
-//                blurredImage.unlockFocus()
-//            }
-//        } else {
-//        }
         self.imageView.image = track.artwork
-
         
         // Track info
         self.trackInfoLabel.stringValue = "🎵 \(title)"
@@ -97,6 +77,7 @@ class ViewController: NSViewController {
     // ---
     
     func configure () {
+        // Add notification observers
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateView),
@@ -106,6 +87,7 @@ class ViewController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
         
+        // Handle keyboard
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             // Only handle supported keybindings
             if let key = $0.characters, Keybinding(rawValue: key) != nil {
@@ -115,10 +97,11 @@ class ViewController: NSViewController {
             // Allow system to handle all other defaults, like CMD+O, etc.
             return $0
         }
-        
+
         loadDefaults()
-        
         progressSlider.trackFillColor = NSColor.gray
+        
+        toggleTrackInfo(hidden: true)
     }
     
     func loadDefaults() {
@@ -274,5 +257,27 @@ class ViewController: NSViewController {
             player.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
         }
+    }
+    
+    // Blur handling
+    override func mouseEntered(with event: NSEvent) {
+        super.mouseEntered(with: event)
+        self.imageView.blur()
+        self.toggleTrackInfo(hidden: false)
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        super.mouseExited(with: event)
+        self.imageView.unblur()
+        self.toggleTrackInfo(hidden: true)
+    }
+    
+    func toggleTrackInfo(hidden: Bool) {
+        trackInfoLabel.isHidden = hidden
+        trackArtistLabel.isHidden = hidden
+        progressSlider.isHidden = hidden
+        volumeLabel.isHidden = hidden
+        durationLabel.isHidden = hidden
+        currentTimeLabel.isHidden = hidden
     }
 }

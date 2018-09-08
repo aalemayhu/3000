@@ -21,4 +21,14 @@ class MainView: NSView {
         NSColor.white.setFill()
         dirtyRect.fill()
     }
+    
+    override func updateTrackingAreas() {
+        for trackingArea in self.trackingAreas {
+            self.removeTrackingArea(trackingArea)
+        }
+        
+        let options: NSTrackingArea.Options = [.mouseEnteredAndExited, .activeAlways]
+        let trackingArea = NSTrackingArea(rect: self.bounds, options: options, owner: self, userInfo: nil)
+        self.addTrackingArea(trackingArea)
+    }
 }
