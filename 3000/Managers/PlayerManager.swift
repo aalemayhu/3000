@@ -140,10 +140,14 @@ class PlayerManager: NSObject {
     }
     
     func useCache(playlist: Playlist) {
+        self.playlist = playlist
+        
         if let url = self.storage.getLastTrack(),
             let index = self.indexFor(url: url, playlist: playlist) {
             self.playerIndex = index
-        }        
+        } else {
+            self.storage.change(folder: playlist.folder)
+        }
         self.volume = self.storage.getVolumeLevel() ?? self.volume
     }
     

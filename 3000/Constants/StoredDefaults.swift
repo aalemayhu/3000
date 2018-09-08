@@ -25,23 +25,19 @@ class StoredDefaults {
     var data: Dictionary<String, Any>?
     
     init(folder: URL) {
-      self.load(folder)
+        self.change(folder: folder)
     }
     
-    private func load(_ folder: URL) {
+    func change(folder: URL) {
         do {
             let playlistData = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
             let newDict = try JSONSerialization.jsonObject(with: playlistData, options: []) as?  Dictionary<String, Any>
-
+            
             // Perserve the volume level if playlist has no default
             let oldVolume = self.getVolumeLevel()
             self.data = newDict
-            if var data = self.data {
-                if data[StoredDefaults.VolumeLevel] == nil {
-                    data.updateValue(oldVolume as Any, forKey: StoredDefaults.VolumeLevel)
-                } else {
-                    print("XXX: not nil")
-                }
+            if var data = self.data, data[StoredDefaults.VolumeLevel] == nil {
+                data.updateValue(oldVolume as Any, forKey: StoredDefaults.VolumeLevel)
             }
         } catch  {
             debug_print("error: \(error)")
@@ -50,6 +46,7 @@ class StoredDefaults {
     
     
     func save(folder: URL, data: Any) {
+        debug_print("\(#function): folder=\(folder) data=\(data)")
         let fileUrl = folder.appendingPathComponent(StoredDefaults.folderInfo)
         do {
             let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
@@ -58,9 +55,6 @@ class StoredDefaults {
         } catch {
             debug_print(error.localizedDescription)
         }
-        
-        // Reload cached data
-//        self.load(folder)
     }
     
     func getLastTrack() -> URL? {

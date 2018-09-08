@@ -111,7 +111,7 @@ class ViewController: NSViewController {
     
     func loadDefaults() {
         if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
-            self.load(folder)
+            self.usePlaylist(folder)
         } else {
             debug_print("No cached folder")
         }
@@ -157,10 +157,13 @@ class ViewController: NSViewController {
         }
     }
     
-    func load(_ folder: URL) {                
+    func usePlaylist(_ folder: URL) {                
         let p = Playlist(folder: folder)
-        self.pm = PlayerManager(playlist: p)
         self.cachedTracksData = p.loadFiles(folder)
+        
+        if pm == nil{
+            self.pm = PlayerManager(playlist: p)
+        }
         self.pm?.useCache(playlist: p)
         
         self.updateView()
@@ -214,7 +217,7 @@ class ViewController: NSViewController {
         // TODO: handle case where no playable files have been found
         // TODO: what happens to nested folders?        
         self.pm?.resetPlayerState()
-        self.load(selectedFolder)
+        self.usePlaylist(selectedFolder)
         self.pm?.startPlaylist()
     }
     
