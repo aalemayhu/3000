@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -423,9 +422,6 @@
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFg-EG-qca">
                                 <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="UFg-EG-qca" secondAttribute="height" multiplier="1:1" id="LWA-7n-hme"/>
-                                </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="deI-jG-hJY"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
@@ -501,14 +497,14 @@
                             <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="1Br-vO-pFM"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="baseline" secondItem="dmR-KO-ut1" secondAttribute="baseline" id="4UJ-Np-QLa"/>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="x3w-Bo-YQR" secondAttribute="leading" id="5ce-f2-Ldx"/>
-                            <constraint firstItem="UFg-EG-qca" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="97n-HK-BM6"/>
+                            <constraint firstItem="UFg-EG-qca" firstAttribute="width" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="97n-HK-BM6"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="20" symbolic="YES" id="HXo-U8-jvO"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="centerX" secondItem="hXk-Pi-QHm" secondAttribute="centerX" id="Hf2-ce-wZ2"/>
                             <constraint firstItem="x3w-Bo-YQR" firstAttribute="top" secondItem="hXk-Pi-QHm" secondAttribute="bottom" constant="20" id="LRk-3z-AR9"/>
                             <constraint firstAttribute="bottom" secondItem="hXk-Pi-QHm" secondAttribute="bottom" constant="57" id="Qe8-ZZ-Jnk"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="baseline" secondItem="x3w-Bo-YQR" secondAttribute="baseline" id="Qwi-oY-x9X"/>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="agG-90-gvG" secondAttribute="trailing" id="UN7-Ic-JV9"/>
-                            <constraint firstItem="UFg-EG-qca" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="XL1-8g-J44"/>
+                            <constraint firstItem="UFg-EG-qca" firstAttribute="height" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="XL1-8g-J44"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerY" secondItem="UFg-EG-qca" secondAttribute="centerY" id="XkT-YA-k4l"/>
                             <constraint firstItem="UFg-EG-qca" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="YBV-NC-SD1"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Ze4-Li-bt5"/>

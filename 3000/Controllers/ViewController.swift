@@ -35,7 +35,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         configure()
     }
-
+    
     // View changes
     
     @objc func updateView() {
@@ -73,6 +73,10 @@ class ViewController: NSViewController {
         self.volumeLabel.stringValue = "\(sv)%🔊"
     }
     
+    @objc func screenResize() {
+        print("TODO: resize font")
+    }
+    
     
     // ---
     
@@ -86,7 +90,8 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
+                                               name: NSWindow.didResizeNotification, object: nil)
         // Handle keyboard
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             // Only handle supported keybindings
@@ -97,7 +102,7 @@ class ViewController: NSViewController {
             // Allow system to handle all other defaults, like CMD+O, etc.
             return $0
         }
-
+        
         loadDefaults()
         progressSlider.trackFillColor = NSColor.gray
         
@@ -214,6 +219,8 @@ class ViewController: NSViewController {
     }
     
     // Notification handlers
+    
+    
     
     @objc func playerDidFinishPlaying(note: NSNotification){
         self.pm?.playNextTrack()
