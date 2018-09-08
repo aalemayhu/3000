@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
-        NSApplication.shared.windows.first?.styleMask = NSWindow.StyleMask.borderless
+//        NSApplication.shared.windows.first?.styleMask = NSWindow.StyleMask.borderless
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

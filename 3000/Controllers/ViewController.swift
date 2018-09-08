@@ -33,10 +33,10 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let newFrame = NSApplication.shared.windows.first?.contentView?.bounds {
-            self.view.frame = newFrame
-        }
+//        
+//        if let newFrame = NSApplication.shared.windows.first?.contentView?.bounds {
+//            self.view.frame = newFrame
+//        }
         configure()
 
     }
