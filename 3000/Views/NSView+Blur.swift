@@ -10,45 +10,36 @@ import Foundation
 import Cocoa
 
 extension NSView {
-//    https://stackoverflow.com/questions/27509351/how-to-apply-blur-effect-to-nsview-nswindow
     func blur() {
-        guard let f = NSScreen.main?.frame else { return }
-        removeBlurView()
-
-        let blurView = NSView(frame: f)
-        blurView.wantsLayer = true
-        blurView.layer?.backgroundColor = NSColor.clear.cgColor
-        blurView.layer?.masksToBounds = true
-        blurView.layerUsesCoreImageFilters = true
-        blurView.layer?.needsDisplayOnBoundsChange = true
-        
-        let satFilter = CIFilter(name: "CIColorControls")
-        satFilter?.setDefaults()
-        satFilter?.setValue(NSNumber(value: 2.0), forKey: "inputSaturation")
-        
-        let blurFilter = CIFilter(name: "CIGaussianBlur")
-        blurFilter?.setDefaults()
-        blurFilter?.setValue(NSNumber(value: 40.0), forKey: "inputRadius")
-        
-        blurView.layer?.backgroundFilters = [satFilter!, blurFilter!]
-
-        self.addSubview(blurView)
-        blurView.layer?.needsDisplay()
+        let v = self.subviews.filter { $0 is BlurView }.count
+        if v == 0 {
+            guard let f = NSScreen.main?.frame else { return }
+            let blurView = BlurView(frame: f)
+            self.addSubview(blurView)
+        }
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 0.4
+            updateBlurView(alphaValue: 1)
+        }) {}
     }
     
     func unblur()  {
         NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 0.3
-//            self.subviews[0].animator().alphaValue = 0
-        }) {
-//            self.animator().alphaValue = 1
-            self.removeBlurView()
-        }
+            context.duration = 0.4
+            updateBlurView(alphaValue: 0)
+        }) {}
     }
     
-    fileprivate func removeBlurView() {
-        for v in self.subviews {
-            v.removeFromSuperview()
+    fileprivate func updateBlurView(alphaValue: CGFloat) {
+        print("\(#function): \(alphaValue)")
+        let blurredViews = self.subviews.filter { $0 is BlurView }
+        if let blurView = blurredViews[0] as? BlurView {
+            
+            blurView.animator().alphaValue = alphaValue
+            // TODO: - [ ] Fix fade out animation
+            if alphaValue == 0  {
+                blurView.removeFromSuperview()
+            }
         }
     }
 }
