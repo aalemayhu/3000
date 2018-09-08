@@ -17,7 +17,6 @@ class PlayerManager: NSObject {
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
     
-    // TODO: persist volume value
     private var volume: Float {
         didSet {
             self.player?.volume = volume
@@ -37,16 +36,13 @@ class PlayerManager: NSObject {
         super.init()
     }
     
-    // TODO: handle resuming track time
-    // TODO: add random toggle
     // Player tracking
     
     func startPlaylist() {
-        NotificationCenter.default.post(name: Notification.Name.StartFirstPlaylist, object: nil)
+        NotificationCenter.default.post(name: Notification.Name.StartPlaylist, object: nil)
         play(time: nil)
     }
     
-    // TODO: drop argument playlist
     private func play(time: CMTime?) {
         guard playlist.tracks.count > 0 && playerIndex < playlist.tracks.count else {
             debug_print("END reached, what now?")
@@ -78,7 +74,7 @@ class PlayerManager: NSObject {
         self.volume = self.volume > 1 ? 1 : self.volume
     }
     
-    func getVolume() -> Float? {
+    func getVolume() -> Float {
         return self.volume
     }
     

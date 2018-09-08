@@ -63,11 +63,7 @@ class ViewController: NSViewController {
     }
     
     func updateVolumeLabel() {
-        guard let v = pm?.getVolume() else {
-            // TODO: handle volume is not set
-            return
-        }
-        
+        guard let v = pm?.getVolume() else { return }
         // Show new volume
         let sv = String.init(format: "%.f", v*100)
         self.volumeLabel.stringValue = "\(sv)%🔊"
@@ -85,7 +81,7 @@ class ViewController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateView),
-                                               name: Notification.Name.StartFirstPlaylist, object: nil)
+                                               name: Notification.Name.StartPlaylist, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
@@ -124,7 +120,6 @@ class ViewController: NSViewController {
         case Keybinding.PlayOrPause.rawValue:
             pm.playOrPause()
         case Keybinding.VolumeUp.rawValue:
-            // TODO: prevent going beyond 100%
             self.pm?.changeVolume(change: 0.01)
             self.updateVolumeLabel()
         case Keybinding.VolumeDown.rawValue:
@@ -213,7 +208,6 @@ class ViewController: NSViewController {
             let selectedFolder = delegate.selectedFolder else {
                 return
         }
-        // TODO: handle duplicated
         // TODO: handle case where no playable files have been found
         // TODO: what happens to nested folders?        
         self.pm?.resetPlayerState()
