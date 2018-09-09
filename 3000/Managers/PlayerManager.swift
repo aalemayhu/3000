@@ -14,16 +14,15 @@ class PlayerManager: NSObject {
     private var playlist: Playlist
     private var playerIndex = 0
     private var isLooping = false
-    private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
-    
+    private var isPaused = false
     private var volume: Float {
         didSet {
             self.player?.volume = volume
         }
     }
 
-    var player: AVPlayer?
+    var player: AVAudioPlayer?
 
     public static let AssetOptions = [
         AVURLAssetPreferPreciseDurationAndTimingKey: true
@@ -43,7 +42,7 @@ class PlayerManager: NSObject {
         play(time: nil)
     }
     
-    private func play(time: CMTime?) {
+    private func play(time: TimeInterval?) {
         guard playlist.tracks.count > 0 && playerIndex < playlist.tracks.count else {
             debug_print("END reached, what now?")
             playerIndex = 0
@@ -51,16 +50,19 @@ class PlayerManager: NSObject {
         }
         
         let u = playlist.tracks[playerIndex]
-        self.playItem = AVPlayerItem(url: u)
-        if let item = self.playItem {
-            self.player = AVPlayer(playerItem: item)
+        do {
+            self.player = try AVAudioPlayer(contentsOf: u)
+            self.player?.prepareToPlay()
+
             // Use previous volume
             self.player?.volume = volume
-            if let seekTime = time {
-                self.player?.seek(to: seekTime)
+            if let time = time {
+                self.player?.currentTime = time
             }
             self.player?.play()
             NotificationCenter.default.post(name: Notification.Name.StartPlayingItem, object: nil)
+        } catch {
+            debug_print("\(#function): error: \(error)")
         }
     }
     
@@ -106,7 +108,8 @@ class PlayerManager: NSObject {
         guard let player = self.player else {
             return
         }
-        player.isMuted = !player.isMuted
+        
+        player.volume = player.volume == 0 ? self.volume : 0
     }
     
     func playRandomTrack() {
@@ -118,6 +121,7 @@ class PlayerManager: NSObject {
     
     func loopTrack() {
         isLooping = true
+        // TODO: fix below to use avaudioplayer
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
@@ -161,10 +165,13 @@ class PlayerManager: NSObject {
         if isPlaying() {
             // Pause since user is already playing a track
             player?.pause()
-        } else if playItem != nil {
+            isPaused = true
+        } else if isPaused {
             // Resume the loaded track
             player?.play()
-        } else {
+            isPaused = false
+        }
+        else {
             // Start from the beginning
             self.play(time: nil)
         }
@@ -176,11 +183,8 @@ class PlayerManager: NSObject {
     }
     
     func isPlaying() -> Bool {
-        return self.playItem != nil && player?.rate != 0
-    }
-    
-    func currentTrack() -> AVPlayerItem? {
-        return self.playItem
+        guard let player = self.player else { return false }
+        return player.isPlaying && player.rate != 0
     }
     
     func indexFor(url: URL, playlist: Playlist) -> Int? {
@@ -190,7 +194,7 @@ class PlayerManager: NSObject {
         return playlist.tracks.index(of: url)
     }
     
-    private func resume(_ url: URL?, time: CMTime?) -> Bool{
+    private func resume(_ url: URL?, time: TimeInterval?) -> Bool{
         guard let url = url, let index = self.indexFor(url: url, playlist: self.playlist) else {
                 // Make sure the track is present
                 // Could be missing for any reason, f. ex. user deleted file
@@ -202,18 +206,16 @@ class PlayerManager: NSObject {
     }
     
     private func playerState(lastTrack: String) -> Any {
-        let currentItem = self.player?.currentTime()
+        let currentItem = self.player?.currentTime
         var data: [String: Any?] = [
             StoredDefaults.LastTrackKey: lastTrack,
             StoredDefaults.VolumeLevel: volume
         ]
         
         // Save the player time
-        if let seconds = currentItem?.seconds,
-            let timescale = currentItem?.timescale {
+        if let seconds = currentItem {
             data[StoredDefaults.PlaybackTimeKey] = [
-                StoredDefaults.SecondsKey: seconds,
-                StoredDefaults.TimeScaleKey: timescale
+                StoredDefaults.SecondsKey: seconds
             ]
         }
         return data
@@ -225,14 +227,15 @@ class PlayerManager: NSObject {
         storage.save(folder: playlist.folder, data: [StoredDefaults.VolumeLevel: volume])
     }
     
-    func playTime(index: Int? = nil) -> (currentTime: CMTime?, duration: CMTime?) {
+    func playTime(index: Int? = nil) -> (currentTime: TimeInterval?, duration: TimeInterval?) {
         if let index = index,
             self.indexFor(url: self.tracks()[index], playlist: self.playlist) == index {
             let currentTime = self.storage.seekTime(playlist: self.playlist)
-            return (currentTime, AVURLAsset(url: self.tracks()[index], options: PlayerManager.AssetOptions).duration)
-
+            let asset = AVURLAsset(url: self.tracks()[index], options: PlayerManager.AssetOptions)
+            let duration = CMTimeGetSeconds(asset.duration)
+            return (currentTime, duration)
         }
-        return (self.playItem?.currentTime(), self.playItem?.asset.duration)
+        return (self.player?.currentTime, self.player?.duration)
     }
     
     // Notifications

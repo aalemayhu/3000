@@ -16,7 +16,6 @@ class StoredDefaults {
     
     // JSON
     static let PlaybackTimeKey = "PlaybackTime"
-    static let TimeScaleKey = "timeScale"
     static let SecondsKey = "seconds"
     static let LastTrackKey = "LastTrack"
     static let VolumeLevel = "VolumeLevel"
@@ -76,15 +75,12 @@ class StoredDefaults {
         return (v as AnyObject).floatValue
     }
     
-    func seekTime(playlist: Playlist) -> CMTime? {
+    func seekTime(playlist: Playlist) -> TimeInterval? {
         guard let data = self.data,
             let playback = data[StoredDefaults.PlaybackTimeKey] as? Dictionary<String, Double> else {
                 return nil
         }
         
-        let seconds = playback[StoredDefaults.SecondsKey]
-        let timeScale = CMTimeScale(playback[StoredDefaults.TimeScaleKey]!)
-        
-        return CMTime(seconds: seconds!, preferredTimescale: timeScale)
+        return playback[StoredDefaults.SecondsKey]
     }
 }

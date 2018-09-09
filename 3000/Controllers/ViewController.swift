@@ -27,8 +27,7 @@ class ViewController: NSViewController {
     var cache = [String: Bool]()
     var pm: PlayerManager?
     
-    var timeObserverToken: Any?
-    
+    private var observerContext = 0
     // View
     
     override func viewDidLoad() {
@@ -54,11 +53,17 @@ class ViewController: NSViewController {
         // Either use the playing items duration or load from currently not playing item
         guard let pm = self.pm else { return }
         let playTime = pm.playTime(index: index)
-        let duration = playTime.duration ?? AVURLAsset(url: pm.tracks()[index], options: PlayerManager.AssetOptions).duration
-        let currentTime = playTime.currentTime ?? CMTime(seconds: 0, preferredTimescale: 1000000000)
+        var duration = playTime.duration
+        if duration == nil {
+            let asset = AVURLAsset(url: pm.tracks()[index], options: PlayerManager.AssetOptions)
+            duration = CMTimeGetSeconds(asset.duration)
+        }
+        let currentTime = playTime.currentTime ?? 0
         
-        self.setupProgressSlider(duration)
-        self.updatePlayTimeLabels(currentTime, duration)
+        if let duration = duration {
+            self.setupProgressSlider(duration)
+            self.updatePlayTimeLabels(currentTime, duration)
+        }
         self.updateVolumeLabel()
     }
     
@@ -168,26 +173,19 @@ class ViewController: NSViewController {
         }
     }
     
-    func setupProgressSlider(_ duration: CMTime) {
-        let max = CMTimeGetSeconds(duration)
+    func setupProgressSlider(_ duration: TimeInterval) {
         self.progressSlider.minValue = 0
-        self.progressSlider.maxValue = Double(max)
+        self.progressSlider.maxValue = duration
     }
     
     @IBAction func sliderValueChanged(_ sender: NSSlider) {
         guard let pm = self.pm, let player = pm.player else {
             return
-        }
-        
-        let seekTime = CMTime(seconds: sender.doubleValue, preferredTimescale: 1000000000)
-        player.seek(to: seekTime)
+        }        
+        player.currentTime = sender.doubleValue
     }
     
-    func updatePlayTimeLabels(_ currentTime: CMTime, _ duration: CMTime) {
-        
-        let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
-        let durationInSeconds = CMTimeGetSeconds(duration)
-        
+    func updatePlayTimeLabels(_ currentTimeInSeconds: TimeInterval, _ durationInSeconds: TimeInterval) {
         self.progressSlider.doubleValue = Double(currentTimeInSeconds)
         
         let start = Date(timeIntervalSince1970: currentTimeInSeconds)
@@ -228,9 +226,10 @@ class ViewController: NSViewController {
         self.addPeriodicTimeObserver()
     }
     
-    // Player observers
+    // Player observers 
     
-    func playerTimeProgressed() {
+    @objc func playerTimeProgressed() {
+        print("\(#function)")
         guard let pm = self.pm else { return }
         let playTime = pm.playTime()
         
@@ -244,23 +243,8 @@ class ViewController: NSViewController {
     
     func addPeriodicTimeObserver() {
         guard let pm = self.pm, let player = pm.player else { return }
-        // Notify every half second
-        let timeScale = CMTimeScale(NSEC_PER_SEC)
-        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
         
-        timeObserverToken = player.addPeriodicTimeObserver(forInterval: time,
-                                                           queue: .main) {
-                                                            [weak self] time in
-                                                            self?.playerTimeProgressed()
-        }
-    }
-    
-    func removePeriodicTimeObserver() {
-        guard let pm = self.pm, let player = pm.player else { return }
-        if let timeObserverToken = timeObserverToken {
-            player.removeTimeObserver(timeObserverToken)
-            self.timeObserverToken = nil
-        }
+        player.addObserver(self, forKeyPath: #keyPath(AVAudioPlayer.currentTime), options: [.old, .new], context: &observerContext)
     }
     
     // Blur handling
@@ -283,5 +267,19 @@ class ViewController: NSViewController {
         volumeLabel.isHidden = hidden
         durationLabel.isHidden = hidden
         currentTimeLabel.isHidden = hidden
+    }
+    
+    // --
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        print("\(#function)")
+        guard context == &observerContext else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            return
+        }
+        
+        if keyPath == #keyPath(AVAudioPlayer.duration) {
+            self.playerTimeProgressed()
+        }
     }
 }

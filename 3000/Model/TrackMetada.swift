@@ -29,6 +29,9 @@ class TrackMetadata {
             switch (commonKey) {
             case AVMetadataKey.commonKeyTitle:
                 np.title = item.stringValue
+                if let title = np.title, title.contains("Sweets") {
+                    print("Check this one")
+                }
                 
             case AVMetadataKey.commonKeyType:
                 np.type = item.stringValue
