@@ -78,12 +78,13 @@ class StoredDefaults {
     
     func seekTime(playlist: Playlist) -> CMTime? {
         guard let data = self.data,
-            let playback = data[StoredDefaults.PlaybackTimeKey] as? Dictionary<String, Double> else {
+            let playback = data[StoredDefaults.PlaybackTimeKey] as? Dictionary<String, Double>,
+            let s = playback[StoredDefaults.TimeScaleKey] else {
                 return nil
         }
         
         let seconds = playback[StoredDefaults.SecondsKey]
-        let timeScale = CMTimeScale(playback[StoredDefaults.TimeScaleKey]!)
+        let timeScale = CMTimeScale(s)
         
         return CMTime(seconds: seconds!, preferredTimescale: timeScale)
     }
