@@ -175,6 +175,14 @@ class ViewController: NSViewController {
     func usePlaylist(_ folder: URL) {                
         let p = Playlist(folder: folder)
         self.cachedTracksData = p.loadFiles(folder)
+        guard self.cachedTracksData.count > 0 else {
+            let alert = NSAlert.init()
+            alert.addButton(withTitle: "OK")
+            alert.messageText = "No playable tracks in \(folder). Try a different folder with mp3s (CMD+O)"
+            alert.runModal()
+            alert.alertStyle = .critical
+            return
+        }
         
         if pm == nil{
             self.pm = PlayerManager(playlist: p)
