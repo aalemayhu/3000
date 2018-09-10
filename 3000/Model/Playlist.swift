@@ -27,22 +27,19 @@ class Playlist {
             let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil, options: [])
             debug_print("\(AVURLAsset.audiovisualTypes())")
             // Use the supported types from AVURLAsset, there might be a simpler way with flatmap
-            self.tracks = files.filter {
-                return self.isSupported($0.lastPathComponent.lowercased())                
-            }
-            
+            self.tracks = files.filter { self.isSupported($0.lastPathComponent.lowercased())}
             for track in tracks {
                 let asset = AVURLAsset(url: track, options: PlayerManager.AssetOptions)
-                let m = TrackMetadata.load(asset: asset)
-                metadata.append(m)
+                metadata.append(TrackMetadata.load(asset: asset))
             }
         } catch {
+            // TODO: handle this by returning error
             debug_print("CATCH???: \(error)")
         }
         return metadata
     }
     
     private func isSupported(_ type: String) -> Bool {
-        return type.hasSuffix(".mp3") || type.hasSuffix(".wav") || type.hasSuffix(".m4a")
+        return type.hasSuffix(".mp3")
     }
 }
