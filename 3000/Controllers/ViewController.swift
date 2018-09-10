@@ -83,7 +83,7 @@ class ViewController: NSViewController {
         // end
         let bitmapRep = NSBitmapImageRep(cgImage: imageRef!)
         let imageSize = image.size
-        if let color = bitmapRep.colorAt(x: Int(imageSize.width/2), y: Int(imageSize.height/2))?.inverted() {
+        if let color = bitmapRep.colorAt(x: Int(imageSize.width/2), y: Int(imageSize.height/2))?.contrast() {
             return color
         }
         return NSColor.black
