@@ -17,7 +17,7 @@ class ViewController: NSViewController {
     // Views
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
-    @IBOutlet weak var imageView: NSImageView!
+    var imageView: LayeredBackedImageView?
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var progressSlider: NSSlider!
@@ -45,7 +45,7 @@ class ViewController: NSViewController {
         let artist = track.artist ?? ""
         
         // Album image
-        self.imageView.image = track.artwork
+        updateArtwork(with: track.artwork)
         
         // Track info
         let textColor = self.textColor(for: track.artwork)
@@ -70,6 +70,16 @@ class ViewController: NSViewController {
         self.setupProgressSlider(duration)
         self.updatePlayTimeLabels(currentTime, duration)
         self.updateVolumeLabel()
+    }
+    
+    func updateArtwork(with artwork: NSImage?) {
+        guard let artwork = artwork else { return }
+        if let imageView = self.imageView {
+            imageView.layer?.contents = artwork
+            return
+        }
+        self.imageView = LayeredBackedImageView(frame: self.view.frame, andImage: artwork)
+        self.view.addSubview(self.imageView!, positioned: NSWindow.OrderingMode.below, relativeTo: currentTimeLabel)
     }
     
     func updateVolumeLabel() {
@@ -97,13 +107,17 @@ class ViewController: NSViewController {
     }
     
     @objc func screenResize() {
-        let fontSize = self.view.frame.size.width/28
+        let fontSize = max(self.view.frame.size.width/28, 13)
         self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
         self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
         
         self.currentTimeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
         self.durationLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
         self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
+        
+        print("\(#function): fontSize=\(fontSize)")
+        self.imageView?.setFrameSize(self.view.frame.size)
+        print("imageView.frame=\(NSStringFromRect((self.imageView?.frame)!))")
     }
     
     
@@ -135,7 +149,7 @@ class ViewController: NSViewController {
         loadDefaults()
         progressSlider.trackFillColor = NSColor.gray
         
-        toggleTrackInfo(hidden: true)
+        toggleTrackInfo(hidden: true)        
     }
     
     func loadDefaults() {
@@ -307,13 +321,13 @@ class ViewController: NSViewController {
     // Blur handling
     override func mouseEntered(with event: NSEvent) {
         super.mouseEntered(with: event)
-        self.imageView.blur()
+        self.imageView?.blur()
         self.toggleTrackInfo(hidden: false)
     }
     
     override func mouseExited(with event: NSEvent) {
         super.mouseExited(with: event)
-        self.imageView.unblur()
+        self.imageView?.unblur()
         self.toggleTrackInfo(hidden: true)
     }
     
