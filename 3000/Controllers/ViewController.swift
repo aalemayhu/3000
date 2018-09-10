@@ -53,6 +53,13 @@ class ViewController: NSViewController {
         self.trackArtistLabel.stringValue = "\(artist)"
         self.trackInfoLabel.textColor = textColor
         self.trackArtistLabel.textColor = textColor
+
+        // Track progress
+        self.currentTimeLabel.textColor = textColor
+        self.durationLabel.textColor = textColor
+        
+        // Volume
+        self.volumeLabel.textColor = textColor
         
         // Either use the playing items duration or load from currently not playing item
         guard let pm = self.pm else { return }
@@ -90,7 +97,13 @@ class ViewController: NSViewController {
     }
     
     @objc func screenResize() {
-        print("TODO: resize font")
+        let fontSize = self.view.frame.size.width/28
+        self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
+        self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
+        
+        self.currentTimeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
+        self.durationLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
+        self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
     }
     
     
