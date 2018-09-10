@@ -31,7 +31,6 @@ extension NSView {
     }
     
     fileprivate func updateBlurView(alphaValue: CGFloat) {
-        print("\(#function): \(alphaValue)")
         let blurredViews = self.subviews.filter { $0 is BlurView }
         if let blurView = blurredViews[0] as? BlurView {
             

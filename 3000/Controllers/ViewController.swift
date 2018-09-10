@@ -115,9 +115,7 @@ class ViewController: NSViewController {
         self.durationLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
         self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
         
-        print("\(#function): fontSize=\(fontSize)")
         self.imageView?.setFrameSize(self.view.frame.size)
-        print("imageView.frame=\(NSStringFromRect((self.imageView?.frame)!))")
     }
     
     
