@@ -104,6 +104,11 @@ class ViewController: NSViewController {
         return NSColor.black
     }
     
+    func showTracksView() {
+        print("\(#function)")
+        // TODO: use animation slide in / fade in
+    }
+    
     @objc func screenResize() {
         let fontSize = max(self.view.frame.size.width/28, 13)
         self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
@@ -178,6 +183,8 @@ class ViewController: NSViewController {
             self.pm.playNextTrack()
         case Keybinding.Mute.rawValue:
             self.pm.mute()
+        case Keybinding.Tracks.rawValue:
+            self.showTracksView()
         default:
             debug_print("unknown key")
         }

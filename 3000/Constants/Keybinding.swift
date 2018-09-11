@@ -17,4 +17,5 @@ enum Keybinding: String {
     case Next = "n"
     case Previous = "p"
     case Mute = "m"
+    case Tracks = "t"
 }
