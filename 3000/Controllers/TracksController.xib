@@ -31,7 +31,7 @@
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn identifier="" width="116" minWidth="40" maxWidth="1000" id="GbJ-2G-Ldq">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Artist">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -43,7 +43,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="inv-vm-h2q">
+                                            <tableCellView identifier="Artist" id="inv-vm-h2q">
                                                 <rect key="frame" x="1" y="1" width="116" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -64,7 +64,7 @@
                                         </prototypeCellViews>
                                     </tableColumn>
                                     <tableColumn identifier="" width="356" minWidth="40" maxWidth="1000" id="RH3-Fn-Tsq">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -76,7 +76,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="gD4-0M-OVu">
+                                            <tableCellView identifier="Title" id="gD4-0M-OVu">
                                                 <rect key="frame" x="120" y="1" width="356" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -120,7 +120,7 @@
                 <constraint firstItem="5CU-eB-hMi" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="tjF-fZ-dWf"/>
                 <constraint firstItem="5CU-eB-hMi" firstAttribute="height" secondItem="Hz6-mo-xeY" secondAttribute="height" id="w1X-Me-Oxb"/>
             </constraints>
-            <point key="canvasLocation" x="230" y="170"/>
+            <point key="canvasLocation" x="3" y="190"/>
         </customView>
     </objects>
 </document>

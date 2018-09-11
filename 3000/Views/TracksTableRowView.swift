@@ -1,5 +1,5 @@
 //
-//  TracksTableViewCell.swift
+//  TracksTableRowView.swift
 //  3000
 //
 //  Created by ccscanf on 11/09/2018.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TracksTableViewCell: NSTableCellView {
+class TracksTableRowView: NSTableRowView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

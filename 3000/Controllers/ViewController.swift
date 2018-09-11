@@ -29,6 +29,7 @@ class ViewController: NSViewController {
     
     var timeObserverToken: Any?
     var tracksController: TracksController?
+    var isTracksControllerVisible = false
     
     // View
     
@@ -106,13 +107,17 @@ class ViewController: NSViewController {
     }
     
     func showTracksView() {
-        print("\(#function)")
+        guard !isTracksControllerVisible else { return }
         if self.tracksController == nil {
             self.tracksController = TracksController(nibName: NSNib.Name(rawValue: "TracksController"), bundle: Bundle.main)
             self.tracksController?.selectorDelegate = self
+        } else {
+            self.tracksController?.reloadData()
         }
         // TODO: use animation slide in / fade in
         self.presentViewControllerAsSheet(self.tracksController!)
+        
+        self.isTracksControllerVisible = true
     }
     
     @objc func screenResize() {
@@ -347,9 +352,15 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: TracksControllerSelector {
+
+    func tracks() -> [TrackMetadata] {
+        return self.cachedTracksData
+    }
     
     func didSelectTrack(index: Int) {
         guard let t = self.tracksController else { return }
         self.dismissViewController(t)
+        self.pm.playFrom(index)
+        self.isTracksControllerVisible = false
     }
 }
