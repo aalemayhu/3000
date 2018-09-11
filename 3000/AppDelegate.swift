@@ -18,8 +18,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        
-//        NSApplication.shared.windows.first?.styleMask = NSWindow.StyleMask.borderless
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -34,6 +32,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.pm?.saveState()
         return .terminateNow
     }
+    
+    // Menu items
 
     @IBAction func openDocument(_ sender: Any) {
         guard let window = NSApplication.shared.windows.first else { return }
@@ -58,6 +58,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)
             }
         }
+    }
+    
+    @IBAction func floatOnTopItemPressed(_ sender: NSMenuItem) {
+        guard let window = NSApplication.shared.windows.first else { return }
+        if window.level == NSWindow.Level.floating {
+            window.level = NSWindow.Level.normal
+            sender.state = .off
+            return
+        }
+        window.level = NSWindow.Level.floating
+        sender.state = .on
     }
 }
 
