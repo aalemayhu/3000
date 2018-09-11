@@ -11,6 +11,8 @@
 		502B11642146CD1500A7F3F2 /* LayeredBackedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */; };
 		506B5AA621441B9B00EFD176 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506B5AA521441B9B00EFD176 /* BlurView.swift */; };
 		509B665E21481E8B006D9421 /* TracksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B665D21481E8B006D9421 /* TracksTableViewCell.swift */; };
+		509B666121481F7C006D9421 /* TracksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B665F21481F7C006D9421 /* TracksController.swift */; };
+		509B666221481F7C006D9421 /* TracksController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 509B666021481F7C006D9421 /* TracksController.xib */; };
 		50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D16654214586290025E15B /* NSColor+Contrast.swift */; };
 		840E299D2134570D00F117BD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840E299C2134570D00F117BD /* MainView.swift */; };
 		8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE092132D26500CE30F6 /* AppDelegate.swift */; };
@@ -53,6 +55,8 @@
 		502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayeredBackedImageView.swift; sourceTree = "<group>"; };
 		506B5AA521441B9B00EFD176 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		509B665D21481E8B006D9421 /* TracksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewCell.swift; sourceTree = "<group>"; };
+		509B665F21481F7C006D9421 /* TracksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksController.swift; sourceTree = "<group>"; };
+		509B666021481F7C006D9421 /* TracksController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksController.xib; sourceTree = "<group>"; };
 		50D16654214586290025E15B /* NSColor+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Contrast.swift"; sourceTree = "<group>"; };
 		840E299C2134570D00F117BD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8414CE062132D26500CE30F6 /* 3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				8414CE0B2132D26500CE30F6 /* ViewController.swift */,
+				509B665F21481F7C006D9421 /* TracksController.swift */,
+				509B666021481F7C006D9421 /* TracksController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8414CE112132D26600CE30F6 /* Assets.xcassets in Resources */,
+				509B666221481F7C006D9421 /* TracksController.xib in Resources */,
 				8414CE142132D26600CE30F6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +369,7 @@
 				50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */,
 				84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */,
 				2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */,
+				509B666121481F7C006D9421 /* TracksController.swift in Sources */,
 				502B11642146CD1500A7F3F2 /* LayeredBackedImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,6 +28,7 @@ class ViewController: NSViewController {
     var pm: PlayerManager = PlayerManager()
     
     var timeObserverToken: Any?
+    var tracksController: TracksController?
     
     // View
     
@@ -106,7 +107,12 @@ class ViewController: NSViewController {
     
     func showTracksView() {
         print("\(#function)")
+        if self.tracksController == nil {
+            self.tracksController = TracksController(nibName: NSNib.Name(rawValue: "TracksController"), bundle: Bundle.main)
+            self.tracksController?.selectorDelegate = self
+        }
         // TODO: use animation slide in / fade in
+        self.presentViewControllerAsSheet(self.tracksController!)
     }
     
     @objc func screenResize() {
@@ -337,5 +343,13 @@ class ViewController: NSViewController {
         volumeLabel.isHidden = hidden
         durationLabel.isHidden = hidden
         currentTimeLabel.isHidden = hidden
+    }
+}
+
+extension ViewController: TracksControllerSelector {
+    
+    func didSelectTrack(index: Int) {
+        guard let t = self.tracksController else { return }
+        self.dismissViewController(t)
     }
 }
