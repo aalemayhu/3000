@@ -20,6 +20,11 @@ class Playlist {
         self.name = folder.absoluteString
     }
     
+    init() {
+        self.name = "empty playlist"
+        self.folder = URL(fileURLWithPath: "~/Music")
+    }
+    
     func loadFiles(_ folder: URL) -> [TrackMetadata] {
         var metadata = [TrackMetadata]()
         // Traverse the directory for audio files

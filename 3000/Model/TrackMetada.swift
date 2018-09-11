@@ -15,6 +15,7 @@ class TrackMetadata {
     var type: String?
     var albumName: String?
     var artist: String?
+    // TODO: reduce memory usage
     var artwork: NSImage?
     
     static func load(asset: AVURLAsset) -> TrackMetadata {

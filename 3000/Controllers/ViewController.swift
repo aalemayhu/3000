@@ -25,7 +25,7 @@ class ViewController: NSViewController {
     
     var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
-    var pm: PlayerManager?
+    var pm: PlayerManager = PlayerManager()
     
     var timeObserverToken: Any?
     
@@ -39,7 +39,7 @@ class ViewController: NSViewController {
     // View changes
     
     @objc func updateView() {
-        let index = pm?.getIndex() ?? 0
+        let index = pm.getIndex()
         let track = self.cachedTracksData[index]
         let title = track.title ?? ""
         let artist = track.artist ?? ""
@@ -62,7 +62,6 @@ class ViewController: NSViewController {
         self.volumeLabel.textColor = textColor
         
         // Either use the playing items duration or load from currently not playing item
-        guard let pm = self.pm else { return }
         let playTime = pm.playTime(index: index)
         let duration = playTime.duration ?? AVURLAsset(url: pm.tracks()[index], options: PlayerManager.AssetOptions).duration
         let currentTime = playTime.currentTime ?? CMTime(seconds: 0, preferredTimescale: 1000000000)
@@ -83,9 +82,8 @@ class ViewController: NSViewController {
     }
     
     func updateVolumeLabel() {
-        guard let v = pm?.getVolume() else { return }
         // Show new volume
-        let sv = String.init(format: "%.f", v*100)
+        let sv = String.init(format: "%.f", pm.getVolume()*100)
         self.volumeLabel.stringValue = "\(sv)%🔊"
     }
     
@@ -160,33 +158,32 @@ class ViewController: NSViewController {
     
     override func keyDown(with event: NSEvent) {
         debug_print("\(#function)")
-        guard let pm = self.pm else { return }
         switch event.characters {
         case Keybinding.PlayOrPause.rawValue:
+            // TODO: handle case where player manager a empty playlist
             pm.playOrPause()
         case Keybinding.VolumeUp.rawValue:
-            self.pm?.changeVolume(change: 0.01)
+            self.pm.changeVolume(change: 0.01)
             self.updateVolumeLabel()
         case Keybinding.VolumeDown.rawValue:
-            self.pm?.changeVolume(change: -0.01)
+            self.pm.changeVolume(change: -0.01)
             self.updateVolumeLabel()
         case Keybinding.Loop.rawValue:
             self.toggleLoop()
         case Keybinding.Random.rawValue:
-            self.pm?.playRandomTrack()
+            self.pm.playRandomTrack()
         case Keybinding.Previous.rawValue:
-            self.pm?.playPreviousTrack()
+            self.pm.playPreviousTrack()
         case Keybinding.Next.rawValue:
-            self.pm?.playNextTrack()
+            self.pm.playNextTrack()
         case Keybinding.Mute.rawValue:
-            self.pm?.mute()
+            self.pm.mute()
         default:
             debug_print("unknown key")
         }
     }
     
     func toggleLoop() {
-        guard let pm = self.pm else { return }
         if (!pm.getIsLooping()) {
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
             pm.loopTrack()
@@ -209,10 +206,7 @@ class ViewController: NSViewController {
             return
         }
         
-        if pm == nil{
-            self.pm = PlayerManager(playlist: p)
-        }
-        self.pm?.useCache(playlist: p)
+        self.pm.useCache(playlist: p)
         
         self.updateView()
         
@@ -228,7 +222,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func sliderValueChanged(_ sender: NSSlider) {
-        guard let pm = self.pm, let player = pm.player else {
+        guard let player = pm.player else {
             return
         }
         
@@ -257,15 +251,16 @@ class ViewController: NSViewController {
     // Directory management
     
     @objc func openedDirectory() {
+        // TODO: drop app delegate usage
         guard let delegate = NSApp.delegate as? AppDelegate,
             let selectedFolder = delegate.selectedFolder else {
                 return
         }
         // TODO: handle case where no playable files have been found
         // TODO: what happens to nested folders?        
-        self.pm?.resetPlayerState()
+        self.pm.resetPlayerState()
         self.usePlaylist(selectedFolder)
-        self.pm?.startPlaylist()
+        self.pm.startPlaylist()
     }
     
     // Notification handlers
@@ -273,7 +268,7 @@ class ViewController: NSViewController {
     
     
     @objc func playerDidFinishPlaying(note: NSNotification){
-        self.pm?.playNextTrack()
+        self.pm.playNextTrack()
     }
     
     @objc func playerDidStart(note: NSNotification){
@@ -284,7 +279,6 @@ class ViewController: NSViewController {
     // Player observers
     
     func playerTimeProgressed() {
-        guard let pm = self.pm else { return }
         let playTime = pm.playTime()
         
         guard  let currentTime = playTime.currentTime,
@@ -296,7 +290,7 @@ class ViewController: NSViewController {
     }
     
     func addPeriodicTimeObserver() {
-        guard let pm = self.pm, let player = pm.player else { return }
+        guard let player = pm.player else { return }
         // Notify every half second
         let timeScale = CMTimeScale(NSEC_PER_SEC)
         let time = CMTime(seconds: 1, preferredTimescale: timeScale)
@@ -309,7 +303,7 @@ class ViewController: NSViewController {
     }
     
     func removePeriodicTimeObserver() {
-        guard let pm = self.pm, let player = pm.player else { return }
+        guard let player = pm.player else { return }
         if let timeObserverToken = timeObserverToken {
             player.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil

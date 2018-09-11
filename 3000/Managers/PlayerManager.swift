@@ -36,6 +36,13 @@ class PlayerManager: NSObject {
         super.init()
     }
     
+    override init() {
+        self.playlist = Playlist()
+        self.storage = StoredDefaults(folder: self.playlist.folder)
+        self.volume = 0.3
+        super.init()
+    }
+    
     // Player tracking
     
     func startPlaylist() {
@@ -103,9 +110,7 @@ class PlayerManager: NSObject {
     }
     
     func mute() {
-        guard let player = self.player else {
-            return
-        }
+        guard let player = self.player else { return }
         player.isMuted = !player.isMuted
     }
     
@@ -137,12 +142,10 @@ class PlayerManager: NSObject {
     
     func useCache(playlist: Playlist) {
         self.playlist = playlist
-        
+        self.storage.change(folder: playlist.folder)
         if let url = self.storage.getLastTrack(),
             let index = self.indexFor(url: url, playlist: playlist) {
             self.playerIndex = index
-        } else {
-            self.storage.change(folder: playlist.folder)
         }
         self.volume = self.storage.getVolumeLevel() ?? self.volume
     }
@@ -192,8 +195,9 @@ class PlayerManager: NSObject {
     
     private func resume(_ url: URL?, time: CMTime?) -> Bool{
         guard let url = url, let index = self.indexFor(url: url, playlist: self.playlist) else {
-                // Make sure the track is present
-                // Could be missing for any reason, f. ex. user deleted file
+            // Make sure the track is present
+            // Could be missing for any reason, f. ex. user deleted file
+            // TODO: return error so it can be presented in interface
                 return false
         }
         self.playerIndex = index
