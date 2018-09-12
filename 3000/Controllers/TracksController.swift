@@ -25,8 +25,8 @@ class TracksController: NSViewController {
     }
     
     func configure() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     func reloadData() {
@@ -39,6 +39,14 @@ extension TracksController: NSTableViewDelegate {
         print("\(#function)")
         selectorDelegate?.didSelectTrack(index: row)
         return true
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldReorderColumn columnIndex: Int, toColumn newColumnIndex: Int) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldEdit tableColumn: NSTableColumn?, row: Int) -> Bool {
+        return false
     }
 }
 

@@ -150,8 +150,8 @@ class ViewController: NSViewController {
         // Handle keyboard
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             // Only handle supported keybindings
-            if let key = $0.characters, Keybinding(rawValue: key) != nil {
-                self.keyDown(with: $0)
+            if let key = $0.characters, let k = Keybinding(rawValue: key) {
+                self.keyDown(with: k)
                 return nil
             }
             // Allow system to handle all other defaults, like CMD+O, etc.
@@ -172,32 +172,32 @@ class ViewController: NSViewController {
         }
     }
     
-    override func keyDown(with event: NSEvent) {
+    func keyDown(with key: Keybinding) {
         debug_print("\(#function)")
-        switch event.characters {
-        case Keybinding.PlayOrPause.rawValue:
+        switch key {
+        case Keybinding.PlayOrPause:
             // TODO: handle case where player manager a empty playlist
             pm.playOrPause()
-        case Keybinding.VolumeUp.rawValue:
+        case Keybinding.VolumeUp:
             self.pm.changeVolume(change: 0.01)
             self.updateVolumeLabel()
-        case Keybinding.VolumeDown.rawValue:
+        case Keybinding.VolumeDown:
             self.pm.changeVolume(change: -0.01)
             self.updateVolumeLabel()
-        case Keybinding.Loop.rawValue:
+        case Keybinding.Loop:
             self.toggleLoop()
-        case Keybinding.Random.rawValue:
+        case Keybinding.Random:
             self.pm.playRandomTrack()
-        case Keybinding.Previous.rawValue:
+        case Keybinding.Previous:
             self.pm.playPreviousTrack()
-        case Keybinding.Next.rawValue:
+        case Keybinding.Next:
             self.pm.playNextTrack()
-        case Keybinding.Mute.rawValue:
+        case Keybinding.Mute:
             self.pm.mute()
-        case Keybinding.Tracks.rawValue:
+        case Keybinding.Tracks:
             self.showTracksView()
-        default:
-            debug_print("unknown key")
+        case Keybinding.Esc:
+            self.dismissTracksViewController()
         }
     }
     
@@ -353,14 +353,18 @@ class ViewController: NSViewController {
 
 extension ViewController: TracksControllerSelector {
 
+    func dismissTracksViewController() {
+        guard let t = self.tracksController else { return }
+        self.dismissViewController(t)
+        self.isTracksControllerVisible = false
+    }
+    
     func tracks() -> [TrackMetadata] {
         return self.cachedTracksData
     }
     
     func didSelectTrack(index: Int) {
-        guard let t = self.tracksController else { return }
-        self.dismissViewController(t)
+        self.dismissTracksViewController()
         self.pm.playFrom(index)
-        self.isTracksControllerVisible = false
     }
 }
