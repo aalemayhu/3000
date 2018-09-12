@@ -164,7 +164,7 @@ class ViewController: NSViewController {
     
     func loadDefaults() {
         if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
-            self.usePlaylist(folder)
+            let _ = self.usePlaylist(folder)
         } else {
             debug_print("No cached folder")
         }
@@ -209,7 +209,7 @@ class ViewController: NSViewController {
         }
     }
     
-    func usePlaylist(_ folder: URL) {                
+    func usePlaylist(_ folder: URL) -> Bool{
         let p = Playlist(folder: folder)
         self.cachedTracksData = p.loadFiles(folder)
         guard self.cachedTracksData.count > 0 else {
@@ -218,7 +218,7 @@ class ViewController: NSViewController {
             alert.messageText = "No playable tracks in \(folder). Try a different folder with mp3s (CMD+O)"
             alert.runModal()
             alert.alertStyle = .critical
-            return
+            return false
         }
         
         self.pm.useCache(playlist: p)
@@ -228,7 +228,8 @@ class ViewController: NSViewController {
         if let delegate = NSApp.delegate as? AppDelegate {
             delegate.pm = self.pm
         }
-        self.pm.startPlaylist()
+        
+        return true
     }
     
     func setupProgressSlider(_ duration: CMTime) {
@@ -273,7 +274,9 @@ class ViewController: NSViewController {
         }
         // TODO: what happens to nested folders?        
         self.pm.resetPlayerState()
-        self.usePlaylist(selectedFolder)
+        if self.usePlaylist(selectedFolder) {
+            self.pm.startPlaylist()
+        }
     }
     
     // Notification handlers
