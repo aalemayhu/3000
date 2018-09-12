@@ -32,43 +32,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.pm?.saveState()
         return .terminateNow
     }
-    
-    // Menu items
-
-    @IBAction func openDocument(_ sender: Any) {
-        guard let window = NSApplication.shared.windows.first else { return }
-
-        let panel = NSOpenPanel()
-        if let lastPath = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
-            panel.directoryURL = lastPath
-        } else {
-            panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
-        }
-        panel.canChooseFiles = false
-        panel.canChooseDirectories = true
-     
-        // Let the user pick a folder to open
-        panel.beginSheetModal(for: window) { (result) in
-            if result.rawValue == NSApplication.ModalResponse.OK.rawValue,
-                let url = panel.url {
-                self.selectedFolder = url
-                // Save the selected path for easier reuse
-                UserDefaults.standard.set(url, forKey: StoredDefaults.LastPath)
-                UserDefaults.standard.synchronize()
-                NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)
-            }
-        }
-    }
-    
-    @IBAction func floatOnTopItemPressed(_ sender: NSMenuItem) {
-        guard let window = NSApplication.shared.windows.first else { return }
-        if window.level == NSWindow.Level.floating {
-            window.level = NSWindow.Level.normal
-            sender.state = .off
-            return
-        }
-        window.level = NSWindow.Level.floating
-        sender.state = .on
-    }
 }
 

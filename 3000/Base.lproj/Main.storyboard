@@ -84,33 +84,63 @@
                             <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
-                            <menuItem title="View" id="H8h-7b-M4v">
+                            <menuItem title="Player" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="View" id="HyV-fh-RgO">
+                                <menu key="submenu" title="Player" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
+                                        <menuItem title="Play" keyEquivalent=" " id="snW-S8-Cw5">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
+                                                <action selector="didSelectPlay:" target="Voe-Tx-rLC" id="gYt-Ty-45I"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Loop" keyEquivalent="l" id="1UK-8n-QPP">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectLoop:" target="Voe-Tx-rLC" id="Ay4-Tf-pS7"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Random" keyEquivalent="r" id="Whf-W3-NkQ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectRandom:" target="Voe-Tx-rLC" id="32p-yj-JNt"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Next" keyEquivalent="n" id="D0G-6q-5CA">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectNext:" target="Voe-Tx-rLC" id="wFZ-Zr-WJM"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Previous" keyEquivalent="p" id="ftM-ck-8zv">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectPrevious:" target="Voe-Tx-rLC" id="RWV-C7-odS"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Mute" keyEquivalent="m" id="sdj-vL-EVl">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectMute:" target="Voe-Tx-rLC" id="gPA-Sg-haI"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Tracks" keyEquivalent="t" id="oby-vE-Gp2">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectTracks:" target="Voe-Tx-rLC" id="4hW-ig-jx1"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
-                                        <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                        <menuItem title="Volume up" keyEquivalent="+" id="kIP-vf-haE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
+                                                <action selector="didSelectVolumeUp:" target="Voe-Tx-rLC" id="RwJ-k6-U9k"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                        <menuItem title="Volume down" keyEquivalent="-" id="Leu-ce-26p">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
+                                                <action selector="didSelectVolumeDown:" target="Voe-Tx-rLC" id="YMR-2T-qh2"/>
                                             </connections>
                                         </menuItem>
                                     </items>

@@ -13,6 +13,7 @@
 		509B666121481F7C006D9421 /* TracksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B665F21481F7C006D9421 /* TracksController.swift */; };
 		509B666221481F7C006D9421 /* TracksController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 509B666021481F7C006D9421 /* TracksController.xib */; };
 		509B666421482594006D9421 /* TracksTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B666321482594006D9421 /* TracksTableRowView.swift */; };
+		50A4DE26214974A0003C6402 /* AppDelegate+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */; };
 		50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D16654214586290025E15B /* NSColor+Contrast.swift */; };
 		840E299D2134570D00F117BD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840E299C2134570D00F117BD /* MainView.swift */; };
 		8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE092132D26500CE30F6 /* AppDelegate.swift */; };
@@ -57,6 +58,7 @@
 		509B665F21481F7C006D9421 /* TracksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksController.swift; sourceTree = "<group>"; };
 		509B666021481F7C006D9421 /* TracksController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksController.xib; sourceTree = "<group>"; };
 		509B666321482594006D9421 /* TracksTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableRowView.swift; sourceTree = "<group>"; };
+		50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+MenuActions.swift"; sourceTree = "<group>"; };
 		50D16654214586290025E15B /* NSColor+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Contrast.swift"; sourceTree = "<group>"; };
 		840E299C2134570D00F117BD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8414CE062132D26500CE30F6 /* 3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,10 +122,20 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		50A4DE27214974CA003C6402 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				84D80EBF21345D86006C5D14 /* Notifications.swift */,
+				50D16654214586290025E15B /* NSColor+Contrast.swift */,
+				50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */,
+				844D98002143F3AC001259C9 /* NSView+Blur.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		840E299B213456FB00F117BD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				844D98002143F3AC001259C9 /* NSView+Blur.swift */,
 				840E299C2134570D00F117BD /* MainView.swift */,
 				84186D2F21407A49001754A8 /* TrackProgressSliderCell.swift */,
 				506B5AA521441B9B00EFD176 /* BlurView.swift */,
@@ -156,6 +168,7 @@
 		8414CE082132D26500CE30F6 /* 3000 */ = {
 			isa = PBXGroup;
 			children = (
+				50A4DE27214974CA003C6402 /* Categories */,
 				50118A8B213C4490002CFD4A /* Controllers */,
 				84C1A0172134A95500463C37 /* Managers */,
 				84D80EC421346D17006C5D14 /* Constants */,
@@ -169,7 +182,6 @@
 				8414CE0D2132D26500CE30F6 /* _000.xcdatamodeld */,
 				2DCB45EF213AE1C10082B462 /* DebugHelper.swift */,
 				84CDE9BB213F2493002B3FFB /* 3000-Bridging-Header.h */,
-				50D16654214586290025E15B /* NSColor+Contrast.swift */,
 			);
 			path = 3000;
 			sourceTree = "<group>";
@@ -212,7 +224,6 @@
 		84D80EC421346D17006C5D14 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				84D80EBF21345D86006C5D14 /* Notifications.swift */,
 				84C1A01A2134C10000463C37 /* StoredDefaults.swift */,
 				84D60C7421371B90005FA309 /* ImageSizes.swift */,
 				84F1439621433E5B006D481E /* Keybinding.swift */,
@@ -353,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84186D3021407A49001754A8 /* TrackProgressSliderCell.swift in Sources */,
+				50A4DE26214974A0003C6402 /* AppDelegate+MenuActions.swift in Sources */,
 				84D80EC021345D86006C5D14 /* Notifications.swift in Sources */,
 				506B5AA621441B9B00EFD176 /* BlurView.swift in Sources */,
 				8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */,
