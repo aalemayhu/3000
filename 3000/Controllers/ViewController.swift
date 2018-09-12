@@ -114,9 +114,7 @@ class ViewController: NSViewController {
         } else {
             self.tracksController?.reloadData()
         }
-        // TODO: use animation slide in / fade in
         self.presentViewControllerAsSheet(self.tracksController!)
-        
         self.isTracksControllerVisible = true
     }
     
@@ -176,7 +174,6 @@ class ViewController: NSViewController {
         debug_print("\(#function)")
         switch key {
         case Keybinding.PlayOrPause:
-            // TODO: handle case where player manager a empty playlist
             pm.playOrPause()
         case Keybinding.VolumeUp:
             self.pm.changeVolume(change: 0.01)
@@ -231,6 +228,7 @@ class ViewController: NSViewController {
         if let delegate = NSApp.delegate as? AppDelegate {
             delegate.pm = self.pm
         }
+        self.pm.startPlaylist()
     }
     
     func setupProgressSlider(_ duration: CMTime) {
@@ -278,7 +276,6 @@ class ViewController: NSViewController {
         // TODO: what happens to nested folders?        
         self.pm.resetPlayerState()
         self.usePlaylist(selectedFolder)
-        self.pm.startPlaylist()
     }
     
     // Notification handlers
