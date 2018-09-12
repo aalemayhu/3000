@@ -50,4 +50,9 @@ class TrackMetadata {
         
         return np
     }
+    
+    // TODO: load image right before use
+    func retrieveImage(asset: AVURLAsset) {
+        
+    }
 }
