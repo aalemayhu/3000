@@ -256,7 +256,6 @@ class ViewController: NSViewController {
         let start = Date(timeIntervalSince1970: currentTimeInSeconds)
         let end = Date(timeIntervalSince1970: durationInSeconds)
         
-        // TODO: handle hours
         let fmt = DateFormatter()
         fmt.dateFormat = "mm:ss"
         
@@ -272,7 +271,6 @@ class ViewController: NSViewController {
             let selectedFolder = delegate.selectedFolder else {
                 return
         }
-        // TODO: handle case where no playable files have been found
         // TODO: what happens to nested folders?        
         self.pm.resetPlayerState()
         self.usePlaylist(selectedFolder)
