@@ -12,9 +12,6 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var selectedFolder: URL?
-    
-    // TODO: get pm out of here
-    var pm: PlayerManager?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -29,7 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        if let error = self.pm?.saveState() {
+        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return .terminateNow }
+        if let error = vc.pm.saveState() {
             debug_print("ERROR: \(error.localizedDescription)")
         }
         return .terminateNow

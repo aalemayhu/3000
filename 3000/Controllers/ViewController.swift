@@ -223,11 +223,6 @@ class ViewController: NSViewController {
         }
         
         self.updateView()
-        
-        if let delegate = NSApp.delegate as? AppDelegate {
-            delegate.pm = self.pm
-        }
-        
         return true
     }
     

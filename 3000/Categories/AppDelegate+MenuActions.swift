@@ -51,8 +51,9 @@ extension AppDelegate {
     }
     
     @IBAction func didSelectPlay(_ sender: NSMenuItem) {
+        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
         print("\(#function)")
-        pm?.playOrPause()
+        vc.pm.playOrPause()
         if sender.state == .off {
             sender.state = .on
             sender.title = "Pause"
@@ -73,19 +74,23 @@ extension AppDelegate {
     }
     
     @IBAction func didSelectRandom(_ sender: NSMenuItem) {
-        self.pm?.playRandomTrack()
+        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
+        vc.pm.playRandomTrack()
     }
     
     @IBAction func didSelectNext(_ sender: NSMenuItem) {
-        self.pm?.playNextTrack()
+        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
+        vc.pm.playNextTrack()
     }
     
     @IBAction func didSelectPrevious(_ sender: NSMenuItem) {
-        self.pm?.playPreviousTrack()
+        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
+        vc.pm.playPreviousTrack()
     }
     
     @IBAction func didSelectMute(_ sender: NSMenuItem) {
-        self.pm?.mute()
+        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
+        vc.pm.mute()
     }
     
     @IBAction func didSelectTracks(_ sender: NSMenuItem) {
@@ -95,13 +100,13 @@ extension AppDelegate {
     
     @IBAction func didSelectVolumeUp(_ sender: NSMenuItem) {
         guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        pm?.changeVolume(change: 0.01)
+        vc.pm.changeVolume(change: 0.01)
         vc.updateVolumeLabel()
     }
     
     @IBAction func didSelectVolumeDown(_ sender: NSMenuItem) {
         guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        pm?.changeVolume(change: -0.01)
+        vc.pm.changeVolume(change: -0.01)
         vc.updateVolumeLabel()
     }
 }
