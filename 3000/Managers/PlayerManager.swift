@@ -12,6 +12,7 @@ import AVFoundation
 class PlayerManager: NSObject {
     
     private var playlist: Playlist
+    // Move isLooping into player state
     private var isLooping = false
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
@@ -164,6 +165,7 @@ class PlayerManager: NSObject {
     }
     
     func playOrPause() {
+        let _ = self.saveState()
         let lastTrack = self.storage.getLastTrack()
         let seekTime = self.storage.seekTime(playlist: self.playlist)
         
@@ -218,6 +220,7 @@ class PlayerManager: NSObject {
         return true
     }
     
+    // resetPlayerState used when changing playlist
     func resetPlayerState() -> Error? {
         self.player?.pause()
         self.state.reset()
