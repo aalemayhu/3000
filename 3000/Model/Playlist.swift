@@ -37,10 +37,7 @@ class Playlist {
                 let asset = AVURLAsset(url: track, options: PlayerManager.AssetOptions)
                 metadata.append(TrackMetadata.load(asset: asset))
             }
-        } catch {
-            // TODO: handle this by returning error
-            debug_print("CATCH???: \(error)")
-        }
+        } catch { debug_print("\(error)") }
         return metadata
     }
     
