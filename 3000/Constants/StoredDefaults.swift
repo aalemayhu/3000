@@ -25,10 +25,16 @@ class StoredDefaults {
     var data: Dictionary<String, Any>?
     
     init(folder: URL) {
-        self.change(folder: folder)
+        self.use(folder: folder)
     }
     
-    func change(folder: URL) {
+    private func use(folder: URL) {
+        if let error = change(folder: folder) {
+            debug_print("\(error.localizedDescription)")
+        }
+    }
+    
+    func change(folder: URL) -> Error?{
         do {
             let playlistData = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
             let newDict = try JSONSerialization.jsonObject(with: playlistData, options: []) as?  Dictionary<String, Any>
@@ -39,22 +45,21 @@ class StoredDefaults {
             if var data = self.data, data[StoredDefaults.VolumeLevel] == nil {
                 data.updateValue(oldVolume as Any, forKey: StoredDefaults.VolumeLevel)
             }
-        } catch  {
-            debug_print("error: \(error)")
-        }
+        } catch  { return error }
+        
+        return nil
     }
     
     
-    func save(folder: URL, data: Any) {
+    func save(folder: URL, data: Any) -> (Bool, error: Error?) {
         debug_print("\(#function): folder=\(folder) data=\(data)")
         let fileUrl = folder.appendingPathComponent(StoredDefaults.folderInfo)
         do {
             let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
             try serializedData.write(to: fileUrl)
             debug_print("Saved to \(fileUrl)")
-        } catch {
-            debug_print(error.localizedDescription)
-        }
+        } catch { return (false, error) }
+        return (true, nil)
     }
     
     func getLastTrack() -> URL? {

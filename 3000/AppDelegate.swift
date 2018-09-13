@@ -29,7 +29,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        self.pm?.saveState()
+        if let error = self.pm?.saveState() {
+            debug_print("ERROR: \(error.localizedDescription)")
+        }
         return .terminateNow
     }
 }

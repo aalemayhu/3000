@@ -213,15 +213,14 @@ class ViewController: NSViewController {
         let p = Playlist(folder: folder)
         self.cachedTracksData = p.loadFiles(folder)
         guard self.cachedTracksData.count > 0 else {
-            let alert = NSAlert.init()
-            alert.addButton(withTitle: "OK")
-            alert.messageText = "No playable tracks in \(folder). Try a different folder with mp3s (CMD+O)"
-            alert.runModal()
-            alert.alertStyle = .critical
+            ErrorDialogs.alertNoPlayableTracks(folder: folder)
             return false
         }
         
-        self.pm.useCache(playlist: p)
+        if let error = self.pm.useCache(playlist: p) {
+            ErrorDialogs.alert(with: error)
+            return false
+        }
         
         self.updateView()
         
@@ -273,7 +272,10 @@ class ViewController: NSViewController {
                 return
         }
         // TODO: what happens to nested folders?        
-        self.pm.resetPlayerState()
+        
+        if let error = self.pm.resetPlayerState() {
+            debug_print("ERROR: \(error.localizedDescription)")
+        }
         if self.usePlaylist(selectedFolder) {
             self.pm.startPlaylist()
         }

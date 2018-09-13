@@ -12,14 +12,16 @@ import AVFoundation
 class PlayerManager: NSObject {
     
     private var playlist: Playlist
-    private var playerIndex = 0
     private var isLooping = false
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
     
+    private var state = PlayerState()
+    
     private var volume: Float {
         didSet {
             self.player?.volume = volume
+            self.state.volume = volume
         }
     }
 
@@ -45,19 +47,27 @@ class PlayerManager: NSObject {
     
     // Player tracking
     
+    private func isEndOfPlaylist() -> Bool {
+        guard playlist.tracks.count > 0 && self.state.playerIndex < playlist.tracks.count else {
+                    self.state.playerIndex = 0
+                    return true
+        }
+        
+        return false
+    }
+    
     func startPlaylist() {
         NotificationCenter.default.post(name: Notification.Name.StartPlaylist, object: nil)
         play(time: nil)
     }
     
     private func play(time: CMTime?) {
-        guard playlist.tracks.count > 0 && playerIndex < playlist.tracks.count else {
+        guard !isEndOfPlaylist() else {
             debug_print("END reached, what now?")
-            playerIndex = 0
             return
         }
         
-        let u = playlist.tracks[playerIndex]
+        let u = playlist.tracks[self.state.playerIndex]
         self.playItem = AVPlayerItem(url: u)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
@@ -86,26 +96,26 @@ class PlayerManager: NSObject {
     }
     
     func getIndex() -> Int {
-        return playerIndex
+        return state.playerIndex
     }
     
     func playFrom(_ index: Int) {
         debug_print("\(#function): \(index)")
-        self.playerIndex = index
+        self.state.playerIndex = index
         self.player?.pause()
         self.play(time: nil)
     }
     
     func playNextTrack() {
         self.storage.removeLastTrack()
-        playerIndex += 1
+        self.state.playerIndex += 1
         play(time: nil)
     }
     
     func playPreviousTrack() {
         self.storage.removeLastTrack()
-        guard playerIndex > 0 else { return }
-        playerIndex += -1
+        guard self.state.playerIndex > 0 else { return }
+        self.state.playerIndex += -1
         play(time: nil)
     }
     
@@ -117,7 +127,7 @@ class PlayerManager: NSObject {
     func playRandomTrack() {
         self.storage.removeLastTrack()
         let upperBound = UInt32(self.playlist.tracks.count)
-        playerIndex = Int(arc4random_uniform(upperBound))
+        self.state.playerIndex = Int(arc4random_uniform(upperBound))
         self.play(time: nil)
     }
     
@@ -140,14 +150,17 @@ class PlayerManager: NSObject {
         return self.playlist.tracks
     }
     
-    func useCache(playlist: Playlist) {
+    func useCache(playlist: Playlist) -> Error? {
         self.playlist = playlist
-        self.storage.change(folder: playlist.folder)
+        if let error = self.storage.change(folder: playlist.folder) {
+            return error
+        }
         if let url = self.storage.getLastTrack(),
             let index = self.indexFor(url: url, playlist: playlist) {
-            self.playerIndex = index
+            self.state.playerIndex = index
         }
         self.volume = self.storage.getVolumeLevel() ?? self.volume
+        return nil
     }
     
     func playOrPause() {
@@ -173,9 +186,9 @@ class PlayerManager: NSObject {
         }
     }
     
-    func saveState() {
-        let lastTrack = self.playlist.tracks[playerIndex].absoluteString
-        storage.save(folder: playlist.folder, data: playerState(lastTrack: lastTrack))
+    func saveState() -> Error? {
+        self.state.update(time: self.player?.currentTime(), track: self.playlist.tracks[self.state.playerIndex].absoluteString)
+        return storage.save(folder: playlist.folder, data: state.jsonData()).error
     }
     
     func isPlaying() -> Bool {
@@ -200,33 +213,15 @@ class PlayerManager: NSObject {
             // TODO: return error so it can be presented in interface
                 return false
         }
-        self.playerIndex = index
+        self.state.playerIndex = index
         self.play(time: time)
         return true
     }
     
-    private func playerState(lastTrack: String) -> Any {
-        let currentItem = self.player?.currentTime()
-        var data: [String: Any?] = [
-            StoredDefaults.LastTrackKey: lastTrack,
-            StoredDefaults.VolumeLevel: volume
-        ]
-        
-        // Save the player time
-        if let seconds = currentItem?.seconds,
-            let timescale = currentItem?.timescale {
-            data[StoredDefaults.PlaybackTimeKey] = [
-                StoredDefaults.SecondsKey: seconds,
-                StoredDefaults.TimeScaleKey: timescale
-            ]
-        }
-        return data
-    }
-    
-    func resetPlayerState() {
+    func resetPlayerState() -> Error? {
         self.player?.pause()
-        self.playerIndex = 0
-        storage.save(folder: playlist.folder, data: [StoredDefaults.VolumeLevel: volume])
+        self.state.reset()
+        return storage.save(folder: playlist.folder, data: state.jsonData()).error
     }
     
     func playTime(index: Int? = nil) -> (currentTime: CMTime?, duration: CMTime?) {
