@@ -10,10 +10,6 @@ import Foundation
 import Cocoa
 
 extension AppDelegate {
-    
-    
-    // Menu items
-    
     @IBAction func openDocument(_ sender: Any) {
         guard let window = NSApplication.shared.windows.first else { return }
         
@@ -30,7 +26,7 @@ extension AppDelegate {
         panel.beginSheetModal(for: window) { (result) in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue,
                 let url = panel.url {
-                self.selectedFolder = url
+                self.menuHandler?.selectedDirectory(folder: url)
                 // Save the selected path for easier reuse
                 UserDefaults.standard.set(url, forKey: StoredDefaults.LastPath)
                 UserDefaults.standard.synchronize()
@@ -51,9 +47,8 @@ extension AppDelegate {
     }
     
     @IBAction func didSelectPlay(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
         print("\(#function)")
-        vc.pm.playOrPause()
+        menuHandler?.playOrPause()
         if sender.state == .off {
             sender.state = .on
             sender.title = "Pause"
@@ -64,8 +59,7 @@ extension AppDelegate {
     }
     
     @IBAction func didSelectLoop(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.toggleLoop()
+        menuHandler?.toggleLoop()
         if sender.state == .off {
             sender.state = .on
             return
@@ -74,39 +68,31 @@ extension AppDelegate {
     }
     
     @IBAction func didSelectRandom(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.pm.playRandomTrack()
+        menuHandler?.playRandomTrack()
     }
     
     @IBAction func didSelectNext(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.pm.playNextTrack()
+        menuHandler?.playNextTrack()
     }
     
     @IBAction func didSelectPrevious(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.pm.playPreviousTrack()
+        menuHandler?.playPreviousTrack()
     }
     
     @IBAction func didSelectMute(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.pm.mute()
+        menuHandler?.mute()
+        sender.state = sender.state == .off ? .on : .off
     }
     
     @IBAction func didSelectTracks(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.showTracksView()
+        menuHandler?.showTracksView()
     }
     
     @IBAction func didSelectVolumeUp(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.pm.changeVolume(change: 0.01)
-        vc.updateVolumeLabel()
+        menuHandler?.changeVolume(change: 0.01)
     }
     
     @IBAction func didSelectVolumeDown(_ sender: NSMenuItem) {
-        guard let vc = NSApplication.shared.windows.first?.contentViewController as? ViewController else { return }
-        vc.pm.changeVolume(change: -0.01)
-        vc.updateVolumeLabel()
+        menuHandler?.changeVolume(change: -0.01)
     }
 }

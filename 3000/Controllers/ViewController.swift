@@ -26,6 +26,7 @@ class ViewController: NSViewController {
     var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
     var pm: PlayerManager = PlayerManager()
+    var selectedFolder: URL?
     
     var timeObserverToken: Any?
     var tracksController: TracksController?
@@ -106,18 +107,6 @@ class ViewController: NSViewController {
         return NSColor.black
     }
     
-    func showTracksView() {
-        guard !isTracksControllerVisible else { return }
-        if self.tracksController == nil {
-            self.tracksController = TracksController(nibName: NSNib.Name(rawValue: "TracksController"), bundle: Bundle.main)
-            self.tracksController?.selectorDelegate = self
-        } else {
-            self.tracksController?.reloadData()
-        }
-        self.presentViewControllerAsSheet(self.tracksController!)
-        self.isTracksControllerVisible = true
-    }
-    
     @objc func screenResize() {
         let fontSize = max(self.view.frame.size.width/28, 13)
         self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
@@ -196,18 +185,7 @@ class ViewController: NSViewController {
         case Keybinding.Esc:
             self.dismissTracksViewController()
         }
-    }
-    
-    func toggleLoop() {
-        if (!pm.getIsLooping()) {
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-            pm.loopTrack()
-        } else {
-            pm.stopLooping()
-            NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(note:)),
-                                                   name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        }
-    }
+    }    
     
     func usePlaylist(_ folder: URL) -> Bool{
         let p = Playlist(folder: folder)
@@ -261,12 +239,8 @@ class ViewController: NSViewController {
     // Directory management
     
     @objc func openedDirectory() {
-        // TODO: drop app delegate usage
-        guard let delegate = NSApp.delegate as? AppDelegate,
-            let selectedFolder = delegate.selectedFolder else {
-                return
-        }
         // TODO: what happens to nested folders?        
+        guard let selectedFolder = self.selectedFolder else { return }
         
         if let error = self.pm.resetPlayerState() {
             debug_print("ERROR: \(error.localizedDescription)")

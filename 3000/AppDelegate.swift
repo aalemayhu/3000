@@ -11,10 +11,10 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var selectedFolder: URL?
+    var menuHandler: MenuItemHandler?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        self.menuHandler = NSApplication.shared.windows.first?.contentViewController as? ViewController
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -34,3 +34,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
+protocol MenuItemHandler {
+    func selectedDirectory(folder: URL)
+    func playOrPause()
+    func playRandomTrack()
+    func playNextTrack()
+    func playPreviousTrack()
+    func mute()
+    func changeVolume(change: Float)
+    func showTracksView()
+    func toggleLoop()
+}

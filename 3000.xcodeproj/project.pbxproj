@@ -17,6 +17,7 @@
 		50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D16654214586290025E15B /* NSColor+Contrast.swift */; };
 		50E7250E214AB161001864C5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250D214AB161001864C5 /* PlayerState.swift */; };
 		50E72510214ABB27001864C5 /* ErrorDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250F214ABB27001864C5 /* ErrorDialogs.swift */; };
+		50E72512214AC4B7001864C5 /* ViewController+MenuItemHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E72511214AC4B7001864C5 /* ViewController+MenuItemHandler.swift */; };
 		840E299D2134570D00F117BD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840E299C2134570D00F117BD /* MainView.swift */; };
 		8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE092132D26500CE30F6 /* AppDelegate.swift */; };
 		8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE0B2132D26500CE30F6 /* ViewController.swift */; };
@@ -64,6 +65,7 @@
 		50D16654214586290025E15B /* NSColor+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Contrast.swift"; sourceTree = "<group>"; };
 		50E7250D214AB161001864C5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		50E7250F214ABB27001864C5 /* ErrorDialogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDialogs.swift; sourceTree = "<group>"; };
+		50E72511214AC4B7001864C5 /* ViewController+MenuItemHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+MenuItemHandler.swift"; sourceTree = "<group>"; };
 		840E299C2134570D00F117BD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8414CE062132D26500CE30F6 /* 3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8414CE092132D26500CE30F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				50D16654214586290025E15B /* NSColor+Contrast.swift */,
 				50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */,
 				844D98002143F3AC001259C9 /* NSView+Blur.swift */,
+				50E72511214AC4B7001864C5 /* ViewController+MenuItemHandler.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				50E7250E214AB161001864C5 /* PlayerState.swift in Sources */,
 				844D98012143F3AC001259C9 /* NSView+Blur.swift in Sources */,
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
+				50E72512214AC4B7001864C5 /* ViewController+MenuItemHandler.swift in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
 				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,
 				50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */,
