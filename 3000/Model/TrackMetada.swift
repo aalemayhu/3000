@@ -36,7 +36,8 @@ class TrackMetadata {
             case AVMetadataKey.commonKeyAlbumName:
                 np.albumName = item.stringValue
             case AVMetadataKey.commonKeyArtist:
-                // TODO: check author key if no artist?
+                np.artist = item.stringValue
+            case AVMetadataKey.commonKeyAuthor where np.artist == nil:
                 np.artist = item.stringValue
             case AVMetadataKey.commonKeyArtwork:
                 if let data = item.dataValue, let image = NSImage(data: data) {

@@ -210,9 +210,6 @@ class PlayerManager: NSObject {
     
     private func resume(_ url: URL?, time: CMTime?) -> Bool{
         guard let url = url, let index = self.indexFor(url: url, playlist: self.playlist) else {
-            // Make sure the track is present
-            // Could be missing for any reason, f. ex. user deleted file
-            // TODO: return error so it can be presented in interface
                 return false
         }
         self.state.playerIndex = index
