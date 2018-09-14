@@ -11,7 +11,7 @@ import AVFoundation
 
 class Playlist {
     
-    var tracks = [URL]()
+    private var tracks = [URL]()
     var name: String
     var folder: URL
     
@@ -58,5 +58,21 @@ class Playlist {
             })
         } catch { debug_print("\(error)")  }
         return all
+    }
+    
+    func size() -> Int {
+        return self.tracks.count
+    }
+    
+    func track(at index: Int) -> URL {
+        return self.tracks[index]
+    }
+    
+    func contains(track: URL) -> Bool {
+        return self.tracks.contains(track)
+    }
+    
+    func index(of track: URL) -> Int? {
+        return self.tracks.index(of: track)
     }
 }

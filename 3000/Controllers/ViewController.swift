@@ -63,15 +63,19 @@ class ViewController: NSViewController {
         
         // Volume
         self.volumeLabel.textColor = textColor
+        self.updateVolumeLabel()
         
+        self.updateTimeElements(for: index)
+    }
+    
+    func updateTimeElements(for index: Int) {
         // Either use the playing items duration or load from currently not playing item
         let playTime = pm.playTime(index: index)
-        let duration = playTime.duration ?? AVURLAsset(url: pm.tracks()[index], options: PlayerManager.AssetOptions).duration
-        let currentTime = playTime.currentTime ?? CMTime(seconds: 0, preferredTimescale: 1000000000)
+        guard let duration = playTime.duration,
+            let currentTime = playTime.currentTime else { return } // TODO: how to handle this case
         
         self.setupProgressSlider(duration)
         self.updatePlayTimeLabels(currentTime, duration)
-        self.updateVolumeLabel()
     }
     
     func updateArtwork(with artwork: NSImage?) {
