@@ -32,7 +32,7 @@ class Playlist {
         let tracks = self.allTracks(from: folder)
         for track in tracks {
             let asset = AVURLAsset(url: track, options: PlayerManager.AssetOptions)
-            metadata.append(TrackMetadata.load(asset: asset))
+            metadata.append(TrackMetadata.use(asset: asset))
         }
         self.tracks = tracks
         return metadata
@@ -56,7 +56,7 @@ class Playlist {
                     all += allTracks(from: u)
                 }
             })
-        } catch { debug_print("\(error)")  }        
+        } catch { debug_print("\(error)")  }
         return all
     }
 }

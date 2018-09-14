@@ -18,7 +18,7 @@ class TrackMetadata {
     // TODO: reduce memory usage
     var artwork: NSImage?
     
-    static func load(asset: AVURLAsset) -> TrackMetadata {
+    static func use(asset: AVURLAsset) -> TrackMetadata {
         let np = TrackMetadata()
         
         for item in asset.metadata {
@@ -43,6 +43,7 @@ class TrackMetadata {
                 if let data = item.dataValue, let image = NSImage(data: data) {
                     np.artwork = image
                 }
+                debug_print("XX test")
             default:
                 debug_print("NO match for \(commonKey)")
                 continue
