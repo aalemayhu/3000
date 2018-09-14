@@ -323,7 +323,7 @@ class ViewController: NSViewController {
 extension ViewController: TracksControllerSelector {
 
     func dismissTracksViewController() {
-        guard let t = self.tracksController else { return }
+        guard self.isTracksControllerVisible, let t = self.tracksController else { return }
         self.dismissViewController(t)
         self.isTracksControllerVisible = false
     }
