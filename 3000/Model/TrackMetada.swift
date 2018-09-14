@@ -40,10 +40,10 @@ class TrackMetadata {
             case AVMetadataKey.commonKeyAuthor where np.artist == nil:
                 np.artist = item.stringValue
             case AVMetadataKey.commonKeyArtwork:
-                if let data = item.dataValue, let image = NSImage(data: data) {
-                    np.artwork = image
-                }
-                debug_print("XX test")
+//                if let data = item.dataValue, let image = NSImage(data: data) {
+//                    np.artwork = image
+//                }
+                debug_print("Image loading defered for later")
             default:
                 debug_print("NO match for \(commonKey)")
                 continue
@@ -54,7 +54,26 @@ class TrackMetadata {
     }
     
     // TODO: load image right before use
-    func retrieveImage(asset: AVURLAsset) {
-        
+    private func retrieveImage(asset: AVURLAsset) {
+        for item in asset.metadata {
+            guard let commonKey = item.commonKey, let _ = item.value else {
+                debug_print("Failed to read metadata for \(item)")
+                continue
+            }
+            
+            switch (commonKey) {
+            case AVMetadataKey.commonKeyArtwork:
+                if let data = item.dataValue, let image = NSImage(data: data) {
+                    self.artwork = image
+                }
+            default:
+                continue
+            }
+        }
+    }
+    
+    // TODO: for handling loading errors
+    func loadArtWork(asset: AVURLAsset) {
+        self.retrieveImage(asset: asset)
     }
 }

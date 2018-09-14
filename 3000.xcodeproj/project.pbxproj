@@ -10,6 +10,7 @@
 		2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB45EF213AE1C10082B462 /* DebugHelper.swift */; };
 		502B11642146CD1500A7F3F2 /* LayeredBackedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */; };
 		506B5AA621441B9B00EFD176 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506B5AA521441B9B00EFD176 /* BlurView.swift */; };
+		508BEA28214C1C0C009D9BA5 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEA27214C1C0C009D9BA5 /* ImageLoader.swift */; };
 		509B666121481F7C006D9421 /* TracksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B665F21481F7C006D9421 /* TracksController.swift */; };
 		509B666221481F7C006D9421 /* TracksController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 509B666021481F7C006D9421 /* TracksController.xib */; };
 		509B666421482594006D9421 /* TracksTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B666321482594006D9421 /* TracksTableRowView.swift */; };
@@ -58,6 +59,7 @@
 		2DCB45EF213AE1C10082B462 /* DebugHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHelper.swift; sourceTree = "<group>"; };
 		502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayeredBackedImageView.swift; sourceTree = "<group>"; };
 		506B5AA521441B9B00EFD176 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		508BEA27214C1C0C009D9BA5 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		509B665F21481F7C006D9421 /* TracksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksController.swift; sourceTree = "<group>"; };
 		509B666021481F7C006D9421 /* TracksController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksController.xib; sourceTree = "<group>"; };
 		509B666321482594006D9421 /* TracksTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableRowView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				84C1A0182134A96700463C37 /* PlayerManager.swift */,
+				508BEA27214C1C0C009D9BA5 /* ImageLoader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				50E7250E214AB161001864C5 /* PlayerState.swift in Sources */,
 				844D98012143F3AC001259C9 /* NSView+Blur.swift in Sources */,
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
+				508BEA28214C1C0C009D9BA5 /* ImageLoader.swift in Sources */,
 				50E72512214AC4B7001864C5 /* ViewController+MenuItemHandler.swift in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
 				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,

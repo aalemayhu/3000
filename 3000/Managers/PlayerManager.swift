@@ -146,6 +146,8 @@ class PlayerManager: NSObject {
     func playRandomTrack() {
         self.storage.removeLastTrack()
         let upperBound = UInt32(self.playlist.size())
+        // obs: experimenting without zero out image
+//        self.metadata(for: self.state.playerIndex).artwork = nil
         self.state.playerIndex = Int(arc4random_uniform(upperBound))
         self.play(time: nil)
     }
@@ -202,6 +204,10 @@ class PlayerManager: NSObject {
         }
     }
     
+    func asset(for index: Int) -> AVURLAsset {
+        return AVURLAsset(url: self.playlist.track(at: index), options: PlayerManager.AssetOptions)
+    }
+    
     func saveState() -> Error? {
         self.state.update(time: self.player?.currentTime(), track: self.playlist.track(at: self.state.playerIndex).absoluteString)
         return storage.save(folder: playlist.folder, data: state.jsonData()).error
@@ -246,6 +252,10 @@ class PlayerManager: NSObject {
             return (currentTime, AVURLAsset(url: self.playlist.track(at: index), options: PlayerManager.AssetOptions).duration)
         }
         return (self.playItem?.currentTime(), self.playItem?.asset.duration)
+    }
+    
+    func duration(for  index: Int) -> CMTime {
+        return AVURLAsset(url: self.playlist.track(at: index), options: PlayerManager.AssetOptions).duration
     }
     
     // Notifications

@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "3000/Controllers/ViewController.swift"
-            timestampString = "558631915.102203"
+            timestampString = "558637143.103636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "configure()"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "3000/Managers/PlayerManager.swift"
-            timestampString = "558630381.232191"
+            timestampString = "558637143.103991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "100"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "3000/Model/TrackMetada.swift"
-            timestampString = "558631915.102568"
+            timestampString = "558637143.104045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -86,64 +86,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "3000/Model/Playlist.swift"
-            timestampString = "558631915.102819"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "allTracks(from:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "_000.Playlist.(allTracks in _7EFD4EF30BB9E462A6A9E580099289FE)(from: Foundation.URL) -&gt; Swift.Array&lt;Foundation.URL&gt;"
-                  moduleName = "3000"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ccscanf/src/gitlab.com/scanf/3000/3000/Model/Playlist.swift"
-                  timestampString = "558630631.441412"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "630">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Foundation.URL) -&gt; Swift.Bool in _000.Playlist.(allTracks in _7EFD4EF30BB9E462A6A9E580099289FE)(from: Foundation.URL) -&gt; Swift.Array&lt;Foundation.URL&gt;"
-                  moduleName = "3000"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ccscanf/src/gitlab.com/scanf/3000/3000/Model/Playlist.swift"
-                  timestampString = "558630631.443362"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "3000/Model/Playlist.swift"
-            timestampString = "558631915.102868"
+            filePath = "3000/Controllers/ViewController.swift"
+            timestampString = "558637143.104836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "loadFiles(_:)"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "updateTimeElements(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "3000/Model/Playlist.swift"
-            timestampString = "558631915.1029119"
+            filePath = "3000/Controllers/ViewController.swift"
+            timestampString = "558637143.105085"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "allTracks(from:)"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "updateTimeElements(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

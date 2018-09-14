@@ -9,6 +9,7 @@
 import Cocoa
 import AVFoundation
 import Foundation
+import Dispatch
 
 class ViewController: NSViewController {
     
@@ -47,7 +48,7 @@ class ViewController: NSViewController {
         let artist = track.artist ?? ""
         
         // Album image
-        updateArtwork(with: track.artwork)
+        loadArtwork(for: index, track: track)
         
         // Track info
         let textColor = self.textColor(for: track.artwork)
@@ -70,8 +71,8 @@ class ViewController: NSViewController {
     func updateTimeElements(for index: Int) {
         // Either use the playing items duration or load from currently not playing item
         let playTime = pm.playTime(index: index)
-        guard let duration = playTime.duration,
-            let currentTime = playTime.currentTime else { return } // TODO: how to handle this case
+        let duration = playTime.duration ?? pm.duration(for: index)
+        guard let currentTime = playTime.currentTime else { return } // TODO: how to handle this case
         
         self.setupProgressSlider(duration)
         self.updatePlayTimeLabels(currentTime, duration)
@@ -85,6 +86,16 @@ class ViewController: NSViewController {
         }
         self.imageView = LayeredBackedImageView(frame: self.view.frame, andImage: artwork)
         self.view.addSubview(self.imageView!, positioned: NSWindow.OrderingMode.below, relativeTo: currentTimeLabel)
+    }
+    
+    func loadArtwork(for index: Int, track: TrackMetadata) {
+        let op = ImageLoader(asset: self.pm.asset(for: index), track: track)
+        op.completionBlock = {
+            DispatchQueue.main.sync {
+                self.updateArtwork(with: track.artwork)
+            }
+        }
+        op.start()
     }
     
     func updateVolumeLabel() {
@@ -192,11 +203,6 @@ class ViewController: NSViewController {
     
     func usePlaylist(_ folder: URL) -> Bool{
         let p = Playlist(folder: folder)
-        guard !self.pm.isEmpty() else {
-            ErrorDialogs.alertNoPlayableTracks(folder: folder)
-            return false
-        }
-        
         if let error = self.pm.useCache(playlist: p) {
             ErrorDialogs.alert(with: error)
             return false
