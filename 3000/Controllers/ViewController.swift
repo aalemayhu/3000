@@ -23,7 +23,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var progressSlider: NSSlider!
     @IBOutlet weak var volumeLabel: NSTextField!
     
-    var cachedTracksData = [TrackMetadata]()
     var cache = [String: Bool]()
     var pm: PlayerManager = PlayerManager()
     var selectedFolder: URL?
@@ -43,7 +42,7 @@ class ViewController: NSViewController {
     
     @objc func updateView() {
         let index = pm.getIndex()
-        let track = self.cachedTracksData[index]
+        let track = self.pm.metadata(for: index)
         let title = track.title ?? ""
         let artist = track.artist ?? ""
         
@@ -193,8 +192,7 @@ class ViewController: NSViewController {
     
     func usePlaylist(_ folder: URL) -> Bool{
         let p = Playlist(folder: folder)
-        self.cachedTracksData = p.loadFiles(folder)
-        guard self.cachedTracksData.count > 0 else {
+        guard !self.pm.isEmpty() else {
             ErrorDialogs.alertNoPlayableTracks(folder: folder)
             return false
         }
@@ -329,8 +327,8 @@ extension ViewController: TracksControllerSelector {
         self.isTracksControllerVisible = false
     }
     
-    func tracks() -> [TrackMetadata] {
-        return self.cachedTracksData
+    func trackInfoList() -> [TrackListInfo] {
+        return self.pm.trackMetaList()
     }
     
     func didSelectTrack(index: Int) {

@@ -11,13 +11,17 @@ import AVFoundation
 
 class Playlist {
     
+    // TODO: should this be private
+    var metadata = [TrackMetadata]()
     private var tracks = [URL]()
     var name: String
     var folder: URL
+
     
     init(folder: URL) {
         self.folder = folder
-        self.name = folder.absoluteString
+        self.name = folder.absoluteString        
+        self.metadata = self.loadFiles(folder)
     }
     
     init() {

@@ -8,9 +8,11 @@
 
 import Cocoa
 
+typealias TrackListInfo = (artist: String, title: String)
+
 protocol TracksControllerSelector {
     func didSelectTrack(index: Int)
-    func tracks() -> [TrackMetadata]
+    func trackInfoList() -> [TrackListInfo]
 }
 
 class TracksController: NSViewController {
@@ -54,7 +56,7 @@ extension TracksController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         guard let del = self.selectorDelegate else { return 0 }
-        return del.tracks().count
+        return del.trackInfoList().count
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -63,10 +65,11 @@ extension TracksController: NSTableViewDataSource {
         guard let res = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView else { return nil}
         guard let del = self.selectorDelegate else { return nil }
 
-        if tableColumn.title == "Artist", let artist = del.tracks()[row].artist {
-            res.textField?.stringValue = artist
-        } else if let title = del.tracks()[row].title {
-            res.textField?.stringValue = title
+        let trackInfo = del.trackInfoList()[row]
+        if tableColumn.title == "Artist" {
+            res.textField?.stringValue = trackInfo.artist
+        } else if tableColumn.title == "Title" {
+            res.textField?.stringValue = trackInfo.title
         }
         return res
     }

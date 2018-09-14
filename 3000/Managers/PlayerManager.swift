@@ -100,6 +100,24 @@ class PlayerManager: NSObject {
         return state.playerIndex
     }
     
+    func metadata(for index: Int) -> TrackMetadata {
+        return self.playlist.metadata[index]
+    }
+    
+    func trackMetaList() -> [TrackListInfo]{
+        var l = [(artist: String, title: String)]()
+        self.playlist.metadata.forEach { (t) in
+            if let artist = t.artist, let title = t.title {
+                l.append((artist, title))
+            }
+        }
+        return l
+    }
+    
+    func isEmpty() -> Bool {
+        return self.playlist.size() == 0
+    }
+    
     func playFrom(_ index: Int) {
         debug_print("\(#function): \(index)")
         self.state.playerIndex = index
