@@ -239,7 +239,6 @@ class ViewController: NSViewController {
     // Directory management
     
     @objc func openedDirectory() {
-        // TODO: what happens to nested folders?        
         guard let selectedFolder = self.selectedFolder else { return }
         
         if let error = self.pm.resetPlayerState() {
@@ -251,8 +250,6 @@ class ViewController: NSViewController {
     }
     
     // Notification handlers
-    
-    
     
     @objc func playerDidFinishPlaying(note: NSNotification){
         self.pm.playNextTrack()
