@@ -101,17 +101,15 @@ class PlayerManager: NSObject {
     }
     
     func metadata(for index: Int) -> TrackMetadata {
-        return self.playlist.metadata[index]
+        let asset = self.asset(for: index)
+        let m = TrackMetadata()
+        m.loadOnlyText(from: asset)
+        return m
     }
     
-    func trackMetaList() -> [TrackListInfo]{
-        var l = [(artist: String, title: String)]()
-        self.playlist.metadata.forEach { (t) in
-            if let artist = t.artist, let title = t.title {
-                l.append((artist, title))
-            }
-        }
-        return l
+    func trackInfo(for index: Int) -> TrackListInfo {
+        let m = self.metadata(for: index)
+        return (m.artist ?? "artist", title: m.title ?? "title")
     }
     
     func isEmpty() -> Bool {
@@ -156,6 +154,10 @@ class PlayerManager: NSObject {
         isLooping = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+    }
+    
+    func trackCount() -> Int {
+        return self.playlist.size()
     }
     
     func getIsLooping() -> Bool{

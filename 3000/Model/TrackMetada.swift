@@ -18,9 +18,7 @@ class TrackMetadata {
     // TODO: reduce memory usage
     var artwork: NSImage?
     
-    static func use(asset: AVURLAsset) -> TrackMetadata {
-        let np = TrackMetadata()
-        
+    private func use(asset: AVURLAsset, useImage: Bool = false) {
         for item in asset.metadata {
             guard let commonKey = item.commonKey, let _ = item.value else {
                 debug_print("Failed to read metadata for \(item)")
@@ -29,51 +27,33 @@ class TrackMetadata {
             
             switch (commonKey) {
             case AVMetadataKey.commonKeyTitle:
-                np.title = item.stringValue
+                self.title = item.stringValue
                 
             case AVMetadataKey.commonKeyType:
-                np.type = item.stringValue
+                self.type = item.stringValue
             case AVMetadataKey.commonKeyAlbumName:
-                np.albumName = item.stringValue
+                self.albumName = item.stringValue
             case AVMetadataKey.commonKeyArtist:
-                np.artist = item.stringValue
-            case AVMetadataKey.commonKeyAuthor where np.artist == nil:
-                np.artist = item.stringValue
-            case AVMetadataKey.commonKeyArtwork:
-//                if let data = item.dataValue, let image = NSImage(data: data) {
-//                    np.artwork = image
-//                }
-                debug_print("Image loading defered for later")
-            default:
-                debug_print("NO match for \(commonKey)")
-                continue
-            }
-        }
-        
-        return np
-    }
-    
-    // TODO: load image right before use
-    private func retrieveImage(asset: AVURLAsset) {
-        for item in asset.metadata {
-            guard let commonKey = item.commonKey, let _ = item.value else {
-                debug_print("Failed to read metadata for \(item)")
-                continue
-            }
-            
-            switch (commonKey) {
-            case AVMetadataKey.commonKeyArtwork:
+                self.artist = item.stringValue
+            case AVMetadataKey.commonKeyAuthor where self.artist == nil:
+                self.artist = item.stringValue
+            case AVMetadataKey.commonKeyArtwork where useImage:
                 if let data = item.dataValue, let image = NSImage(data: data) {
                     self.artwork = image
                 }
             default:
+                debug_print("NO match for \(commonKey)")
                 continue
             }
         }
     }
     
     // TODO: for handling loading errors
-    func loadArtWork(asset: AVURLAsset) {
-        self.retrieveImage(asset: asset)
+    func load(from asset: AVURLAsset) {
+        self.use(asset: asset, useImage: true)
+    }
+    
+    func loadOnlyText(from asset: AVURLAsset) {
+        self.use(asset: asset, useImage: false)
     }
 }

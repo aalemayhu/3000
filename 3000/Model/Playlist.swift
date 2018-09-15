@@ -12,7 +12,6 @@ import AVFoundation
 class Playlist {
     
     // TODO: should this be private
-    var metadata = [TrackMetadata]()
     private var tracks = [URL]()
     var name: String
     var folder: URL
@@ -21,25 +20,12 @@ class Playlist {
     init(folder: URL) {
         self.folder = folder
         self.name = folder.absoluteString        
-        self.metadata = self.loadFiles(folder)
+        self.tracks = self.allTracks(from: folder)
     }
     
     init() {
         self.name = "empty playlist"
         self.folder = URL(fileURLWithPath: "~/Music")
-    }
-    
-    func loadFiles(_ folder: URL) -> [TrackMetadata] {
-        debug_print("Loading tracks from: \(folder)")
-        var metadata = [TrackMetadata]()
-        // Traverse the directory for audio files
-        let tracks = self.allTracks(from: folder)
-        for track in tracks {
-            let asset = AVURLAsset(url: track, options: PlayerManager.AssetOptions)
-            metadata.append(TrackMetadata.use(asset: asset))
-        }
-        self.tracks = tracks
-        return metadata
     }
     
     private func isSupported(_ type: String) -> Bool {

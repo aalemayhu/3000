@@ -96,7 +96,7 @@ class ViewController: NSViewController {
     }
     
     func loadArtwork(for index: Int, track: TrackMetadata) {
-        let op = ImageLoader(asset: self.pm.asset(for: index), track: track)
+        let op = MetadataLoader(asset: self.pm.asset(for: index), track: track)
         op.completionBlock = {
             DispatchQueue.main.sync {
                 self.updateArtwork(with: track.artwork)
@@ -327,6 +327,11 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: TracksControllerSelector {
+  
+    func numberOfTracks() -> Int {
+        return self.pm.trackCount()
+    }
+    
 
     func dismissTracksViewController() {
         guard self.isTracksControllerVisible, let t = self.tracksController else { return }
@@ -334,8 +339,8 @@ extension ViewController: TracksControllerSelector {
         self.isTracksControllerVisible = false
     }
     
-    func trackInfoList() -> [TrackListInfo] {
-        return self.pm.trackMetaList()
+    func trackInfo(at index: Int) -> TrackListInfo {
+        return self.pm.trackInfo(for: index)
     }
     
     func didSelectTrack(index: Int) {

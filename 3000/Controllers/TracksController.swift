@@ -12,7 +12,8 @@ typealias TrackListInfo = (artist: String, title: String)
 
 protocol TracksControllerSelector {
     func didSelectTrack(index: Int)
-    func trackInfoList() -> [TrackListInfo]
+    func trackInfo(at index: Int) -> TrackListInfo
+    func numberOfTracks() -> Int
 }
 
 class TracksController: NSViewController {
@@ -56,7 +57,7 @@ extension TracksController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         guard let del = self.selectorDelegate else { return 0 }
-        return del.trackInfoList().count
+        return del.numberOfTracks()
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -65,7 +66,7 @@ extension TracksController: NSTableViewDataSource {
         guard let res = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView else { return nil}
         guard let del = self.selectorDelegate else { return nil }
 
-        let trackInfo = del.trackInfoList()[row]
+        let trackInfo = del.trackInfo(at: row)
         if tableColumn.title == "Artist" {
             res.textField?.stringValue = trackInfo.artist
         } else if tableColumn.title == "Title" {

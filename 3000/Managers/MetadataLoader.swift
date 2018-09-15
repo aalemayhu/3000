@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-class ImageLoader: Operation {
+class MetadataLoader: Operation {
     
     // TODO: load all fields here
     var asset: AVURLAsset
@@ -22,6 +22,6 @@ class ImageLoader: Operation {
     }
     
     override func main() {
-        track.loadArtWork(asset: self.asset)
+        track.load(from: self.asset)
     }
 }
