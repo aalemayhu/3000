@@ -173,7 +173,7 @@ class ViewController: NSViewController {
     }
     
     func loadDefaults() {
-        if let folder = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
+        if let folder = StoredDefaults.getLastPath() {
             let _ = self.usePlaylist(folder)
         } else {
             debug_print("No cached folder")

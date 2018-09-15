@@ -14,7 +14,7 @@ extension AppDelegate {
         guard let window = NSApplication.shared.windows.first else { return }
         
         let panel = NSOpenPanel()
-        if let lastPath = UserDefaults.standard.url(forKey: StoredDefaults.LastPath) {
+        if let lastPath = StoredDefaults.getLastPath() {
             panel.directoryURL = lastPath
         } else {
             panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
@@ -28,8 +28,7 @@ extension AppDelegate {
                 let url = panel.url {
                 self.menuHandler?.selectedDirectory(folder: url)
                 // Save the selected path for easier reuse
-                UserDefaults.standard.set(url, forKey: StoredDefaults.LastPath)
-                UserDefaults.standard.synchronize()
+                let _ = StoredDefaults.setLastPath(url)
                 NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)
             }
         }

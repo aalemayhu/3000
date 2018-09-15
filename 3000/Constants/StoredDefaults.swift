@@ -93,4 +93,30 @@ class StoredDefaults {
         
         return CMTime(seconds: seconds!, preferredTimescale: timeScale)
     }
+    
+    // Static
+    
+    static func getLastPath() -> URL? {
+        do {
+            let folder = URL(fileURLWithPath: NSHomeDirectory())
+            let data = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
+            let newDict = try JSONSerialization.jsonObject(with: data, options: []) as?  Dictionary<String, Any>
+            
+            if let path = newDict?[StoredDefaults.LastPath] as? String {
+                return URL(string: path)
+            }
+        } catch  { return nil }        
+        return nil
+    }
+    
+    static func setLastPath(_ url: URL) -> Error? {
+        let folder = URL(fileURLWithPath: NSHomeDirectory())
+        let fileUrl = folder.appendingPathComponent(StoredDefaults.folderInfo)
+        do {
+            let data =  [StoredDefaults.LastPath: url.absoluteString]
+            let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
+            try serializedData.write(to: fileUrl)
+        } catch { return error }
+        return nil
+    }
 }
