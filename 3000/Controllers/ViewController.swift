@@ -39,6 +39,11 @@ class ViewController: NSViewController {
         configure()
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.view.window?.aspectRatio = NSSize(width: 1, height: 1)
+    }
+    
     // View changes
     
     @objc func updateView() {
