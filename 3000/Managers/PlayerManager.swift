@@ -244,14 +244,16 @@ class PlayerManager: NSObject {
         return storage.save(folder: playlist.folder, data: state.jsonData()).error
     }
     
-    func playTime(index: Int? = nil) -> (currentTime: CMTime?, duration: CMTime?) {
-        guard let index = index else { return (nil, nil) }
-        // TODO: clean up below conditional statement
-        if self.indexFor(url: self.playlist.track(at: index), playlist: self.playlist) == index {
-            let currentTime = self.storage.seekTime(playlist: self.playlist)
-            return (currentTime, AVURLAsset(url: self.playlist.track(at: index), options: PlayerManager.AssetOptions).duration)
-        }
+    func playTime() -> (currentTime: CMTime?, duration: CMTime?) {
         return (self.playItem?.currentTime(), self.playItem?.asset.duration)
+    }
+    
+    func time(for index: Int) -> CMTime {
+        if self.indexFor(url: self.playlist.track(at: index), playlist: self.playlist) == index,
+            let currentTime = self.storage.seekTime(playlist: self.playlist) {
+            return currentTime
+        }
+        return CMTime(seconds: 0, preferredTimescale: 1000000000)
     }
     
     func duration(for  index: Int) -> CMTime {

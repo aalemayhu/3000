@@ -32,7 +32,7 @@ extension NSView {
     
     fileprivate func updateBlurView(alphaValue: CGFloat) {
         let blurredViews = self.subviews.filter { $0 is BlurView }
-        if let blurView = blurredViews[0] as? BlurView {
+        if blurredViews.count > 0, let blurView = blurredViews[0] as? BlurView {
             
             blurView.animator().alphaValue = alphaValue
             // TODO: - [ ] Fix fade out animation

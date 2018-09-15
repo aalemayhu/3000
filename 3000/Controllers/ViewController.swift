@@ -74,10 +74,12 @@ class ViewController: NSViewController {
     }
     
     func updateTimeElements(for index: Int) {
+        debug_print("\(#function)")
         // Either use the playing items duration or load from currently not playing item
-        let playTime = pm.playTime(index: index)
+        let playTime = pm.playTime()
+        
         let duration = playTime.duration ?? pm.duration(for: index)
-        guard let currentTime = playTime.currentTime else { return } // TODO: how to handle this case
+        let currentTime = playTime.currentTime ?? pm.time(for: index)
         
         self.setupProgressSlider(duration)
         self.updatePlayTimeLabels(currentTime, duration)
@@ -276,18 +278,12 @@ class ViewController: NSViewController {
     // Player observers
     
     func playerTimeProgressed() {
-        let playTime = pm.playTime()
-        
-        guard  let currentTime = playTime.currentTime,
-            let duration = playTime.duration else {
-                return
-        }
-        
-        updatePlayTimeLabels(currentTime, duration)
+        debug_print("\(#function)")
+        self.updateTimeElements(for: self.pm.getIndex())
     }
     
     func addPeriodicTimeObserver() {
-        guard let player = pm.player else { return }
+        guard let player = pm.player else { fatalError("Player not setup") }
         // Notify every half second
         let timeScale = CMTimeScale(NSEC_PER_SEC)
         let time = CMTime(seconds: 1, preferredTimescale: timeScale)
