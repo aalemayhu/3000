@@ -14,7 +14,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var menuHandler: MenuItemHandler?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        self.menuHandler = NSApplication.shared.windows.first?.contentViewController as? ViewController
+        guard  let window = NSApplication.shared.windows.first else { return }        
+        // Window remember last position when app has been quit / terminated
+        window.setFrameAutosaveName(NSWindow.FrameAutosaveName(rawValue: "3000"))
+        self.menuHandler = window.contentViewController as? ViewController
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
