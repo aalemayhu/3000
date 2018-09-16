@@ -20,11 +20,11 @@
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-eB-hMi">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                     <clipView key="contentView" id="FmZ-Ub-3JO">
-                        <rect key="frame" x="1" y="0.0" width="478" height="271"/>
+                        <rect key="frame" x="1" y="1" width="478" height="270"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="qyD-sf-z80" viewBased="YES" id="tx5-YL-sh1">
-                                <rect key="frame" x="0.0" y="0.0" width="478" height="248"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="tx5-YL-sh1">
+                                <rect key="frame" x="0.0" y="0.0" width="478" height="270"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -108,10 +108,6 @@
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="qyD-sf-z80">
-                        <rect key="frame" x="0.0" y="0.0" width="478" height="23"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </tableHeaderView>
                 </scrollView>
             </subviews>
             <constraints>
@@ -120,7 +116,7 @@
                 <constraint firstItem="5CU-eB-hMi" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="tjF-fZ-dWf"/>
                 <constraint firstItem="5CU-eB-hMi" firstAttribute="height" secondItem="Hz6-mo-xeY" secondAttribute="height" id="w1X-Me-Oxb"/>
             </constraints>
-            <point key="canvasLocation" x="3" y="190"/>
+            <point key="canvasLocation" x="-299" y="273"/>
         </customView>
     </objects>
 </document>
