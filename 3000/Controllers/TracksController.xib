@@ -121,6 +121,8 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="5CU-eB-hMi" firstAttribute="width" secondItem="JcF-cD-0Bh" secondAttribute="width" id="0Kq-Aw-sel"/>
+                        <constraint firstAttribute="height" constant="272" id="2FL-ta-9U0"/>
+                        <constraint firstAttribute="width" constant="480" id="39D-8i-2iY"/>
                         <constraint firstItem="5CU-eB-hMi" firstAttribute="centerX" secondItem="JcF-cD-0Bh" secondAttribute="centerX" id="GEn-L7-yfk"/>
                         <constraint firstItem="5CU-eB-hMi" firstAttribute="height" secondItem="JcF-cD-0Bh" secondAttribute="height" id="Up7-Ti-GVb"/>
                         <constraint firstItem="5CU-eB-hMi" firstAttribute="centerY" secondItem="JcF-cD-0Bh" secondAttribute="centerY" id="xDm-yn-XA0"/>
