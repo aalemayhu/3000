@@ -210,8 +210,8 @@ class ViewController: NSViewController {
     
     func usePlaylist(_ folder: URL) -> Bool{
         let p = Playlist(folder: folder)
-        if let error = self.pm.useCache(playlist: p) {
-            ErrorDialogs.alert(with: error)
+        if let error = self.pm.useCache(playlist: p), p.size() == 0 {
+            debug_print(error.localizedDescription)
             return false
         }
         
