@@ -332,6 +332,9 @@ extension ViewController: TracksControllerSelector {
         return self.pm.trackCount()
     }
     
+    func currentArtwork() -> NSImage? {
+        return self.imageView?.layer?.contents as? NSImage
+    }
 
     func dismissTracksViewController() {
         guard self.isTracksControllerVisible, let t = self.tracksController else { return }

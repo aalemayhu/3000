@@ -14,12 +14,15 @@ protocol TracksControllerSelector {
     func didSelectTrack(index: Int)
     func trackInfo(at index: Int) -> TrackListInfo
     func numberOfTracks() -> Int
+    func currentArtwork() -> NSImage?
 }
 
 class TracksController: NSViewController {
-
-    @IBOutlet weak var tableView: NSTableView!
+    
     var selectorDelegate: TracksControllerSelector?
+    
+    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var imageView: NSImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +32,15 @@ class TracksController: NSViewController {
     
     func configure() {
         self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableView.dataSource = self        
+        self.reloadData()
     }
     
     func reloadData() {
         self.tableView.reloadData()
+        if let image = selectorDelegate?.currentArtwork() {
+            self.imageView.image = image
+        }
     }
 }
 
@@ -65,13 +72,15 @@ extension TracksController: NSTableViewDataSource {
         let identifier = NSUserInterfaceItemIdentifier(rawValue: tableColumn.title)
         guard let res = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView else { return nil}
         guard let del = self.selectorDelegate else { return nil }
-
+        
         let trackInfo = del.trackInfo(at: row)
         if tableColumn.title == "Artist" {
             res.textField?.stringValue = trackInfo.artist
         } else if tableColumn.title == "Title" {
             res.textField?.stringValue = trackInfo.title
         }
+        res.textField?.backgroundColor = NSColor.clear
+        
         return res
     }
 }
