@@ -29,7 +29,8 @@ class Playlist {
     }
     
     private func isSupported(_ type: String) -> Bool {
-        return type.hasSuffix(".mp3")
+        // TODO: refactor this to use TI / AV types
+        return type.hasSuffix(".mp3") || type.hasSuffix(".m4a")
     }
     
     private func allTracks(from: URL) -> [URL] {
