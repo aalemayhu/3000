@@ -16,13 +16,19 @@ class PlayerManager: NSObject {
     private var isLooping = false
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
-    
     private var state = PlayerState()
     
     private var volume: Float {
         didSet {
             self.player?.volume = volume
             self.state.volume = volume
+        }
+    }
+
+    private var isMuted = false  {
+        didSet {
+            guard let player = self.player else { return }
+            player.isMuted = !player.isMuted
         }
     }
 
@@ -63,9 +69,8 @@ class PlayerManager: NSObject {
     }
     
     private func play(time: CMTime?) {
-        guard !isEndOfPlaylist() else {
-            debug_print("END reached, what now?")
-            return
+        if isEndOfPlaylist() {
+            self.state.playerIndex = 0
         }
         
         let u = playlist.track(at: self.state.playerIndex)
@@ -77,6 +82,7 @@ class PlayerManager: NSObject {
             if let seekTime = time {
                 self.player?.seek(to: seekTime)
             }
+            self.player?.isMuted = self.isMuted
             self.player?.play()
             NotificationCenter.default.post(name: Notification.Name.StartPlayingItem, object: nil)
         }
@@ -137,8 +143,7 @@ class PlayerManager: NSObject {
     }
     
     func mute() {
-        guard let player = self.player else { return }
-        player.isMuted = !player.isMuted
+        self.isMuted = !self.isMuted
     }
     
     func playRandomTrack() {
