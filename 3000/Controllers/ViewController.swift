@@ -58,7 +58,7 @@ class ViewController: NSViewController {
         loadArtwork(for: index, track: track)
         
         // Track info
-        let textColor = self.textColor(for: track.artwork)
+        let textColor = track.artwork?.areaAverage().contrast()
         self.trackInfoLabel.stringValue = "\(title)"
         self.trackArtistLabel.stringValue = "\(artist)"
         self.trackInfoLabel.textColor = textColor

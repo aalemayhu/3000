@@ -13,6 +13,7 @@
 		508BEA28214C1C0C009D9BA5 /* MetadataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */; };
 		5091463F214FFE43005210D7 /* AppDelegateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091463E214FFE43005210D7 /* AppDelegateActions.swift */; };
 		5091464121500265005210D7 /* TracksController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091464021500265005210D7 /* TracksController+TableView.swift */; };
+		509146432150100D005210D7 /* NSImage+AreaAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509146422150100D005210D7 /* NSImage+AreaAverage.swift */; };
 		509B666121481F7C006D9421 /* TracksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B665F21481F7C006D9421 /* TracksController.swift */; };
 		509B666221481F7C006D9421 /* TracksController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 509B666021481F7C006D9421 /* TracksController.xib */; };
 		509B666421482594006D9421 /* TracksTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B666321482594006D9421 /* TracksTableRowView.swift */; };
@@ -64,6 +65,7 @@
 		508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataLoader.swift; sourceTree = "<group>"; };
 		5091463E214FFE43005210D7 /* AppDelegateActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateActions.swift; sourceTree = "<group>"; };
 		5091464021500265005210D7 /* TracksController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TracksController+TableView.swift"; sourceTree = "<group>"; };
+		509146422150100D005210D7 /* NSImage+AreaAverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+AreaAverage.swift"; sourceTree = "<group>"; };
 		509B665F21481F7C006D9421 /* TracksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksController.swift; sourceTree = "<group>"; };
 		509B666021481F7C006D9421 /* TracksController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksController.xib; sourceTree = "<group>"; };
 		509B666321482594006D9421 /* TracksTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableRowView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				844D98002143F3AC001259C9 /* NSView+Blur.swift */,
 				50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */,
 				5091464021500265005210D7 /* TracksController+TableView.swift */,
+				509146422150100D005210D7 /* NSImage+AreaAverage.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				50E7250E214AB161001864C5 /* PlayerState.swift in Sources */,
 				844D98012143F3AC001259C9 /* NSView+Blur.swift in Sources */,
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
+				509146432150100D005210D7 /* NSImage+AreaAverage.swift in Sources */,
 				508BEA28214C1C0C009D9BA5 /* MetadataLoader.swift in Sources */,
 				50E72512214AC4B7001864C5 /* ViewController+AppDelegateActions.swift in Sources */,
 				5091464121500265005210D7 /* TracksController+TableView.swift in Sources */,
