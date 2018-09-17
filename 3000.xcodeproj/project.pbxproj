@@ -12,6 +12,7 @@
 		506B5AA621441B9B00EFD176 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506B5AA521441B9B00EFD176 /* BlurView.swift */; };
 		508BEA28214C1C0C009D9BA5 /* MetadataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */; };
 		5091463F214FFE43005210D7 /* AppDelegateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091463E214FFE43005210D7 /* AppDelegateActions.swift */; };
+		5091464121500265005210D7 /* TracksController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091464021500265005210D7 /* TracksController+TableView.swift */; };
 		509B666121481F7C006D9421 /* TracksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B665F21481F7C006D9421 /* TracksController.swift */; };
 		509B666221481F7C006D9421 /* TracksController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 509B666021481F7C006D9421 /* TracksController.xib */; };
 		509B666421482594006D9421 /* TracksTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B666321482594006D9421 /* TracksTableRowView.swift */; };
@@ -62,6 +63,7 @@
 		506B5AA521441B9B00EFD176 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataLoader.swift; sourceTree = "<group>"; };
 		5091463E214FFE43005210D7 /* AppDelegateActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateActions.swift; sourceTree = "<group>"; };
+		5091464021500265005210D7 /* TracksController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TracksController+TableView.swift"; sourceTree = "<group>"; };
 		509B665F21481F7C006D9421 /* TracksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksController.swift; sourceTree = "<group>"; };
 		509B666021481F7C006D9421 /* TracksController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksController.xib; sourceTree = "<group>"; };
 		509B666321482594006D9421 /* TracksTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableRowView.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */,
 				844D98002143F3AC001259C9 /* NSView+Blur.swift */,
 				50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */,
+				5091464021500265005210D7 /* TracksController+TableView.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
 				508BEA28214C1C0C009D9BA5 /* MetadataLoader.swift in Sources */,
 				50E72512214AC4B7001864C5 /* ViewController+AppDelegateActions.swift in Sources */,
+				5091464121500265005210D7 /* TracksController+TableView.swift in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
 				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,
 				50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */,
