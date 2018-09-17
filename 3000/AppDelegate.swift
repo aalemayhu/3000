@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var menuHandler: MenuItemHandler?
+    var menuHandler: AppDelegateActions?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         guard  let window = NSApplication.shared.windows.first else { return }        
@@ -35,16 +35,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return .terminateNow
     }
-}
-
-protocol MenuItemHandler {
-    func selectedDirectory(folder: URL)
-    func playOrPause()
-    func playRandomTrack()
-    func playNextTrack()
-    func playPreviousTrack()
-    func mute()
-    func changeVolume(change: Float)
-    func showTracksView()
-    func toggleLoop()
+    
+    func applicationDidBecomeActive(_ notification: Notification) {
+        self.menuHandler?.applicationDidBecomeActive(notification)
+    }
+    
+    func applicationDidResignActive(_ notification: Notification) {
+        self.menuHandler?.applicationDidResignActive(notification)
+    }
 }

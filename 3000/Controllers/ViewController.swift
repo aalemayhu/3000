@@ -32,6 +32,8 @@ class ViewController: NSViewController {
     var tracksController: TracksController?
     var isTracksControllerVisible = false
     
+    var isActive = true
+    
     // View
     
     override func viewDidLoad() {
@@ -96,12 +98,11 @@ class ViewController: NSViewController {
     }
     
     func loadArtwork(for index: Int, track: TrackMetadata) {
-        let op = MetadataLoader(asset: self.pm.asset(for: index), track: track)
-        op.completionBlock = {
+        let op = MetadataLoader(asset: self.pm.asset(for: index), track: track, completionBlock: {
             DispatchQueue.main.sync {
                 self.updateArtwork(with: track.artwork)
             }
-        }
+        })
         op.start()
     }
     
@@ -273,6 +274,25 @@ class ViewController: NSViewController {
     @objc func playerDidStart(note: NSNotification){
         self.updateView()
         self.addPeriodicTimeObserver()
+        
+        guard !isActive else { return }
+        showPlayingNextNotification()
+    }
+    
+    func showPlayingNextNotification() {
+        let index = pm.getIndex()
+        let track = self.pm.metadata(for: index)
+        NSUserNotificationCenter.default.removeAllDeliveredNotifications()
+        let op = MetadataLoader(asset: self.pm.asset(for: index), track: track, completionBlock: {
+            DispatchQueue.main.sync {
+                let notification = NSUserNotification()
+                notification.title = track.artist
+                notification.subtitle = track.title
+                notification.contentImage = track.artwork
+                NSUserNotificationCenter.default.deliver(notification)
+            }
+        })
+        op.start()
     }
     
     // Player observers

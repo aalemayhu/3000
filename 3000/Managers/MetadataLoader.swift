@@ -15,10 +15,11 @@ class MetadataLoader: Operation {
     var asset: AVURLAsset
     var track: TrackMetadata
     
-    init(asset: AVURLAsset, track: TrackMetadata) {
+    init(asset: AVURLAsset, track: TrackMetadata, completionBlock: (() -> Swift.Void)?) {
         self.asset = asset
         self.track = track
-        super.init()
+        super.init()        
+        self.completionBlock = completionBlock
     }
     
     override func main() {

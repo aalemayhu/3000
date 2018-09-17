@@ -1,5 +1,5 @@
 //
-//  ViewController+MenuItemHandler.swift
+//  ViewController+AppDelegateActions.swift
 //  3000
 //
 //  Created by ccscanf on 13/09/2018.
@@ -9,8 +9,16 @@
 import Foundation
 import Cocoa
 
-extension ViewController: MenuItemHandler {
+extension ViewController: AppDelegateActions {
     
+    func applicationDidBecomeActive(_ notification: Notification) {
+        self.isActive = true
+    }
+    
+    func applicationDidResignActive(_ notification: Notification) {
+        self.isActive = false
+    }
+        
     func playOrPause() {
         pm.playOrPause()
     }
