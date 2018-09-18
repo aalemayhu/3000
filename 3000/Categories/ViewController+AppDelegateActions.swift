@@ -20,7 +20,9 @@ extension ViewController: AppDelegateActions {
     }
         
     func playOrPause() {
-        pm.playOrPause()
+        if let error = pm.playOrPause() {
+            ErrorDialogs.alert(with: error)
+        }
     }
     
     func playRandomTrack() {

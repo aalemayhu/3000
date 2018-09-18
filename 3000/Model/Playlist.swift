@@ -11,16 +11,22 @@ import AVFoundation
 
 class Playlist {
     
+    var tracks: [URL] {
+        get {
+            return self.files
+        }
+    }
+    
     // TODO: should this be private
-    private var tracks = [URL]()
     var name: String
     var folder: URL
-
     
+    private var files = [URL]()
+
     init(folder: URL) {
         self.folder = folder
         self.name = folder.absoluteString        
-        self.tracks = self.allTracks(from: folder)
+        self.files = self.allfiles(from: folder)
     }
     
     init() {
@@ -33,18 +39,18 @@ class Playlist {
         return type.hasSuffix(".mp3") || type.hasSuffix(".m4a")
     }
     
-    private func allTracks(from: URL) -> [URL] {
+    private func allfiles(from: URL) -> [URL] {
         var all = [URL]()
         do {
             let files = try FileManager.default.contentsOfDirectory(at: from, includingPropertiesForKeys: nil, options: [])
-            // Get all of the top level tracks
+            // Get all of the top level files
             all += files.filter { return self.isSupported($0.lastPathComponent.lowercased()) }
             
-            // Get tracks in all subdirectories
+            // Get files in all subdirectories
             files.forEach({ (u) in
                 var isDir: ObjCBool = false
                 if FileManager.default.fileExists(atPath: u.relativePath, isDirectory: &isDir), isDir.boolValue {
-                    all += allTracks(from: u)
+                    all += allfiles(from: u)
                 }
             })
         } catch { debug_print("\(error)")  }
@@ -52,18 +58,10 @@ class Playlist {
     }
     
     func size() -> Int {
-        return self.tracks.count
+        return self.files.count
     }
-    
-    func track(at index: Int) -> URL {
-        return self.tracks[index]
-    }
-    
-    func contains(track: URL) -> Bool {
-        return self.tracks.contains(track)
-    }
-    
+        
     func index(of track: URL) -> Int? {
-        return self.tracks.index(of: track)
+        return self.files.index(of: track)
     }
 }

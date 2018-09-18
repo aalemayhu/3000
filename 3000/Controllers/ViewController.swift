@@ -185,7 +185,7 @@ class ViewController: NSViewController {
         debug_print("\(#function)")
         switch key {
         case Keybinding.PlayOrPause:
-            pm.playOrPause()
+            self.playOrPause()
         case Keybinding.VolumeUp:
             self.pm.changeVolume(change: 0.01)
             self.updateVolumeLabel()

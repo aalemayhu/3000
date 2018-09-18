@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB45EF213AE1C10082B462 /* DebugHelper.swift */; };
 		502B11642146CD1500A7F3F2 /* LayeredBackedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */; };
+		503AE59921514EBC00D937AE /* Playlist+ErrorEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */; };
 		506B5AA621441B9B00EFD176 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506B5AA521441B9B00EFD176 /* BlurView.swift */; };
 		508BEA28214C1C0C009D9BA5 /* MetadataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */; };
 		5091463F214FFE43005210D7 /* AppDelegateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091463E214FFE43005210D7 /* AppDelegateActions.swift */; };
@@ -61,6 +62,7 @@
 /* Begin PBXFileReference section */
 		2DCB45EF213AE1C10082B462 /* DebugHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHelper.swift; sourceTree = "<group>"; };
 		502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayeredBackedImageView.swift; sourceTree = "<group>"; };
+		503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Playlist+ErrorEmpty.swift"; sourceTree = "<group>"; };
 		506B5AA521441B9B00EFD176 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataLoader.swift; sourceTree = "<group>"; };
 		5091463E214FFE43005210D7 /* AppDelegateActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateActions.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		84D80EC1213461C4006C5D14 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */,
 				842D40A2213489D300AD1FBD /* TrackMetada.swift */,
 				84D80EC2213461CF006C5D14 /* Playlist.swift */,
 				50E7250D214AB161001864C5 /* PlayerState.swift */,
@@ -398,6 +401,7 @@
 				506B5AA621441B9B00EFD176 /* BlurView.swift in Sources */,
 				5091463F214FFE43005210D7 /* AppDelegateActions.swift in Sources */,
 				8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */,
+				503AE59921514EBC00D937AE /* Playlist+ErrorEmpty.swift in Sources */,
 				84D60C7521371B90005FA309 /* ImageSizes.swift in Sources */,
 				50E72510214ABB27001864C5 /* ErrorDialogs.swift in Sources */,
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,

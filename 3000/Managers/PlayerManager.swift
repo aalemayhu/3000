@@ -73,7 +73,7 @@ class PlayerManager: NSObject {
             self.state.playerIndex = 0
         }
         
-        let u = playlist.track(at: self.state.playerIndex)
+        let u = playlist.tracks[self.state.playerIndex]
         self.playItem = AVPlayerItem(url: u)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
@@ -187,16 +187,16 @@ class PlayerManager: NSObject {
         return nil
     }
     
-    func playOrPause() {
-        let _ = self.saveState()
+    func playOrPause() -> Error? {
+        if let error = self.saveState() { return error }
+        
         let lastTrack = self.storage.getLastTrack()
         let seekTime = self.storage.seekTime(playlist: self.playlist)
         
         // Attempt to resume previous track
-        let didResume = self.resume(lastTrack, time: seekTime)        
-        guard !didResume else {
+        guard !self.resume(lastTrack, time: seekTime) else {
             self.storage.removeLastTrack()
-            return
+            return nil
         }
     
         if isPlaying() {
@@ -205,18 +205,23 @@ class PlayerManager: NSObject {
         } else if playItem != nil {
             // Resume the loaded track
             player?.play()
-        } else {
+        } else if !isEmpty() {
             // Start from the beginning
             self.play(time: nil)
         }
+        
+        return nil
     }
     
     func asset(for index: Int) -> AVURLAsset {
-        return AVURLAsset(url: self.playlist.track(at: index), options: PlayerManager.AssetOptions)
+        let track = self.playlist.tracks[index]
+        return AVURLAsset(url: track, options: PlayerManager.AssetOptions)
     }
     
     func saveState() -> Error? {
-        self.state.update(time: self.player?.currentTime(), track: self.playlist.track(at: self.state.playerIndex).absoluteString)
+        guard !isEmpty() else { return ErrorEmptyPlaylist() }
+        let track = self.playlist.tracks[self.state.playerIndex].absoluteString
+        self.state.update(time: self.player?.currentTime(), track: track)
         return storage.save(folder: playlist.folder, data: state.jsonData()).error
     }
     
@@ -229,7 +234,7 @@ class PlayerManager: NSObject {
     }
     
     func indexFor(url: URL, playlist: Playlist) -> Int? {
-        guard playlist.contains(track: url) else {
+        guard playlist.tracks.contains(url) else {
             return nil
         }        
         return playlist.index(of: url)
@@ -256,7 +261,7 @@ class PlayerManager: NSObject {
     }
     
     func time(for index: Int) -> CMTime {
-        if self.indexFor(url: self.playlist.track(at: index), playlist: self.playlist) == index,
+        if self.indexFor(url: self.playlist.tracks[index], playlist: self.playlist) == index,
             let currentTime = self.storage.seekTime(playlist: self.playlist) {
             return currentTime
         }
@@ -264,7 +269,8 @@ class PlayerManager: NSObject {
     }
     
     func duration(for  index: Int) -> CMTime {
-        return AVURLAsset(url: self.playlist.track(at: index), options: PlayerManager.AssetOptions).duration
+        let track = self.playlist.tracks[index]
+        return AVURLAsset(url: track, options: PlayerManager.AssetOptions).duration
     }
     
     // Notifications
