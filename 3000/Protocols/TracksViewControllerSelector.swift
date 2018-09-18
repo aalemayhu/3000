@@ -10,7 +10,7 @@ import Cocoa
 
 typealias TrackListInfo = (artist: String, title: String)
 
-protocol TracksControllerSelector {
+protocol TracksViewControllerSelector {
     func didSelectTrack(index: Int)
     func trackInfo(at index: Int) -> TrackListInfo
     func numberOfTracks() -> Int

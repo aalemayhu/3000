@@ -1,5 +1,5 @@
 //
-//  TracksController.swift
+//  TracksViewController.swift
 //  3000
 //
 //  Created by ccscanf on 17/09/2018.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-extension TracksController: NSTableViewDelegate {
+extension TracksViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         print("\(#function)")
         selectorDelegate?.didSelectTrack(index: row)
@@ -24,7 +24,7 @@ extension TracksController: NSTableViewDelegate {
     }
 }
 
-extension TracksController: NSTableViewDataSource {
+extension TracksViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         guard let del = self.selectorDelegate else { return 0 }

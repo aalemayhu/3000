@@ -8,7 +8,7 @@
 
 import Cocoa
 
-extension ViewController: TracksControllerSelector {
+extension ViewController: TracksViewControllerSelector {
     
     func numberOfTracks() -> Int {
         return self.pm.trackCount()

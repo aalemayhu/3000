@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TracksController" customModule="_000" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="TracksViewController" customModule="_000" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="eeu-eP-6Cx" id="Fse-kC-HUt"/>
                 <outlet property="tableView" destination="tx5-YL-sh1" id="jMp-vy-zUk"/>

@@ -53,10 +53,10 @@ extension ViewController: AppDelegateActions {
     func showTracksView() {
         guard !isTracksControllerVisible else { return }
 
-        self.tracksController = self.tracksController ?? TracksController(selectorDelegate: self)
+        self.tracksViewController = self.tracksViewController ?? TracksViewController(selectorDelegate: self)
         
         self.popOver.behavior = .applicationDefined
-        self.popOver.contentViewController = tracksController
+        self.popOver.contentViewController = tracksViewController
         self.popOver.delegate = self
         self.popOver.animates = true
         popOver.show(relativeTo: self.view.bounds, of: self.trackInfoLabel, preferredEdge: .maxY)

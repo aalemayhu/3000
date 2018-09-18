@@ -29,7 +29,8 @@ class ViewController: NSViewController {
     var selectedFolder: URL?
     
     var timeObserverToken: Any?
-    var tracksController: TracksController?
+    var tracksViewController: TracksViewController?
+    // TODO: rename to be more popover specific
     var isTracksControllerVisible = false
     var popOver = NSPopover()
 

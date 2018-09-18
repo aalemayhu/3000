@@ -1,5 +1,5 @@
 //
-//  TracksController.swift
+//  TracksViewController.swift
 //  3000
 //
 //  Created by ccscanf on 11/09/2018.
@@ -8,15 +8,15 @@
 
 import Cocoa
 
-class TracksController: NSViewController {
+class TracksViewController: NSViewController {
     
-    var selectorDelegate: TracksControllerSelector?
+    var selectorDelegate: TracksViewControllerSelector?
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var imageView: NSImageView!
     
-    init(selectorDelegate: TracksControllerSelector) {
-        super.init(nibName: NSNib.Name(rawValue: "TracksController"), bundle: Bundle.main)
+    init(selectorDelegate: TracksViewControllerSelector) {
+        super.init(nibName: NSNib.Name(rawValue: "TracksViewController"), bundle: Bundle.main)
         self.selectorDelegate = selectorDelegate
     }
     
@@ -25,7 +25,7 @@ class TracksController: NSViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
         configure()
     }
     
