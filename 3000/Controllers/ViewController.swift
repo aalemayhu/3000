@@ -13,6 +13,8 @@ import Dispatch
 
 class ViewController: NSViewController {
     
+    // TODO: reduce memory usage in this class
+    
     let PlayableCollectionViewItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "PlayableCollectionViewItem")
     
     // Views
@@ -112,23 +114,6 @@ class ViewController: NSViewController {
         // Show new volume
         let sv = String.init(format: "%.f", pm.getVolume()*100)
         self.volumeLabel.stringValue = "\(sv)%🔊"
-    }
-    
-    func textColor(for background: NSImage?) -> NSColor{
-        guard let image = background else {
-            return NSColor.black
-        }
-        // https://stackoverflow.com/questions/24595908/swift-nsimage-to-cgimage
-        // TODO: locate most dominant color
-        var imageRect:CGRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        let imageRef = image.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-        // end
-        let bitmapRep = NSBitmapImageRep(cgImage: imageRef!)
-        let imageSize = image.size
-        if let color = bitmapRep.colorAt(x: Int(imageSize.width/2), y: Int(imageSize.height/2))?.contrast() {
-            return color
-        }
-        return NSColor.black
     }
     
     @objc func screenResize() {

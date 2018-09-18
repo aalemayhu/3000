@@ -139,9 +139,17 @@
 			children = (
 				8414CE0B2132D26500CE30F6 /* ViewController.swift */,
 				509B665F21481F7C006D9421 /* TracksViewController.swift */,
-				509B666021481F7C006D9421 /* TracksViewController.xib */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		503AE5A4215162DE00D937AE /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				8414CE122132D26600CE30F6 /* Main.storyboard */,
+				509B666021481F7C006D9421 /* TracksViewController.xib */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		5091463D214FFE2B005210D7 /* Protocols */ = {
@@ -205,6 +213,7 @@
 		8414CE082132D26500CE30F6 /* 3000 */ = {
 			isa = PBXGroup;
 			children = (
+				503AE5A4215162DE00D937AE /* Interface */,
 				8414CE092132D26500CE30F6 /* AppDelegate.swift */,
 				5091463D214FFE2B005210D7 /* Protocols */,
 				50A4DE27214974CA003C6402 /* Categories */,
@@ -214,7 +223,6 @@
 				84D80EC1213461C4006C5D14 /* Model */,
 				840E299B213456FB00F117BD /* Views */,
 				8414CE102132D26600CE30F6 /* Assets.xcassets */,
-				8414CE122132D26600CE30F6 /* Main.storyboard */,
 				8414CE152132D26600CE30F6 /* Info.plist */,
 				8414CE162132D26600CE30F6 /* _000.entitlements */,
 				8414CE0D2132D26500CE30F6 /* _000.xcdatamodeld */,

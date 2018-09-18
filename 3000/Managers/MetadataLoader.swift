@@ -11,7 +11,6 @@ import AVFoundation
 
 class MetadataLoader: Operation {
     
-    // TODO: load all fields here
     var asset: AVURLAsset
     var track: TrackMetadata
     

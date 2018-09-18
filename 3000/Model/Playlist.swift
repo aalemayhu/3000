@@ -17,8 +17,8 @@ class Playlist {
         }
     }
     
+    private var name: String
     // TODO: should this be private
-    var name: String
     var folder: URL
     
     private var files = [URL]()

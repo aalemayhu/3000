@@ -15,7 +15,6 @@ class TrackMetadata {
     var type: String?
     var albumName: String?
     var artist: String?
-    // TODO: reduce memory usage
     var artwork: NSImage?
     
     private func use(asset: AVURLAsset, useImage: Bool = false) {
