@@ -18,6 +18,8 @@ class PlayerManager: NSObject {
     private var storage: StoredDefaults
     private var state = PlayerState()
     
+    static let DefaultVolumeValue: Float = 0.04
+    
     private var volume: Float {
         didSet {
             self.player?.volume = volume
@@ -41,14 +43,14 @@ class PlayerManager: NSObject {
     init(playlist: Playlist) {
         self.playlist = playlist
         self.storage = StoredDefaults(folder: playlist.folder)
-        self.volume = self.storage.getVolumeLevel() ?? 0.3
+        self.volume = self.storage.getVolumeLevel() ?? PlayerManager.DefaultVolumeValue
         super.init()
     }
     
     override init() {
         self.playlist = Playlist()
         self.storage = StoredDefaults(folder: self.playlist.folder)
-        self.volume = 0.3
+        self.volume = PlayerManager.DefaultVolumeValue
         super.init()
     }
     

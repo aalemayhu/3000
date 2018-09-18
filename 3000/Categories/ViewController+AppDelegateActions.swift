@@ -52,13 +52,15 @@ extension ViewController: AppDelegateActions {
     
     func showTracksView() {
         guard !isTracksControllerVisible else { return }
-        if self.tracksController == nil {
-            self.tracksController = TracksController(nibName: NSNib.Name(rawValue: "TracksController"), bundle: Bundle.main)
-            self.tracksController?.selectorDelegate = self
-        } else {
-            self.tracksController?.reloadData()
-        }
-        self.presentViewControllerAsSheet(self.tracksController!)
+
+        self.tracksController = self.tracksController ?? TracksController(selectorDelegate: self)
+        
+        self.popOver.behavior = .applicationDefined
+        self.popOver.contentViewController = tracksController
+        self.popOver.delegate = self
+        self.popOver.animates = true
+        popOver.show(relativeTo: self.view.bounds, of: self.trackInfoLabel, preferredEdge: .maxY)
+        
         self.isTracksControllerVisible = true
     }
     

@@ -18,7 +18,7 @@ class PlayerState {
     
     init() {
         self.lastTrack = ""
-        self.volume = 0.3
+        self.volume = PlayerManager.DefaultVolumeValue
     }
     
     init(lastTrack: String, volume: Float, seconds: Double?, timescale: CMTimeScale?) {

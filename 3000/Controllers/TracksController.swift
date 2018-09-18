@@ -8,15 +8,6 @@
 
 import Cocoa
 
-typealias TrackListInfo = (artist: String, title: String)
-
-protocol TracksControllerSelector {
-    func didSelectTrack(index: Int)
-    func trackInfo(at index: Int) -> TrackListInfo
-    func numberOfTracks() -> Int
-    func currentArtwork() -> NSImage?
-}
-
 class TracksController: NSViewController {
     
     var selectorDelegate: TracksControllerSelector?
@@ -24,10 +15,23 @@ class TracksController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var imageView: NSImageView!
     
+    init(selectorDelegate: TracksControllerSelector) {
+        super.init(nibName: NSNib.Name(rawValue: "TracksController"), bundle: Bundle.main)
+        self.selectorDelegate = selectorDelegate
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()        
         configure()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.reloadData()
     }
     
     func configure() {

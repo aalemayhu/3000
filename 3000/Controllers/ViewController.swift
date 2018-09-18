@@ -31,7 +31,8 @@ class ViewController: NSViewController {
     var timeObserverToken: Any?
     var tracksController: TracksController?
     var isTracksControllerVisible = false
-    
+    var popOver = NSPopover()
+
     var isActive = true
     
     // View
@@ -205,7 +206,7 @@ class ViewController: NSViewController {
         case Keybinding.Tracks:
             self.showTracksView()
         case Keybinding.Esc:
-            self.dismissTracksViewController()
+            self.hideTracksView()
         }
     }    
     
@@ -250,6 +251,11 @@ class ViewController: NSViewController {
         
         currentTimeLabel.stringValue = fmt.string(from: start)
         durationLabel.stringValue = fmt.string(from: end)
+    }
+    
+    func hideTracksView() {
+        self.popOver.close()
+        self.isTracksControllerVisible = false
     }
     
     // Directory management
@@ -343,31 +349,5 @@ class ViewController: NSViewController {
         volumeLabel.isHidden = hidden
         durationLabel.isHidden = hidden
         currentTimeLabel.isHidden = hidden
-    }
-}
-
-extension ViewController: TracksControllerSelector {
-  
-    func numberOfTracks() -> Int {
-        return self.pm.trackCount()
-    }
-    
-    func currentArtwork() -> NSImage? {
-        return self.imageView?.layer?.contents as? NSImage
-    }
-
-    func dismissTracksViewController() {
-        guard self.isTracksControllerVisible, let t = self.tracksController else { return }
-        self.dismissViewController(t)
-        self.isTracksControllerVisible = false
-    }
-    
-    func trackInfo(at index: Int) -> TrackListInfo {
-        return self.pm.trackInfo(for: index)
-    }
-    
-    func didSelectTrack(index: Int) {
-        self.dismissTracksViewController()
-        self.pm.playFrom(index)
     }
 }
