@@ -68,12 +68,7 @@ class ViewController: NSViewController {
         self.trackInfoLabel.textColor = textColor
         self.trackArtistLabel.textColor = textColor
 
-        // Track progress
-        self.currentTimeLabel.textColor = textColor
-        self.durationLabel.textColor = textColor
-        
         // Volume
-        self.volumeLabel.textColor = textColor
         self.updateVolumeLabel()
         
         self.updateTimeElements(for: index)
@@ -118,7 +113,7 @@ class ViewController: NSViewController {
         
         self.currentTimeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
         self.durationLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
-        self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)        
+        self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
     }
     
     
