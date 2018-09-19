@@ -107,7 +107,7 @@ class ViewController: NSViewController {
     }
     
     @objc func screenResize() {
-        let fontSize = max(self.view.frame.size.width/28, 13)
+        let fontSize = max(self.imageView.frame.size.width/28, 13)
         self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
         self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
         
