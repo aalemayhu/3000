@@ -13,7 +13,6 @@ class TracksViewController: NSViewController {
     var selectorDelegate: TracksViewControllerSelector?
     
     @IBOutlet weak var tableView: NSTableView!
-    @IBOutlet weak var imageView: NSImageView!
     
     init(selectorDelegate: TracksViewControllerSelector) {
         super.init(nibName: NSNib.Name(rawValue: "TracksViewController"), bundle: Bundle.main)
@@ -42,8 +41,5 @@ class TracksViewController: NSViewController {
     
     func reloadData() {
         self.tableView.reloadData()
-        if let image = selectorDelegate?.currentArtwork() {
-            self.imageView.image = image
-        }
     }
 }

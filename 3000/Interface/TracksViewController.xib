@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TracksViewController" customModule="_000" customModuleProvider="target">
             <connections>
-                <outlet property="imageView" destination="eeu-eP-6Cx" id="Fse-kC-HUt"/>
                 <outlet property="tableView" destination="tx5-YL-sh1" id="jMp-vy-zUk"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -21,11 +20,6 @@
                 <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="JcF-cD-0Bh">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                     <subviews>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eeu-eP-6Cx">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="OUD-dZ-fVS"/>
-                        </imageView>
                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-eB-hMi">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                             <clipView key="contentView" id="FmZ-Ub-3JO">
