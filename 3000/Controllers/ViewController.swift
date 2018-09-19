@@ -20,7 +20,7 @@ class ViewController: NSViewController {
     // Views
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
-    var imageView: LayeredBackedImageView?
+    @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var progressSlider: NSSlider!
@@ -93,12 +93,7 @@ class ViewController: NSViewController {
     
     func updateArtwork(with artwork: NSImage?) {
         guard let artwork = artwork else { return }
-        if let imageView = self.imageView {
-            imageView.layer?.contents = artwork
-            return
-        }
-        self.imageView = LayeredBackedImageView(frame: self.view.frame, andImage: artwork)
-        self.view.addSubview(self.imageView!, positioned: NSWindow.OrderingMode.below, relativeTo: currentTimeLabel)
+        self.imageView.image = artwork
     }
     
     func loadArtwork(for index: Int, track: TrackMetadata) {
@@ -123,9 +118,7 @@ class ViewController: NSViewController {
         
         self.currentTimeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
         self.durationLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
-        self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
-        
-        self.imageView?.setFrameSize(self.view.frame.size)
+        self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)        
     }
     
     
