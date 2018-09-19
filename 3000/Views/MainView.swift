@@ -18,7 +18,7 @@ class MainView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        NSColor.white.setFill()
+        NSColor.black.setFill()
         dirtyRect.fill()
     }
     
