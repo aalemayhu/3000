@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB45EF213AE1C10082B462 /* DebugHelper.swift */; };
-		502B11642146CD1500A7F3F2 /* LayeredBackedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */; };
+		502B11642146CD1500A7F3F2 /* ArtworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B11632146CD1500A7F3F2 /* ArtworkImageView.swift */; };
 		503AE59921514EBC00D937AE /* Playlist+ErrorEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */; };
 		503AE59D21515C5E00D937AE /* ViewController+PopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */; };
 		503AE5A121515D5C00D937AE /* TracksViewControllerSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */; };
@@ -64,7 +64,7 @@
 
 /* Begin PBXFileReference section */
 		2DCB45EF213AE1C10082B462 /* DebugHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHelper.swift; sourceTree = "<group>"; };
-		502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayeredBackedImageView.swift; sourceTree = "<group>"; };
+		502B11632146CD1500A7F3F2 /* ArtworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkImageView.swift; sourceTree = "<group>"; };
 		503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Playlist+ErrorEmpty.swift"; sourceTree = "<group>"; };
 		503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+PopOver.swift"; sourceTree = "<group>"; };
 		503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewControllerSelector.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 				840E299C2134570D00F117BD /* MainView.swift */,
 				84186D2F21407A49001754A8 /* TrackProgressSliderCell.swift */,
 				506B5AA521441B9B00EFD176 /* BlurView.swift */,
-				502B11632146CD1500A7F3F2 /* LayeredBackedImageView.swift */,
+				502B11632146CD1500A7F3F2 /* ArtworkImageView.swift */,
 				509B666321482594006D9421 /* TracksTableRowView.swift */,
 				50E7250F214ABB27001864C5 /* ErrorDialogs.swift */,
 			);
@@ -442,7 +442,7 @@
 				509B666421482594006D9421 /* TracksTableRowView.swift in Sources */,
 				503AE59D21515C5E00D937AE /* ViewController+PopOver.swift in Sources */,
 				509B666121481F7C006D9421 /* TracksViewController.swift in Sources */,
-				502B11642146CD1500A7F3F2 /* LayeredBackedImageView.swift in Sources */,
+				502B11642146CD1500A7F3F2 /* ArtworkImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

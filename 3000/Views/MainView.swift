@@ -31,4 +31,21 @@ class MainView: NSView {
         let trackingArea = NSTrackingArea(rect: self.bounds, options: options, owner: self, userInfo: nil)
         self.addTrackingArea(trackingArea)
     }
+    
+    // Drag events
+    
+    func setupDragEvents() {                
+        self.registerForDraggedTypes([.fileURL])
+    }
+    
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        print("\(#function): \(sender)")
+        
+        return true
+    }
+    
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        return NSDragOperation()
+    }
+    
 }

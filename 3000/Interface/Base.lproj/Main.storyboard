@@ -230,7 +230,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="rCP-NR-6Z0">
+                            <imageView horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="rCP-NR-6Z0" customClass="ArtworkImageView" customModule="_000" customModuleProvider="target">
                                 <rect key="frame" x="125" y="125" width="0.0" height="0.0"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="D7b-Pk-bVd"/>
                                 <userDefinedRuntimeAttributes>

@@ -20,7 +20,7 @@ class ViewController: NSViewController {
     // Views
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
-    @IBOutlet weak var imageView: NSImageView!
+    @IBOutlet weak var imageView: ArtworkImageView!
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var progressSlider: NSSlider!
@@ -120,7 +120,31 @@ class ViewController: NSViewController {
     // ---
     
     func configure () {
-        // Add notification observers
+        registerNotificationObservers()
+        registerLocalMonitoringKeyboardEvents()
+        
+        loadDefaults()
+        progressSlider.trackFillColor = NSColor.gray
+        
+        toggleTrackInfo(hidden: true)
+        
+        (self.view as? MainView)?.setupDragEvents()
+        self.imageView?.setupDragEvents()
+    }
+    
+    func registerLocalMonitoringKeyboardEvents() {
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            // Only use supported keybindings
+            if let key = $0.characters, let k = Keybinding(rawValue: key) {
+                self.keyDown(with: k)
+                return nil
+            }
+            // Allow system to handle all other defaults, like CMD+O, etc.
+            return $0
+        }
+    }
+    
+    func registerNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(openedDirectory),
                                                name: Notification.Name.OpenedFolder, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateView),
@@ -131,21 +155,6 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
                                                name: NSWindow.didResizeNotification, object: nil)
-        // Handle keyboard
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
-            // Only handle supported keybindings
-            if let key = $0.characters, let k = Keybinding(rawValue: key) {
-                self.keyDown(with: k)
-                return nil
-            }
-            // Allow system to handle all other defaults, like CMD+O, etc.
-            return $0
-        }
-        
-        loadDefaults()
-        progressSlider.trackFillColor = NSColor.gray
-        
-        toggleTrackInfo(hidden: true)        
     }
     
     func loadDefaults() {
