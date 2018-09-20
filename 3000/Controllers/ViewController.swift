@@ -177,6 +177,7 @@ class ViewController: NSViewController {
     func loadDefaults() {
         if let folder = StoredDefaults.getLastPath(), self.usePlaylist(folder) {
             // Found a playable playlist
+            self.updateView()
             return
         }
         // No playlist show placeholder values
