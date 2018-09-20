@@ -53,7 +53,11 @@ class ViewController: NSViewController {
     // View changes
     
     @objc func updateView() {
-        let index = pm.getIndex()
+        guard let index = pm.getIndex() else {
+            self.updateViewForEmptyPlaylist()
+            return
+        }
+        
         let track = self.pm.metadata(for: index)
         let title = track.title ?? ""
         let artist = track.artist ?? ""
@@ -72,6 +76,19 @@ class ViewController: NSViewController {
         self.updateVolumeLabel()
         
         self.updateTimeElements(for: index)
+    }
+    
+    func updateViewForEmptyPlaylist() {
+        self.currentTimeLabel.stringValue = ""
+        self.durationLabel.stringValue = ""
+        self.trackInfoLabel.stringValue = ""
+        self.trackArtistLabel.stringValue = "Press space 2 play or CMD+O"
+        
+        if let path = Bundle.main.path(forResource: "placeholder", ofType: ".png") {
+            self.imageView.image = NSImage(contentsOfFile: path)
+        }
+        
+        self.updateVolumeLabel()
     }
     
     func updateTimeElements(for index: Int) {
@@ -158,11 +175,12 @@ class ViewController: NSViewController {
     }
     
     func loadDefaults() {
-        if let folder = StoredDefaults.getLastPath() {
-            let _ = self.usePlaylist(folder)
-        } else {
-            debug_print("No cached folder")
+        if let folder = StoredDefaults.getLastPath(), self.usePlaylist(folder) {
+            // Found a playable playlist
+            return
         }
+        // No playlist show placeholder values
+        self.updateViewForEmptyPlaylist()
     }
     
     func keyDown(with key: Keybinding) {
@@ -197,10 +215,10 @@ class ViewController: NSViewController {
         let p = Playlist(folder: folder)
         if let error = self.pm.useCache(playlist: p), p.size() == 0 {
             debug_print(error.localizedDescription)
+            
             return false
         }
         
-        self.updateView()
         return true
     }
     
@@ -245,13 +263,12 @@ class ViewController: NSViewController {
     
     @objc func openedDirectory() {
         guard let selectedFolder = self.selectedFolder else { return }
-        
-        if let error = self.pm.resetPlayerState() {
-            debug_print("ERROR: \(error.localizedDescription)")
+        guard self.pm.resetPlayerState() == nil else {
+            self.updateViewForEmptyPlaylist()
+            return
         }
-        if self.usePlaylist(selectedFolder) {
-            self.pm.startPlaylist()
-        }
+        guard self.usePlaylist(selectedFolder) else { return }
+        self.pm.startPlaylist()
     }
     
     // Notification handlers
@@ -269,7 +286,7 @@ class ViewController: NSViewController {
     }
     
     func showPlayingNextNotification() {
-        let index = pm.getIndex()
+        guard let index = pm.getIndex() else { return }
         let track = self.pm.metadata(for: index)
         NSUserNotificationCenter.default.removeAllDeliveredNotifications()
         let op = MetadataLoader(asset: self.pm.asset(for: index), track: track, completionBlock: {
@@ -287,8 +304,8 @@ class ViewController: NSViewController {
     // Player observers
     
     func playerTimeProgressed() {
-        debug_print("\(#function)")
-        self.updateTimeElements(for: self.pm.getIndex())
+        guard let index = pm.getIndex() else { return }
+        self.updateTimeElements(for: index)
     }
     
     func addPeriodicTimeObserver() {

@@ -20,7 +20,7 @@ class ErrorEmptyPlaylist: NSError {
     
     override var localizedDescription: String {
         get {
-            return "No playable track, please select a folder"
+            return "No playable track, please select a folder (CMD+O)"
         }
     }
 }

@@ -231,8 +231,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="rCP-NR-6Z0" customClass="ArtworkImageView" customModule="_000" customModuleProvider="target">
-                                <rect key="frame" x="125" y="125" width="0.0" height="0.0"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="D7b-Pk-bVd"/>
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="placeholder" id="D7b-Pk-bVd"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -273,21 +273,21 @@
                                 </connections>
                             </slider>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b2i-w6-9Wo">
-                                <rect key="frame" x="38" y="103" width="175" height="44"/>
+                                <rect key="frame" x="30" y="103" width="190" height="44"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
-                                        <rect key="frame" x="67" y="24" width="42" height="20"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Artist" id="SMl-Rv-3kZ">
+                                        <rect key="frame" x="-2" y="24" width="194" height="20"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or CMD+O" id="SMl-Rv-3kZ">
                                             <font key="font" size="13" name="HelveticaNeue-Bold"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-IQ-gcw">
-                                        <rect key="frame" x="-2" y="0.0" width="179" height="20"/>
-                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Press space 2 play or CMD+O" id="VN8-RX-2u0">
+                                        <rect key="frame" x="91" y="0.0" width="8" height="20"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="VN8-RX-2u0">
                                             <font key="font" size="13" name="HelveticaNeue-Light"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
@@ -338,4 +338,7 @@
             <point key="canvasLocation" x="-2944" y="828"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="placeholder" width="250" height="250"/>
+    </resources>
 </document>

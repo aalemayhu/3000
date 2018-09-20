@@ -71,6 +71,7 @@ class PlayerManager: NSObject {
     }
     
     private func play(time: CMTime?) {
+        guard playlist.size() > 0 else { return }
         if isEndOfPlaylist() {
             self.state.playerIndex = 0
         }
@@ -104,7 +105,8 @@ class PlayerManager: NSObject {
         return self.volume
     }
     
-    func getIndex() -> Int {
+    func getIndex() -> Int? {
+        guard playlist.size() > 0 else { return nil }        
         return state.playerIndex
     }
     
@@ -125,7 +127,6 @@ class PlayerManager: NSObject {
     }
     
     func playFrom(_ index: Int) {
-        debug_print("\(#function): \(index)")
         self.state.playerIndex = index
         self.player?.pause()
         self.play(time: nil)
