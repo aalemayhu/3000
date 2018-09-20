@@ -14,8 +14,18 @@ class PlayerState {
     var volume: Float
     var seconds: Double?
     var timescale: CMTimeScale?
-    var playerIndex = 0
     
+    var currentIndex: Int {
+        get { return self.index }
+    }
+    
+    private var index: Int = 0
+    // TODO: save the previous index?
+    private var previousIndex = 0
+    
+    // TODO: save the value of isLooping
+    var isLooping = false
+
     init() {
         self.lastTrack = ""
         self.volume = PlayerManager.DefaultVolumeValue
@@ -52,7 +62,27 @@ class PlayerState {
     }
     
     func reset() {
-        self.playerIndex = 0
+        self.index = 0
         self.lastTrack = ""
+    }
+    
+    func next() {
+        self.previousIndex = self.index
+        self.index += 1
+    }
+    
+    func previous() {
+        self.index = self.previousIndex
+    }
+    
+    func random(upperBound: Int) {
+        // TODO: store the previous index here
+        self.previousIndex = self.index
+        self.index = Int(arc4random_uniform(UInt32(upperBound)))
+    }
+    
+    func from(_ i: Int) {
+        self.previousIndex = self.index
+        self.index = i
     }
 }

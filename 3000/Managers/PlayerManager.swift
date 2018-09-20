@@ -13,7 +13,6 @@ class PlayerManager: NSObject {
     
     private var playlist: Playlist
     // Move isLooping into player state
-    private var isLooping = false
     private var playItem: AVPlayerItem?
     private var storage: StoredDefaults
     private var state = PlayerState()
@@ -57,12 +56,7 @@ class PlayerManager: NSObject {
     // Player tracking
     
     private func isEndOfPlaylist() -> Bool {
-        guard playlist.size() > 0 && self.state.playerIndex < playlist.size() else {
-                    self.state.playerIndex = 0
-                    return true
-        }
-        
-        return false
+        return !(self.state.currentIndex < playlist.size())
     }
     
     func startPlaylist() {
@@ -73,10 +67,10 @@ class PlayerManager: NSObject {
     private func play(time: CMTime?) {
         guard playlist.size() > 0 else { return }
         if isEndOfPlaylist() {
-            self.state.playerIndex = 0
+            self.state.reset()
         }
         
-        let u = playlist.tracks[self.state.playerIndex]
+        let u = playlist.tracks[self.state.currentIndex]
         self.playItem = AVPlayerItem(url: u)
         if let item = self.playItem {
             self.player = AVPlayer(playerItem: item)
@@ -107,7 +101,7 @@ class PlayerManager: NSObject {
     
     func getIndex() -> Int? {
         guard playlist.size() > 0 else { return nil }        
-        return state.playerIndex
+        return state.currentIndex
     }
     
     func metadata(for index: Int) -> TrackMetadata {
@@ -127,21 +121,21 @@ class PlayerManager: NSObject {
     }
     
     func playFrom(_ index: Int) {
-        self.state.playerIndex = index
+        self.state.from(index)
         self.player?.pause()
         self.play(time: nil)
     }
     
     func playNextTrack() {
         self.storage.removeLastTrack()
-        self.state.playerIndex += 1
+        self.state.next()
         play(time: nil)
     }
     
     func playPreviousTrack() {
         self.storage.removeLastTrack()
-        guard self.state.playerIndex > 0 else { return }
-        self.state.playerIndex += -1
+        guard self.state.currentIndex > 0 else { return }
+        self.state.previous()
         play(time: nil)
     }
     
@@ -151,15 +145,14 @@ class PlayerManager: NSObject {
     
     func playRandomTrack() {
         self.storage.removeLastTrack()
-        let upperBound = UInt32(self.playlist.size())
         // obs: experimenting without zero out image
 //        self.metadata(for: self.state.playerIndex).artwork = nil
-        self.state.playerIndex = Int(arc4random_uniform(upperBound))
+        self.state.random(upperBound: self.playlist.size())
         self.play(time: nil)
     }
     
     func loopTrack() {
-        isLooping = true
+        self.state.isLooping = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.didFinishPlaying(note:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
@@ -169,12 +162,12 @@ class PlayerManager: NSObject {
     }
     
     func getIsLooping() -> Bool{
-        return isLooping
+        return self.state.isLooping
     }
     
     func stopLooping() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        isLooping = false
+        self.state.isLooping = false
     }
     
     func useCache(playlist: Playlist) -> Error? {
@@ -184,7 +177,7 @@ class PlayerManager: NSObject {
         }
         if let url = self.storage.getLastTrack(),
             let index = self.indexFor(url: url, playlist: playlist) {
-            self.state.playerIndex = index
+            self.state.from(index)
         }
         self.volume = self.storage.getVolumeLevel() ?? self.volume
         return nil
@@ -223,7 +216,7 @@ class PlayerManager: NSObject {
     
     func saveState() -> Error? {
         guard !isEmpty() else { return ErrorEmptyPlaylist() }
-        let track = self.playlist.tracks[self.state.playerIndex].absoluteString
+        let track = self.playlist.tracks[self.state.currentIndex].absoluteString
         self.state.update(time: self.player?.currentTime(), track: track)
         return storage.save(folder: playlist.folder, data: state.jsonData()).error
     }
@@ -247,7 +240,7 @@ class PlayerManager: NSObject {
         guard let url = url, let index = self.indexFor(url: url, playlist: self.playlist) else {
                 return false
         }
-        self.state.playerIndex = index
+        self.state.from(index)
         self.play(time: time)
         return true
     }
@@ -279,7 +272,7 @@ class PlayerManager: NSObject {
     // Notifications
     
     @objc func didFinishPlaying(note: NSNotification) {
-        guard isLooping else { return }
+        guard self.state.isLooping else { return }
         self.play(time: nil)
     }
 }
