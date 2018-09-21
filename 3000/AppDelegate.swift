@@ -15,8 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         guard  let window = NSApplication.shared.windows.first else { return }        
-        // Window remember last position when app has been quit / terminated
-        window.setFrameAutosaveName(NSWindow.FrameAutosaveName(rawValue: "3000"))
+        // Window remember last position when app has been quit / terminated                
+        window.setFrameAutosaveName(NSWindow.FrameAutosaveName("3000"))
         self.menuHandler = window.contentViewController as? ViewController
     }
 

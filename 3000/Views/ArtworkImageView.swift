@@ -16,7 +16,7 @@ class ArtworkImageView: NSImageView {
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let items = sender.draggingPasteboard().pasteboardItems else { return false }
+        guard let items = sender.draggingPasteboard.pasteboardItems else { return false }
         for item in items {
             print("\(#function): \(item)")
         }

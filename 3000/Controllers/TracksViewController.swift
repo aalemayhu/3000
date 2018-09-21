@@ -15,7 +15,7 @@ class TracksViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     
     init(selectorDelegate: TracksViewControllerSelector) {
-        super.init(nibName: NSNib.Name(rawValue: "TracksViewController"), bundle: Bundle.main)
+        super.init(nibName: "TracksViewController", bundle: Bundle.main)
         self.selectorDelegate = selectorDelegate
     }
     
