@@ -38,6 +38,12 @@ class ViewController: NSViewController {
 
     var isActive = true
     
+    var mainView: MainView? {
+        get {
+            return self.view as? MainView
+        }
+    }
+    
     // View
     
     override func viewDidLoad() {
@@ -145,7 +151,7 @@ class ViewController: NSViewController {
         
         toggleTrackInfo(hidden: true)
         
-        (self.view as? MainView)?.setupDragEvents()
+        self.mainView?.setupDragEvents(dragNotifier: self)
         self.imageView?.setupDragEvents()
     }
     

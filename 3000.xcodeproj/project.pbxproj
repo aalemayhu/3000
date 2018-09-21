@@ -27,6 +27,8 @@
 		50E7250E214AB161001864C5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250D214AB161001864C5 /* PlayerState.swift */; };
 		50E72510214ABB27001864C5 /* ErrorDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250F214ABB27001864C5 /* ErrorDialogs.swift */; };
 		50E72512214AC4B7001864C5 /* ViewController+AppDelegateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */; };
+		50F70EDF21554C320065AAC5 /* DragNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F70EDE21554C320065AAC5 /* DragNotifier.swift */; };
+		50F70EE121554C900065AAC5 /* ViewController+DragNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F70EE021554C900065AAC5 /* ViewController+DragNotifier.swift */; };
 		840E299D2134570D00F117BD /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840E299C2134570D00F117BD /* MainView.swift */; };
 		8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE092132D26500CE30F6 /* AppDelegate.swift */; };
 		8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414CE0B2132D26500CE30F6 /* ViewController.swift */; };
@@ -84,6 +86,8 @@
 		50E7250D214AB161001864C5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		50E7250F214ABB27001864C5 /* ErrorDialogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDialogs.swift; sourceTree = "<group>"; };
 		50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+AppDelegateActions.swift"; sourceTree = "<group>"; };
+		50F70EDE21554C320065AAC5 /* DragNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNotifier.swift; sourceTree = "<group>"; };
+		50F70EE021554C900065AAC5 /* ViewController+DragNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DragNotifier.swift"; sourceTree = "<group>"; };
 		840E299C2134570D00F117BD /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8414CE062132D26500CE30F6 /* 3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8414CE092132D26500CE30F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,11 +164,12 @@
 			children = (
 				5091463E214FFE43005210D7 /* AppDelegateActions.swift */,
 				503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */,
+				50F70EDE21554C320065AAC5 /* DragNotifier.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		50A4DE27214974CA003C6402 /* Categories */ = {
+		50A4DE27214974CA003C6402 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				84D80EBF21345D86006C5D14 /* Notifications.swift */,
@@ -176,8 +181,9 @@
 				509146422150100D005210D7 /* NSImage+AreaAverage.swift */,
 				503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */,
 				503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */,
+				50F70EE021554C900065AAC5 /* ViewController+DragNotifier.swift */,
 			);
-			path = Categories;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		840E299B213456FB00F117BD /* Views */ = {
@@ -219,7 +225,7 @@
 				503AE5A4215162DE00D937AE /* Interface */,
 				8414CE092132D26500CE30F6 /* AppDelegate.swift */,
 				5091463D214FFE2B005210D7 /* Protocols */,
-				50A4DE27214974CA003C6402 /* Categories */,
+				50A4DE27214974CA003C6402 /* Extensions */,
 				50118A8B213C4490002CFD4A /* Controllers */,
 				84C1A0172134A95500463C37 /* Managers */,
 				84D80EC421346D17006C5D14 /* Constants */,
@@ -424,9 +430,11 @@
 				5091463F214FFE43005210D7 /* AppDelegateActions.swift in Sources */,
 				8414CE0C2132D26500CE30F6 /* ViewController.swift in Sources */,
 				503AE59921514EBC00D937AE /* Playlist+ErrorEmpty.swift in Sources */,
+				50F70EE121554C900065AAC5 /* ViewController+DragNotifier.swift in Sources */,
 				84D60C7521371B90005FA309 /* ImageSizes.swift in Sources */,
 				50E72510214ABB27001864C5 /* ErrorDialogs.swift in Sources */,
 				840E299D2134570D00F117BD /* MainView.swift in Sources */,
+				50F70EDF21554C320065AAC5 /* DragNotifier.swift in Sources */,
 				84C1A01B2134C10000463C37 /* StoredDefaults.swift in Sources */,
 				8414CE0F2132D26500CE30F6 /* _000.xcdatamodeld in Sources */,
 				84F1439721433E5B006D481E /* Keybinding.swift in Sources */,

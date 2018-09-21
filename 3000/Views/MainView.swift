@@ -9,6 +9,8 @@
 import Cocoa
 
 class MainView: NSView {
+    
+    var dragNotifier: DragNotifier?
 
     override func menu(for event: NSEvent) -> NSMenu? {
         debug_print("\(#function): \(event)")
@@ -34,17 +36,28 @@ class MainView: NSView {
     
     // Drag events
     
-    func setupDragEvents() {                
+    func setupDragEvents(dragNotifier: DragNotifier) {
+        self.dragNotifier = dragNotifier
         self.registerForDraggedTypes([.fileURL])
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        print("\(#function): \(sender)")
-        
+        let pboard = sender.draggingPasteboard
+        if let path = pboard.propertyList(forType: .fileURL) as? String {
+            self.dragNotifier?.didDragFolder(path: path)
+        }
         return true
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        let pboard = sender.draggingPasteboard
+        
+        guard let types = pboard.types else { return NSDragOperation() }
+        
+        if (types.contains(.fileURL)) {
+            return .copy
+        }
+        
         return NSDragOperation()
     }
     
