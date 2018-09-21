@@ -8,10 +8,8 @@
 
 import Cocoa
 
-class MainView: NSView {
+class MainView: DropView {
     
-    var dragNotifier: DragNotifier?
-
     override func menu(for event: NSEvent) -> NSMenu? {
         debug_print("\(#function): \(event)")
         return super.menu(for: event)
@@ -19,7 +17,6 @@ class MainView: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        
         NSColor.black.setFill()
         dirtyRect.fill()
     }
@@ -32,33 +29,5 @@ class MainView: NSView {
         let options: NSTrackingArea.Options = [.mouseEnteredAndExited, .activeAlways]
         let trackingArea = NSTrackingArea(rect: self.bounds, options: options, owner: self, userInfo: nil)
         self.addTrackingArea(trackingArea)
-    }
-    
-    // Drag events
-    
-    func setupDragEvents(dragNotifier: DragNotifier) {
-        self.dragNotifier = dragNotifier
-        self.registerForDraggedTypes([.fileURL])
-    }
-    
-    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        let pboard = sender.draggingPasteboard
-        if let path = pboard.propertyList(forType: .fileURL) as? String {
-            self.dragNotifier?.didDragFolder(path: path)
-        }
-        return true
-    }
-    
-    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        let pboard = sender.draggingPasteboard
-        
-        guard let types = pboard.types else { return NSDragOperation() }
-        
-        if (types.contains(.fileURL)) {
-            return .copy
-        }
-        
-        return NSDragOperation()
-    }
-    
+    }    
 }

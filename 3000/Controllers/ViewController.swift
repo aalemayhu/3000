@@ -92,6 +92,7 @@ class ViewController: NSViewController {
         
         if let path = Bundle.main.path(forResource: "placeholder", ofType: ".png") {
             self.imageView.image = NSImage(contentsOfFile: path)
+            self.imageView.needsDisplay = true
         }
         
         self.updateVolumeLabel()
@@ -112,6 +113,7 @@ class ViewController: NSViewController {
     func updateArtwork(with artwork: NSImage?) {
         guard let artwork = artwork else { return }
         self.imageView.image = artwork
+        self.imageView.needsDisplay = true
     }
     
     func loadArtwork(for index: Int, track: TrackMetadata) {
@@ -139,7 +141,6 @@ class ViewController: NSViewController {
         self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
     }
     
-    
     // ---
     
     func configure () {
@@ -152,7 +153,7 @@ class ViewController: NSViewController {
         toggleTrackInfo(hidden: true)
         
         self.mainView?.setupDragEvents(dragNotifier: self)
-        self.imageView?.setupDragEvents()
+        self.imageView?.setupDragEvents(dragNotifier: self)
     }
     
     func registerLocalMonitoringKeyboardEvents() {
