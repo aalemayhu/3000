@@ -24,7 +24,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var progressSlider: NSSlider!
-    @IBOutlet weak var volumeLabel: NSTextField!
+//    @IBOutlet weak var volumeLabel: NSTextField!
+    
+    @IBOutlet weak var volumeButton: NSButton!
     
     var cache = [String: Bool]()
     var pm: PlayerManager = PlayerManager()
@@ -77,9 +79,6 @@ class ViewController: NSViewController {
         self.trackArtistLabel.stringValue = "\(artist)"
         self.trackInfoLabel.textColor = textColor
         self.trackArtistLabel.textColor = textColor
-
-        // Volume
-        self.updateVolumeLabel()
         
         self.updateTimeElements(for: index)
     }
@@ -94,8 +93,6 @@ class ViewController: NSViewController {
             self.imageView.image = NSImage(contentsOfFile: path)
             self.imageView.needsDisplay = true
         }
-        
-        self.updateVolumeLabel()
     }
     
     func updateTimeElements(for index: Int) {
@@ -125,12 +122,6 @@ class ViewController: NSViewController {
         op.start()
     }
     
-    func updateVolumeLabel() {
-        // Show new volume
-        let sv = String.init(format: "%.f", pm.getVolume()*100)
-        self.volumeLabel.stringValue = "\(sv)%🔊"
-    }
-    
     @objc func screenResize() {
         let fontSize = max(self.imageView.frame.size.width/28, 13)
         self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
@@ -138,9 +129,11 @@ class ViewController: NSViewController {
         
         self.currentTimeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
         self.durationLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
-        self.volumeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
     }
     
+    @IBAction func volumeButtonPressed(_ sender: NSButton) {
+        print("\(#function)")
+    }
     // ---
     
     func configure () {
@@ -198,10 +191,8 @@ class ViewController: NSViewController {
             self.playOrPause()
         case Keybinding.VolumeUp:
             self.pm.changeVolume(change: 0.01)
-            self.updateVolumeLabel()
         case Keybinding.VolumeDown:
             self.pm.changeVolume(change: -0.01)
-            self.updateVolumeLabel()
         case Keybinding.Loop:
             self.toggleLoop()
         case Keybinding.Random:
@@ -354,7 +345,7 @@ class ViewController: NSViewController {
         trackInfoLabel.isHidden = hidden
         trackArtistLabel.isHidden = hidden
         progressSlider.isHidden = hidden
-        volumeLabel.isHidden = hidden
+        volumeButton.isHidden = hidden
         durationLabel.isHidden = hidden
         currentTimeLabel.isHidden = hidden
     }

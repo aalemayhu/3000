@@ -24,6 +24,7 @@
 		509B666421482594006D9421 /* TracksTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B666321482594006D9421 /* TracksTableRowView.swift */; };
 		50A4DE26214974A0003C6402 /* AppDelegate+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */; };
 		50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D16654214586290025E15B /* NSColor+Contrast.swift */; };
+		50E20FB5215691AA0098FF93 /* Volume button.png in Resources */ = {isa = PBXBuildFile; fileRef = 50E20FB4215691AA0098FF93 /* Volume button.png */; };
 		50E7250E214AB161001864C5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250D214AB161001864C5 /* PlayerState.swift */; };
 		50E72510214ABB27001864C5 /* ErrorDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250F214ABB27001864C5 /* ErrorDialogs.swift */; };
 		50E72512214AC4B7001864C5 /* ViewController+AppDelegateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */; };
@@ -84,6 +85,7 @@
 		509B666321482594006D9421 /* TracksTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableRowView.swift; sourceTree = "<group>"; };
 		50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+MenuActions.swift"; sourceTree = "<group>"; };
 		50D16654214586290025E15B /* NSColor+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Contrast.swift"; sourceTree = "<group>"; };
+		50E20FB4215691AA0098FF93 /* Volume button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Volume button.png"; sourceTree = "<group>"; };
 		50E7250D214AB161001864C5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		50E7250F214ABB27001864C5 /* ErrorDialogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDialogs.swift; sourceTree = "<group>"; };
 		50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+AppDelegateActions.swift"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		503AE5A4215162DE00D937AE /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				50E20FB4215691AA0098FF93 /* Volume button.png */,
 				503BD5A42153F0A6007EDF74 /* placeholder.png */,
 				8414CE122132D26600CE30F6 /* Main.storyboard */,
 				509B666021481F7C006D9421 /* TracksViewController.xib */,
@@ -400,6 +403,7 @@
 				8414CE112132D26600CE30F6 /* Assets.xcassets in Resources */,
 				503BD5A52153F0A6007EDF74 /* placeholder.png in Resources */,
 				509B666221481F7C006D9421 /* TracksViewController.xib in Resources */,
+				50E20FB5215691AA0098FF93 /* Volume button.png in Resources */,
 				8414CE142132D26600CE30F6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

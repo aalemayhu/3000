@@ -43,7 +43,6 @@ extension ViewController: AppDelegateActions {
     
     func changeVolume(change: Float) {
         pm.changeVolume(change: change)
-        self.updateVolumeLabel()
     }
     
     func selectedDirectory(folder: URL) {
