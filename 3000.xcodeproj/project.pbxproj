@@ -188,6 +188,27 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		50E20FB2215690620098FF93 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				84C1A0182134A96700463C37 /* PlayerManager.swift */,
+				503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */,
+				842D40A2213489D300AD1FBD /* TrackMetada.swift */,
+				84D80EC2213461CF006C5D14 /* Playlist.swift */,
+				50E7250D214AB161001864C5 /* PlayerState.swift */,
+				50E20FB32156907B0098FF93 /* Metadata */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		50E20FB32156907B0098FF93 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
 		840E299B213456FB00F117BD /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,14 +246,13 @@
 		8414CE082132D26500CE30F6 /* 3000 */ = {
 			isa = PBXGroup;
 			children = (
+				50E20FB2215690620098FF93 /* Player */,
 				8414CE092132D26500CE30F6 /* AppDelegate.swift */,
 				503AE5A4215162DE00D937AE /* Interface */,
 				5091463D214FFE2B005210D7 /* Protocols */,
 				50A4DE27214974CA003C6402 /* Extensions */,
 				50118A8B213C4490002CFD4A /* Controllers */,
-				84C1A0172134A95500463C37 /* Managers */,
 				84D80EC421346D17006C5D14 /* Constants */,
-				84D80EC1213461C4006C5D14 /* Model */,
 				840E299B213456FB00F117BD /* Views */,
 				8414CE102132D26600CE30F6 /* Assets.xcassets */,
 				8414CE152132D26600CE30F6 /* Info.plist */,
@@ -260,26 +280,6 @@
 				8414CE2C2132D26600CE30F6 /* Info.plist */,
 			);
 			path = 3000UITests;
-			sourceTree = "<group>";
-		};
-		84C1A0172134A95500463C37 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				84C1A0182134A96700463C37 /* PlayerManager.swift */,
-				508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		84D80EC1213461C4006C5D14 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */,
-				842D40A2213489D300AD1FBD /* TrackMetada.swift */,
-				84D80EC2213461CF006C5D14 /* Playlist.swift */,
-				50E7250D214AB161001864C5 /* PlayerState.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		84D80EC421346D17006C5D14 /* Constants */ = {
