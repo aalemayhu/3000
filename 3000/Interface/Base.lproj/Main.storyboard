@@ -315,7 +315,6 @@
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="jo4-05-jJY"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="3MI-rf-mAf" secondAttribute="trailing" constant="42" id="kN9-qg-HJJ"/>
                             <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="m07-9e-dGE"/>
-                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="top" secondItem="hXk-Pi-QHm" secondAttribute="bottom" constant="20" id="sSK-9H-hRR"/>
                             <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="vyf-PZ-ycY"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="wdF-5d-m6A"/>
                             <constraint firstAttribute="bottom" secondItem="agG-90-gvG" secondAttribute="bottom" constant="20" id="xuR-Jb-QpY"/>
