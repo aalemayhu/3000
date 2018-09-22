@@ -34,8 +34,12 @@ class ViewController: NSViewController {
     
     var timeObserverToken: Any?
     var tracksViewController: TracksViewController?
+    var volumeViewController: VolumeViewController?
+    
     // TODO: rename to be more popover specific
     var isTracksControllerVisible = false
+    var isVolumeViewControllerVisible = false
+
     var popOver = NSPopover()
 
     var isActive = true
@@ -132,7 +136,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func volumeButtonPressed(_ sender: NSButton) {
-        print("\(#function)")
+        self.showVolumeView()
     }
     // ---
     
@@ -253,6 +257,8 @@ class ViewController: NSViewController {
         durationLabel.stringValue = fmt.string(from: end)
     }
     
+    
+    // TODO: use hidePopOver and manage the differences between the tracks controller and volume controller
     func hideTracksView() {
         self.popOver.close()
         self.isTracksControllerVisible = false
@@ -348,5 +354,28 @@ class ViewController: NSViewController {
         volumeButton.isHidden = hidden
         durationLabel.isHidden = hidden
         currentTimeLabel.isHidden = hidden
+    }
+    
+    
+    // --
+    
+    
+    func showVolumeView() {
+        guard !isVolumeViewControllerVisible else { return }
+
+        self.volumeViewController = VolumeViewController(selectorDelegate: self)
+        
+        self.popOver.behavior = .applicationDefined
+        self.popOver.contentViewController = self.volumeViewController
+        self.popOver.delegate = self
+        self.popOver.animates = true
+        popOver.show(relativeTo: self.view.bounds, of: self.volumeButton, preferredEdge: .maxY)
+        
+        self.isVolumeViewControllerVisible = true
+    }
+    
+    func hideVolumeView() {
+        self.popOver.close()
+        self.isVolumeViewControllerVisible = false
     }
 }

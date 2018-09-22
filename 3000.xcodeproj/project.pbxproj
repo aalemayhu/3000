@@ -25,6 +25,10 @@
 		50A4DE26214974A0003C6402 /* AppDelegate+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */; };
 		50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D16654214586290025E15B /* NSColor+Contrast.swift */; };
 		50E20FB5215691AA0098FF93 /* Volume button.png in Resources */ = {isa = PBXBuildFile; fileRef = 50E20FB4215691AA0098FF93 /* Volume button.png */; };
+		50E20FB8215693830098FF93 /* VolumeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E20FB6215693830098FF93 /* VolumeViewController.swift */; };
+		50E20FB9215693830098FF93 /* VolumeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50E20FB7215693830098FF93 /* VolumeViewController.xib */; };
+		50E20FBB215695360098FF93 /* VolumeSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E20FBA215695360098FF93 /* VolumeSelectorDelegate.swift */; };
+		50E20FBD215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E20FBC215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift */; };
 		50E7250E214AB161001864C5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250D214AB161001864C5 /* PlayerState.swift */; };
 		50E72510214ABB27001864C5 /* ErrorDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250F214ABB27001864C5 /* ErrorDialogs.swift */; };
 		50E72512214AC4B7001864C5 /* ViewController+AppDelegateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */; };
@@ -86,6 +90,10 @@
 		50A4DE25214974A0003C6402 /* AppDelegate+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+MenuActions.swift"; sourceTree = "<group>"; };
 		50D16654214586290025E15B /* NSColor+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Contrast.swift"; sourceTree = "<group>"; };
 		50E20FB4215691AA0098FF93 /* Volume button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Volume button.png"; sourceTree = "<group>"; };
+		50E20FB6215693830098FF93 /* VolumeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewController.swift; sourceTree = "<group>"; };
+		50E20FB7215693830098FF93 /* VolumeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolumeViewController.xib; sourceTree = "<group>"; };
+		50E20FBA215695360098FF93 /* VolumeSelectorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSelectorDelegate.swift; sourceTree = "<group>"; };
+		50E20FBC215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+VolumeSelectorDelegate.swift"; sourceTree = "<group>"; };
 		50E7250D214AB161001864C5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		50E7250F214ABB27001864C5 /* ErrorDialogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDialogs.swift; sourceTree = "<group>"; };
 		50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+AppDelegateActions.swift"; sourceTree = "<group>"; };
@@ -149,6 +157,7 @@
 			children = (
 				8414CE0B2132D26500CE30F6 /* ViewController.swift */,
 				509B665F21481F7C006D9421 /* TracksViewController.swift */,
+				50E20FB6215693830098FF93 /* VolumeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -160,6 +169,7 @@
 				503BD5A42153F0A6007EDF74 /* placeholder.png */,
 				8414CE122132D26600CE30F6 /* Main.storyboard */,
 				509B666021481F7C006D9421 /* TracksViewController.xib */,
+				50E20FB7215693830098FF93 /* VolumeViewController.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -170,6 +180,7 @@
 				5091463E214FFE43005210D7 /* AppDelegateActions.swift */,
 				503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */,
 				50F70EDE21554C320065AAC5 /* DragNotifier.swift */,
+				50E20FBA215695360098FF93 /* VolumeSelectorDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -187,6 +198,7 @@
 				503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */,
 				503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */,
 				50F70EE021554C900065AAC5 /* ViewController+DragNotifier.swift */,
+				50E20FBC215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -400,6 +412,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E20FB9215693830098FF93 /* VolumeViewController.xib in Resources */,
 				8414CE112132D26600CE30F6 /* Assets.xcassets in Resources */,
 				503BD5A52153F0A6007EDF74 /* placeholder.png in Resources */,
 				509B666221481F7C006D9421 /* TracksViewController.xib in Resources */,
@@ -450,17 +463,20 @@
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
 				503AE5A32151622E00D937AE /* ViewController+TracksViewControllerSelector.swift in Sources */,
 				509146432150100D005210D7 /* NSImage+AreaAverage.swift in Sources */,
+				50E20FB8215693830098FF93 /* VolumeViewController.swift in Sources */,
 				508BEA28214C1C0C009D9BA5 /* MetadataLoader.swift in Sources */,
 				50E72512214AC4B7001864C5 /* ViewController+AppDelegateActions.swift in Sources */,
 				5091464121500265005210D7 /* TracksViewController+TableView.swift in Sources */,
 				8414CE0A2132D26500CE30F6 /* AppDelegate.swift in Sources */,
 				842D40A3213489D300AD1FBD /* TrackMetada.swift in Sources */,
+				50E20FBB215695360098FF93 /* VolumeSelectorDelegate.swift in Sources */,
 				50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */,
 				84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */,
 				2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */,
 				509B666421482594006D9421 /* TracksTableRowView.swift in Sources */,
 				503AE59D21515C5E00D937AE /* ViewController+PopOver.swift in Sources */,
 				509B666121481F7C006D9421 /* TracksViewController.swift in Sources */,
+				50E20FBD215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift in Sources */,
 				502B11642146CD1500A7F3F2 /* ArtworkImageView.swift in Sources */,
 				50F70EE7215552410065AAC5 /* DropView.swift in Sources */,
 			);

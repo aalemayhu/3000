@@ -99,6 +99,11 @@ class PlayerManager: NSObject {
         return self.volume
     }
     
+    func setVolume(v: Float) {
+        debug_print("\(#function): \(v)")
+        self.volume = v
+    }
+    
     func getIndex() -> Int? {
         guard playlist.size() > 0 else { return nil }        
         return state.currentIndex
