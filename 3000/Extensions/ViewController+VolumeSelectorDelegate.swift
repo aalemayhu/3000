@@ -15,5 +15,6 @@ extension ViewController: VolumeSelectorDelegate {
     
     func didSelectVolume(volume: Double) {
         self.pm.setVolume(v: Float(volume))
+        self.hidePopOver()
     }
 }

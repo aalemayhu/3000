@@ -40,7 +40,7 @@ class ViewController: NSViewController {
     var isTracksControllerVisible = false
     var isVolumeViewControllerVisible = false
 
-    var popOver = NSPopover()
+    var popOver: NSPopover?
 
     var isActive = true
     
@@ -210,7 +210,7 @@ class ViewController: NSViewController {
         case Keybinding.Tracks:
             self.showTracksView()
         case Keybinding.Esc:
-            self.hideTracksView()
+            self.hidePopOver()
         }
     }    
     
@@ -257,11 +257,16 @@ class ViewController: NSViewController {
         durationLabel.stringValue = fmt.string(from: end)
     }
     
-    
-    // TODO: use hidePopOver and manage the differences between the tracks controller and volume controller
-    func hideTracksView() {
-        self.popOver.close()
-        self.isTracksControllerVisible = false
+    func hidePopOver() {
+        if self.isTracksControllerVisible {
+            self.isTracksControllerVisible = false
+            self.tracksViewController = nil
+        } else if self.isVolumeViewControllerVisible {
+            self.isVolumeViewControllerVisible = false
+            self.volumeViewController = nil
+        }
+        self.popOver?.close()
+        self.popOver = nil
     }
     
     // Directory management
@@ -359,23 +364,21 @@ class ViewController: NSViewController {
     
     // --
     
+    func popOver(for controller: NSViewController) -> NSPopover {
+        let p = NSPopover()
+        p.behavior = .applicationDefined
+        p.contentViewController = controller
+        p.delegate = self
+        p.animates = true
+        return p
+    }
     
     func showVolumeView() {
         guard !isVolumeViewControllerVisible else { return }
-
         self.volumeViewController = VolumeViewController(selectorDelegate: self)
-        
-        self.popOver.behavior = .applicationDefined
-        self.popOver.contentViewController = self.volumeViewController
-        self.popOver.delegate = self
-        self.popOver.animates = true
-        popOver.show(relativeTo: self.view.bounds, of: self.volumeButton, preferredEdge: .maxY)
-        
+        guard let volumeViewController = self.volumeViewController else { return }
+        self.popOver = popOver(for: volumeViewController)
+        self.popOver?.show(relativeTo: self.view.bounds, of: self.volumeButton, preferredEdge: .maxY)
         self.isVolumeViewControllerVisible = true
-    }
-    
-    func hideVolumeView() {
-        self.popOver.close()
-        self.isVolumeViewControllerVisible = false
     }
 }
