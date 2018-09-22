@@ -225,8 +225,8 @@
 		8414CE082132D26500CE30F6 /* 3000 */ = {
 			isa = PBXGroup;
 			children = (
-				503AE5A4215162DE00D937AE /* Interface */,
 				8414CE092132D26500CE30F6 /* AppDelegate.swift */,
+				503AE5A4215162DE00D937AE /* Interface */,
 				5091463D214FFE2B005210D7 /* Protocols */,
 				50A4DE27214974CA003C6402 /* Extensions */,
 				50118A8B213C4490002CFD4A /* Controllers */,
