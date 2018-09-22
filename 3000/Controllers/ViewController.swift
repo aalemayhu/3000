@@ -40,7 +40,8 @@ class ViewController: NSViewController {
     var isTracksControllerVisible = false
     var isVolumeViewControllerVisible = false
 
-    var popOver: NSPopover?
+    var popOverVolume: NSPopover?
+    var popOverTracks: NSPopover?
 
     var isActive = true
     
@@ -261,12 +262,15 @@ class ViewController: NSViewController {
         if self.isTracksControllerVisible {
             self.isTracksControllerVisible = false
             self.tracksViewController = nil
-        } else if self.isVolumeViewControllerVisible {
+            self.popOverTracks?.close()
+            self.popOverTracks = nil
+        }
+        if self.isVolumeViewControllerVisible {
             self.isVolumeViewControllerVisible = false
             self.volumeViewController = nil
+            self.popOverVolume?.close()
+            self.popOverVolume = nil
         }
-        self.popOver?.close()
-        self.popOver = nil
     }
     
     // Directory management
@@ -377,8 +381,8 @@ class ViewController: NSViewController {
         guard !isVolumeViewControllerVisible else { return }
         self.volumeViewController = VolumeViewController(selectorDelegate: self)
         guard let volumeViewController = self.volumeViewController else { return }
-        self.popOver = popOver(for: volumeViewController)
-        self.popOver?.show(relativeTo: self.view.bounds, of: self.volumeButton, preferredEdge: .maxY)
+        self.popOverVolume = popOver(for: volumeViewController)
+        self.popOverVolume?.show(relativeTo: self.view.bounds, of: self.volumeButton, preferredEdge: .maxY)
         self.isVolumeViewControllerVisible = true
     }
 }
