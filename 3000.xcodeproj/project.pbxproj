@@ -26,7 +26,6 @@
 		50D16655214586290025E15B /* NSColor+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D16654214586290025E15B /* NSColor+Contrast.swift */; };
 		50E20FB5215691AA0098FF93 /* Volume button.png in Resources */ = {isa = PBXBuildFile; fileRef = 50E20FB4215691AA0098FF93 /* Volume button.png */; };
 		50E20FB8215693830098FF93 /* VolumeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E20FB6215693830098FF93 /* VolumeViewController.swift */; };
-		50E20FB9215693830098FF93 /* VolumeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50E20FB7215693830098FF93 /* VolumeViewController.xib */; };
 		50E20FBB215695360098FF93 /* VolumeSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E20FBA215695360098FF93 /* VolumeSelectorDelegate.swift */; };
 		50E20FBD215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E20FBC215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift */; };
 		50E7250E214AB161001864C5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7250D214AB161001864C5 /* PlayerState.swift */; };
@@ -91,7 +90,6 @@
 		50D16654214586290025E15B /* NSColor+Contrast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Contrast.swift"; sourceTree = "<group>"; };
 		50E20FB4215691AA0098FF93 /* Volume button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Volume button.png"; sourceTree = "<group>"; };
 		50E20FB6215693830098FF93 /* VolumeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewController.swift; sourceTree = "<group>"; };
-		50E20FB7215693830098FF93 /* VolumeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolumeViewController.xib; sourceTree = "<group>"; };
 		50E20FBA215695360098FF93 /* VolumeSelectorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSelectorDelegate.swift; sourceTree = "<group>"; };
 		50E20FBC215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+VolumeSelectorDelegate.swift"; sourceTree = "<group>"; };
 		50E7250D214AB161001864C5 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				503BD5A42153F0A6007EDF74 /* placeholder.png */,
 				8414CE122132D26600CE30F6 /* Main.storyboard */,
 				509B666021481F7C006D9421 /* TracksViewController.xib */,
-				50E20FB7215693830098FF93 /* VolumeViewController.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -412,7 +409,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50E20FB9215693830098FF93 /* VolumeViewController.xib in Resources */,
 				8414CE112132D26600CE30F6 /* Assets.xcassets in Resources */,
 				503BD5A52153F0A6007EDF74 /* placeholder.png in Resources */,
 				509B666221481F7C006D9421 /* TracksViewController.xib in Resources */,

@@ -377,7 +377,8 @@ class ViewController: NSViewController {
     
     func showVolumeView() {
         guard !isVolumeViewControllerVisible else { return }
-        self.volumeViewController = VolumeViewController(selectorDelegate: self)
+        self.volumeViewController = VolumeViewController()
+        self.volumeViewController?.selectorDelegate = self
         guard let volumeViewController = self.volumeViewController else { return }
         self.popOverVolume = popOver(for: volumeViewController)
         self.popOverVolume?.show(relativeTo: self.view.bounds, of: self.volumeButton, preferredEdge: .maxY)

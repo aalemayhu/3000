@@ -9,34 +9,46 @@
 import Cocoa
 
 class VolumeViewController: NSViewController {
-
-    @IBOutlet weak var slider: NSSlider!
     
+    var slider: NSSlider?
     var selectorDelegate: VolumeSelectorDelegate?
     
-    init(selectorDelegate: VolumeSelectorDelegate) {
-        super.init(nibName: "VolumeViewController", bundle: Bundle.main)
-        self.selectorDelegate = selectorDelegate
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    @IBAction func sliderValueDidChange(_ sender: Any) {
-        let currentValue = slider.doubleValue
+    @objc func sliderValueDidChange(_ sender: Any) {
+        guard let currentValue = slider?.doubleValue else { return }
         selectorDelegate?.didSelectVolume(volume: currentValue)
+    }
+    
+    func configure() {    
+        self.view.translatesAutoresizingMaskIntoConstraints = true
+        
+        let parentFrame = self.view.frame
+        let sFrame = NSRect(x: 0, y: 0, width: parentFrame.width-15, height: parentFrame.height-15)
+        self.slider = NSSlider(frame: sFrame)
+        self.slider?.minValue = 0
+        self.slider?.maxValue = 1
+        
+        if let currentVolume = selectorDelegate?.getCurrentVolume() {
+            self.slider?.doubleValue = currentVolume
+        }
+        
+        if let slider = self.slider {
+            self.view.addSubview(slider)
+            // TODO: refactor into a extension like: NSView+addCenterConstraint(for other: NSView)
+            self.view.addConstraint(NSLayoutConstraint(item: slider, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: slider, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0))
+            slider.target = self
+            slider.action = #selector(sliderValueDidChange(_:))
+        }
     }
     
     // View
     
+    override func loadView() {
+        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 125, height: 36))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.slider.minValue = 0
-        self.slider.maxValue = 1
-        
-        if let currentVolume = selectorDelegate?.getCurrentVolume() {
-            self.slider.doubleValue = currentVolume
-        }        
+        configure()
     }
 }
