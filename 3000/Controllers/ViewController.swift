@@ -95,8 +95,7 @@ class ViewController: NSViewController {
         self.trackArtistLabel.stringValue = "Press space 2 play or CMD+O"
         
         if let path = Bundle.main.path(forResource: "placeholder", ofType: ".png") {
-            self.imageView.image = NSImage(contentsOfFile: path)
-            self.imageView.needsDisplay = true
+            self.imageView.configure(with: NSImage(contentsOfFile: path))
         }
     }
     
@@ -114,8 +113,7 @@ class ViewController: NSViewController {
     
     func updateArtwork(with artwork: NSImage?) {
         guard let artwork = artwork else { return }
-        self.imageView.image = artwork
-        self.imageView.needsDisplay = true
+        self.imageView.configure(with: artwork)
     }
     
     func loadArtwork(for index: Int, track: TrackMetadata) {
