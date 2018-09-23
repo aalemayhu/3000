@@ -46,7 +46,7 @@ extension AppDelegate {
     }
     
     @IBAction func didSelectPlay(_ sender: NSMenuItem) {
-        print("\(#function)")
+        debug_print("\(#function)")
         menuHandler?.playOrPause()
         if sender.state == .off {
             sender.state = .on

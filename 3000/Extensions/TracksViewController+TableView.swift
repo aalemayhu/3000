@@ -10,7 +10,7 @@ import Cocoa
 
 extension TracksViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
-        print("\(#function)")
+        debug_print("\(#function)")
         selectorDelegate?.didSelectTrack(index: row)
         return true
     }

@@ -31,7 +31,7 @@ class Playlist {
     
     init() {
         self.name = "empty playlist"
-        self.folder = URL(fileURLWithPath: "~/Music")
+        self.folder = URL(fileURLWithPath: NSString(string: "~/Music").expandingTildeInPath)
     }
     
     private func isSupported(_ type: String) -> Bool {
