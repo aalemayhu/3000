@@ -279,7 +279,7 @@
                                 </customSpacing>
                             </stackView>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-Pi-QHm">
-                                <rect key="frame" x="18" y="78" width="220" height="19"/>
+                                <rect key="frame" x="18" y="61" width="220" height="19"/>
                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF" customClass="TrackProgressSliderCell" customModule="_000" customModuleProvider="target"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" target="XfG-lQ-9wD" id="HBs-ec-R4X"/>
@@ -309,7 +309,7 @@
                             <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="dyg-0D-GUc"/>
                             <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="epZ-TZ-UFP"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="eqG-H2-SdA"/>
-                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="b2i-w6-9Wo" secondAttribute="bottom" constant="8" symbolic="YES" id="iE6-qL-ffG"/>
+                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="b2i-w6-9Wo" secondAttribute="bottom" constant="25" id="iE6-qL-ffG"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="jo4-05-jJY"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="3MI-rf-mAf" secondAttribute="trailing" constant="42" id="kN9-qg-HJJ"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="nN7-kQ-gGv"/>
