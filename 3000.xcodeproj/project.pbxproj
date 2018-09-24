@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB45EF213AE1C10082B462 /* DebugHelper.swift */; };
+		50251946215933D200B53C20 /* NSView+CenterConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50251945215933D200B53C20 /* NSView+CenterConstraint.swift */; };
 		502B11642146CD1500A7F3F2 /* ArtworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B11632146CD1500A7F3F2 /* ArtworkImageView.swift */; };
 		503AE59921514EBC00D937AE /* Playlist+ErrorEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */; };
 		503AE59D21515C5E00D937AE /* ViewController+PopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		2DCB45EF213AE1C10082B462 /* DebugHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHelper.swift; sourceTree = "<group>"; };
+		50251945215933D200B53C20 /* NSView+CenterConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+CenterConstraint.swift"; sourceTree = "<group>"; };
 		502B11632146CD1500A7F3F2 /* ArtworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkImageView.swift; sourceTree = "<group>"; };
 		503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Playlist+ErrorEmpty.swift"; sourceTree = "<group>"; };
 		503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+PopOver.swift"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */,
 				50F70EE021554C900065AAC5 /* ViewController+DragNotifier.swift */,
 				50E20FBC215696400098FF93 /* ViewController+VolumeSelectorDelegate.swift */,
+				50251945215933D200B53C20 /* NSView+CenterConstraint.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				50E7250E214AB161001864C5 /* PlayerState.swift in Sources */,
 				844D98012143F3AC001259C9 /* NSView+Blur.swift in Sources */,
 				84C1A0192134A96700463C37 /* PlayerManager.swift in Sources */,
+				50251946215933D200B53C20 /* NSView+CenterConstraint.swift in Sources */,
 				503AE5A32151622E00D937AE /* ViewController+TracksViewControllerSelector.swift in Sources */,
 				509146432150100D005210D7 /* NSImage+AreaAverage.swift in Sources */,
 				50E20FB8215693830098FF93 /* VolumeViewController.swift in Sources */,

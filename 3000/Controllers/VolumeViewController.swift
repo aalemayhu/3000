@@ -33,9 +33,7 @@ class VolumeViewController: NSViewController {
         
         if let slider = self.slider {
             self.view.addSubview(slider)
-            // TODO: refactor into a extension like: NSView+addCenterConstraint(for other: NSView)
-            self.view.addConstraint(NSLayoutConstraint(item: slider, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: slider, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0))
+            self.view.addCenterConstraint(for: slider)
             slider.target = self
             slider.action = #selector(sliderValueDidChange(_:))
         }
