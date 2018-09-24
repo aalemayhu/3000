@@ -293,6 +293,7 @@ class ViewController: NSViewController {
         self.updateView()
         self.addPeriodicTimeObserver()
         
+        guard let window = self.view.window, window.level != .floating else { return }
         guard !isActive else { return }
         showPlayingNextNotification()
     }
