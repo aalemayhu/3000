@@ -14,7 +14,7 @@ extension AppDelegate {
         guard let window = NSApplication.shared.windows.first else { return }
         
         let panel = NSOpenPanel()
-        if let lastPath = StoredDefaults.getLastPath() {
+        if let lastPath = menuHandler?.getLastPath() {
             panel.directoryURL = lastPath
         } else {
             panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
@@ -26,9 +26,9 @@ extension AppDelegate {
         panel.beginSheetModal(for: window) { (result) in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue,
                 let url = panel.url {
-                self.menuHandler?.selectedDirectory(folder: url)
+                self.menuHandler?.selectedDirectory(folder: url)                
                 // Save the selected path for easier reuse
-                let _ = StoredDefaults.setLastPath(url)
+                let _ = self.menuHandler?.setLastPath(url: url)
                 NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)
             }
         }

@@ -11,6 +11,14 @@ import Cocoa
 
 extension ViewController: AppDelegateActions {
     
+    func getLastPath() -> URL {
+        return self.pm.urlForCurrentPlaylist() ?? FileManager.default.homeDirectoryForCurrentUser
+    }
+    
+    func setLastPath(url: URL) {
+        self.pm.setLastPath(url: url)
+    }
+    
     func applicationDidBecomeActive(_ notification: Notification) {
         self.isActive = true
     }

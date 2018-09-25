@@ -22,6 +22,8 @@ class StoredDefaults {
     static let VolumeLevel = "VolumeLevel"
     static let folderInfo = ".3000.json"
     
+    private var accessCount = 0
+    private var resolvedUrl: URL?
     var data: Dictionary<String, Any>?
     
     init(folder: URL) {
@@ -94,29 +96,53 @@ class StoredDefaults {
         return CMTime(seconds: seconds!, preferredTimescale: timeScale)
     }
     
-    // Static
-    
-    static func getLastPath() -> URL? {
+    func resolveLastPath() -> URL? {
         do {
             let folder = URL(fileURLWithPath: NSHomeDirectory())
-            let data = try Data(contentsOf: folder.appendingPathComponent(StoredDefaults.folderInfo))
-            let newDict = try JSONSerialization.jsonObject(with: data, options: []) as?  Dictionary<String, Any>
-            
-            if let path = newDict?[StoredDefaults.LastPath] as? String {
-                return URL(string: path)
-            }
-        } catch  { return nil }        
-        return nil
+            let fileUrl = folder.appendingPathComponent(StoredDefaults.folderInfo)
+            let data = try Data(contentsOf: fileUrl)
+            //     public init(resolvingBookmarkData data: Data, options: URL.BookmarkResolutionOptions = default, relativeTo url: URL? = default, bookmarkDataIsStale: inout Bool) throws
+            var isStale = false
+            let resolvedUrl = try URL(resolvingBookmarkData: data, options: .withSecurityScope,
+                                      relativeTo: nil, bookmarkDataIsStale: &isStale)
+            // TODO: handle isStale
+            return resolvedUrl
+        } catch  {
+            debug_print(error.localizedDescription)
+            return nil
+        }
     }
     
-    static func setLastPath(_ url: URL) -> Error? {
+    func lastPathSecurityScopedUrl() -> URL? {
+        
+        if let resolvedUrl = self.resolvedUrl{
+            let _ = resolvedUrl.startAccessingSecurityScopedResource()
+            accessCount += 1
+
+        }
+        
+        guard let resolvedUrl = resolveLastPath() else { return nil}
+        let _ = resolvedUrl.startAccessingSecurityScopedResource()
+        accessCount += 1
+        return resolvedUrl
+    }
+    
+    func setLastPath(_ url: URL) -> Error? {
+        if let resolvedUrl = resolveLastPath() {
+            repeat {
+                debug_print("\(resolvedUrl.absoluteString).stopAccessingSecurityScopedResource")
+//                resolvedUrl.stopAccessingSecurityScopedResource()
+                accessCount -= 1
+            } while(accessCount > 0)
+        }
+        
         let folder = URL(fileURLWithPath: NSHomeDirectory())
         let fileUrl = folder.appendingPathComponent(StoredDefaults.folderInfo)
         do {
-            let data =  [StoredDefaults.LastPath: url.absoluteString]
-            let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
-            try serializedData.write(to: fileUrl)
-        } catch { return error }
+            let data = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+            try data.write(to: fileUrl)
+        } catch {
+            return error }
         return nil
     }
 }

@@ -22,4 +22,7 @@ protocol AppDelegateActions {
     // Window related actions
     func applicationDidBecomeActive(_ notification: Notification)
     func applicationDidResignActive(_ notification: Notification)
+    // File system misc
+    func getLastPath() -> URL    
+    func setLastPath(url: URL)
 }

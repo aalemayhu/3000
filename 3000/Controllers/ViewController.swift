@@ -178,7 +178,7 @@ class ViewController: NSViewController {
     }
     
     func loadDefaults() {
-        if let folder = StoredDefaults.getLastPath(), self.usePlaylist(folder) {
+        if let folder = self.pm.urlForCurrentPlaylist(), self.usePlaylist(folder) {
             // Found a playable playlist
             self.updateView()
             return

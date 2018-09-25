@@ -250,6 +250,20 @@ class PlayerManager: NSObject {
         return true
     }
     
+    func setLastPath(url: URL) {
+        if let err = self.storage.setLastPath(url) {
+           debug_print("\(err.localizedDescription)")
+        }
+    }
+    
+    func urlForCurrentPlaylist() -> URL? {
+        return self.storage.resolveLastPath()
+    }
+    
+    func securityScopedUrlForPlaylist() -> URL? {
+        return self.storage.lastPathSecurityScopedUrl()
+    }
+    
     // resetPlayerState used when changing playlist
     func resetPlayerState() -> Error? {
         self.player?.pause()
