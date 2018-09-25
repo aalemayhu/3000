@@ -114,27 +114,26 @@ class StoredDefaults {
     }
     
     func lastPathSecurityScopedUrl() -> URL? {
-        
         if let resolvedUrl = self.resolvedUrl{
-            let _ = resolvedUrl.startAccessingSecurityScopedResource()
-            accessCount += 1
-
-        }
-        
+            return resolvedUrl
+        }        
         guard let resolvedUrl = resolveLastPath() else { return nil}
         let _ = resolvedUrl.startAccessingSecurityScopedResource()
         accessCount += 1
         return resolvedUrl
     }
     
-    func setLastPath(_ url: URL) -> Error? {
+    func cleanupScopedResources() {
         if let resolvedUrl = resolveLastPath() {
             repeat {
                 debug_print("\(resolvedUrl.absoluteString).stopAccessingSecurityScopedResource")
-//                resolvedUrl.stopAccessingSecurityScopedResource()
+                                resolvedUrl.stopAccessingSecurityScopedResource()
                 accessCount -= 1
             } while(accessCount > 0)
         }
+    }
+    
+    func setLastPath(_ url: URL) -> Error? {
         
         let folder = URL(fileURLWithPath: NSHomeDirectory())
         let fileUrl = folder.appendingPathComponent(StoredDefaults.folderInfo)
