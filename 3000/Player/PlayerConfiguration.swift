@@ -46,6 +46,7 @@ class PlayerConfiguration {
     
     func removeLastTrack() {
         defaults.removeObject(forKey: PlayerConfiguration.LastTrackKey)
+        defaults.synchronize()
     }
     
     func getVolumeLevel() -> Float? {

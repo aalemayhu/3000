@@ -186,8 +186,6 @@ class PlayerManager: NSObject {
     }
     
     func playOrPause() -> Error? {
-        if let error = self.saveState() { return error }
-        
         let lastTrack = self.storage.getLastTrack()
         let seekTime = self.storage.seekTime(playlist: self.playlist)
         
