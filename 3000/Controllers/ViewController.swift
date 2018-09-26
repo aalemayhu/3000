@@ -24,7 +24,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var progressSlider: NSSlider!
-//    @IBOutlet weak var volumeLabel: NSTextField!
     
     @IBOutlet weak var volumeButton: NSButton!
     
@@ -277,14 +276,7 @@ class ViewController: NSViewController {
             debug_print("\(#function): selectodFolder is nil")
             return
         }
-        self.pm.resetPlayerState()
-        /* TODO: what todo with the below?
-        if let error = {
-            debug_print("\(#function): failed to reset player state")
-            debug_print("\(error.localizedDescription)")
-            self.updateViewForEmptyPlaylist()
-            return
-        }*/
+        self.pm.resetPlayerState()       
         guard self.usePlaylist(selectedFolder) else {
             debug_print("\(#function): failed to use playlist")
             return

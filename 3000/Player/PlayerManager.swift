@@ -256,7 +256,6 @@ class PlayerManager: NSObject {
         return self.storage.resolveLastPath()
     }
     
-    // TODO: rename this function to match the use in ViewController.loadDefaults()
     func securityScopedUrlForPlaylist() -> URL? {
         return self.storage.lastPathSecurityScopedUrl()
     }
