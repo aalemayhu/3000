@@ -16,7 +16,7 @@ extension ViewController: AppDelegateActions {
     }
     
     func setLastPath(url: URL) {
-        self.pm.setLastPath(url: url)
+        self.pm.savePlaylistUrl(url)
     }
     
     func applicationDidBecomeActive(_ notification: Notification) {

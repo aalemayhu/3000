@@ -11,3 +11,11 @@ import Foundation
 protocol DragNotifier {
     func didDragFolder(path: String)
 }
+
+extension ViewController: DragNotifier {
+    func didDragFolder(path: String) {
+        guard let url = URL(string: path) else { return }
+        self.setLastPath(url: url)
+        self.openedDirectory()
+    }
+}

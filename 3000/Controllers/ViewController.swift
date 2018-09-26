@@ -273,12 +273,19 @@ class ViewController: NSViewController {
     // Directory management
     
     @objc func openedDirectory() {
-        guard let selectedFolder = self.pm.securityScopedUrlForPlaylist() else { return }
+        guard let selectedFolder = self.pm.securityScopedUrlForPlaylist() else {
+            debug_print("\(#function): selectodFolder is nil")
+            return
+        }
         guard self.pm.resetPlayerState() == nil else {
+            debug_print("\(#function): failed to reset player state")
             self.updateViewForEmptyPlaylist()
             return
         }
-        guard self.usePlaylist(selectedFolder) else { return }
+        guard self.usePlaylist(selectedFolder) else {
+            debug_print("\(#function): failed to use playlist")
+            return
+        }
         self.pm.startPlaylist()
     }
     

@@ -27,7 +27,7 @@ extension AppDelegate {
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue,
                 let url = panel.url {
                 // Save the selected path for easier reuse
-                let _ = self.menuHandler?.setLastPath(url: url)
+                self.menuHandler?.setLastPath(url: url)
                 NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)
             }
         }

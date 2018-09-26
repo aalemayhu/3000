@@ -250,9 +250,9 @@ class PlayerManager: NSObject {
         return true
     }
     
-    func setLastPath(url: URL) {
-        if let err = self.storage.setLastPath(url) {
-           debug_print("\(err.localizedDescription)")
+    func savePlaylistUrl(_ url: URL) {
+        if let err = self.storage.saveBookmark(url) {
+            fatalError(err.localizedDescription)
         }
     }
     

@@ -9,7 +9,6 @@
 import Foundation
 import AVFoundation
 
-// TODO: rename to player configuration
 class PlayerConfiguration {
     
     //
@@ -154,16 +153,16 @@ class PlayerConfiguration {
         self.playlistUrl = nil
     }
     
-    func setLastPath(_ url: URL) -> Error? {
+    func saveBookmark(_ url: URL) -> Error? {
         self.cleanupScopedResources()
-        
         let folder = URL(fileURLWithPath: NSHomeDirectory())
         let fileUrl = folder.appendingPathComponent(PlayerConfiguration.folderInfo)
         do {
             let data = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             try data.write(to: fileUrl)
         } catch {
-            return error }
+            return error
+        }
         return nil
     }
 }
