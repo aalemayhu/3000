@@ -23,6 +23,6 @@ protocol AppDelegateActions {
     func applicationDidBecomeActive(_ notification: Notification)
     func applicationDidResignActive(_ notification: Notification)
     // File system misc
-    func getLastPath() -> URL    
+    func defaultUrlForNSPanel() -> URL    
     func setLastPath(url: URL)
 }

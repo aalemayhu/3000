@@ -24,7 +24,7 @@ class PlayerConfiguration {
     static let folderInfo = ".3000.json"
     
     private var accessCount = 0
-    private var resolvedUrl: URL?
+    private var playlistUrl: URL?
     var data: Dictionary<String, Any>?
     
     init(folder: URL) {
@@ -120,7 +120,6 @@ class PlayerConfiguration {
             let folder = URL(fileURLWithPath: NSHomeDirectory())
             let fileUrl = folder.appendingPathComponent(PlayerConfiguration.folderInfo)
             let data = try Data(contentsOf: fileUrl)
-            //     public init(resolvingBookmarkData data: Data, options: URL.BookmarkResolutionOptions = default, relativeTo url: URL? = default, bookmarkDataIsStale: inout Bool) throws
             var isStale = false
             let resolvedUrl = try URL(resolvingBookmarkData: data, options: .withSecurityScope,
                                       relativeTo: nil, bookmarkDataIsStale: &isStale)
@@ -133,26 +132,30 @@ class PlayerConfiguration {
     }
     
     func lastPathSecurityScopedUrl() -> URL? {
-        if let resolvedUrl = self.resolvedUrl{
-            return resolvedUrl
-        }        
-        guard let resolvedUrl = resolveLastPath() else { return nil}
-        let _ = resolvedUrl.startAccessingSecurityScopedResource()
+        if self.playlistUrl != nil{
+            return self.playlistUrl
+        }
+        self.playlistUrl = resolveLastPath()
+        let _ = self.playlistUrl?.startAccessingSecurityScopedResource()
         accessCount += 1
-        return resolvedUrl
+        return self.playlistUrl
     }
     
     func cleanupScopedResources() {
-        if let resolvedUrl = resolveLastPath() {
-            repeat {
-                debug_print("\(resolvedUrl.absoluteString).stopAccessingSecurityScopedResource")
-                                resolvedUrl.stopAccessingSecurityScopedResource()
-                accessCount -= 1
-            } while(accessCount > 0)
+        guard let resolvedUrl = self.playlistUrl else {
+            return
         }
+        
+        for _ in stride(from: 0, to: accessCount, by: 1) {
+            debug_print("\(resolvedUrl.absoluteString).stopAccessingSecurityScopedResource")
+            resolvedUrl.stopAccessingSecurityScopedResource()
+            accessCount -= 1
+        }
+        self.playlistUrl = nil
     }
     
     func setLastPath(_ url: URL) -> Error? {
+        self.cleanupScopedResources()
         
         let folder = URL(fileURLWithPath: NSHomeDirectory())
         let fileUrl = folder.appendingPathComponent(PlayerConfiguration.folderInfo)

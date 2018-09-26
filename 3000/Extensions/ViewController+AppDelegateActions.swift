@@ -11,7 +11,7 @@ import Cocoa
 
 extension ViewController: AppDelegateActions {
     
-    func getLastPath() -> URL {
+    func defaultUrlForNSPanel() -> URL {
         return self.pm.urlForCurrentPlaylist() ?? FileManager.default.homeDirectoryForCurrentUser
     }
     

@@ -14,7 +14,7 @@ extension AppDelegate {
         guard let window = NSApplication.shared.windows.first else { return }
         
         let panel = NSOpenPanel()
-        if let lastPath = menuHandler?.getLastPath() {
+        if let lastPath = menuHandler?.defaultUrlForNSPanel() {
             panel.directoryURL = lastPath
         } else {
             panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
