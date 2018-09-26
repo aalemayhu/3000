@@ -206,6 +206,7 @@
 		50E20FB2215690620098FF93 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				84C1A01A2134C10000463C37 /* StoredDefaults.swift */,
 				84C1A0182134A96700463C37 /* PlayerManager.swift */,
 				503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */,
 				842D40A2213489D300AD1FBD /* TrackMetada.swift */,
@@ -300,7 +301,6 @@
 		84D80EC421346D17006C5D14 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				84C1A01A2134C10000463C37 /* StoredDefaults.swift */,
 				84D60C7421371B90005FA309 /* ImageSizes.swift */,
 				84F1439621433E5B006D481E /* Keybinding.swift */,
 			);
