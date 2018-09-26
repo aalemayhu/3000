@@ -30,7 +30,6 @@ class ViewController: NSViewController {
     
     var cache = [String: Bool]()
     var pm: PlayerManager = PlayerManager()
-    var selectedFolder: URL?
     
     var timeObserverToken: Any?
     var tracksViewController: TracksViewController?
@@ -274,7 +273,7 @@ class ViewController: NSViewController {
     // Directory management
     
     @objc func openedDirectory() {
-        guard let selectedFolder = self.selectedFolder else { return }
+        guard let selectedFolder = self.pm.securityScopedUrlForPlaylist() else { return }
         guard self.pm.resetPlayerState() == nil else {
             self.updateViewForEmptyPlaylist()
             return

@@ -26,7 +26,6 @@ extension AppDelegate {
         panel.beginSheetModal(for: window) { (result) in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue,
                 let url = panel.url {
-                self.menuHandler?.selectedDirectory(folder: url)                
                 // Save the selected path for easier reuse
                 let _ = self.menuHandler?.setLastPath(url: url)
                 NotificationCenter.default.post(name: Notification.Name.OpenedFolder, object: nil)

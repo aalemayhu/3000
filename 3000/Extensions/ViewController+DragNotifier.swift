@@ -10,7 +10,6 @@ import Foundation
 
 extension ViewController: DragNotifier {
     func didDragFolder(path: String) {
-        self.selectedFolder = URL(string: path)
         self.openedDirectory()
     }
 }

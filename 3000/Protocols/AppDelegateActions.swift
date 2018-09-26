@@ -10,7 +10,6 @@ import Foundation
 
 protocol AppDelegateActions {
     // Player actions
-    func selectedDirectory(folder: URL)
     func playOrPause()
     func playRandomTrack()
     func playNextTrack()

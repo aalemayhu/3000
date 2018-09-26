@@ -53,10 +53,6 @@ extension ViewController: AppDelegateActions {
         pm.changeVolume(change: change)
     }
     
-    func selectedDirectory(folder: URL) {
-        self.selectedFolder = folder
-    }
-    
     func showTracksView() {
         guard !isTracksControllerVisible else { return }
         self.tracksViewController = self.tracksViewController ?? TracksViewController(selectorDelegate: self)
