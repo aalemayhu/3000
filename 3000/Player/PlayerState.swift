@@ -38,23 +38,6 @@ class PlayerState {
         self.timescale = timescale
     }
     
-    func jsonData() -> Any {
-        var data: [String: Any?] = [
-            StoredDefaults.LastTrackKey: self.lastTrack,
-            StoredDefaults.VolumeLevel: self.volume
-        ]
-        // Save the player time
-        if let seconds = self.seconds,
-            let timescale = self.timescale {
-            data[StoredDefaults.PlaybackTimeKey] = [
-                StoredDefaults.SecondsKey: seconds,
-                StoredDefaults.TimeScaleKey: timescale
-            ]
-        }
-        
-        return data
-    }
-    
     func update(time: CMTime?, track: String) {
          self.seconds = time?.seconds
          self.timescale = time?.timescale

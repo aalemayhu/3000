@@ -14,7 +14,7 @@ class PlayerManager: NSObject {
     private var playlist: Playlist
     // Move isLooping into player state
     private var playItem: AVPlayerItem?
-    private var storage: StoredDefaults
+    private var storage: PlayerConfiguration
     private var state = PlayerState()
     
     static let DefaultVolumeValue: Float = 0.04
@@ -41,14 +41,14 @@ class PlayerManager: NSObject {
     
     init(playlist: Playlist) {
         self.playlist = playlist
-        self.storage = StoredDefaults(folder: playlist.folder)
+        self.storage = PlayerConfiguration(folder: playlist.folder)
         self.volume = self.storage.getVolumeLevel() ?? PlayerManager.DefaultVolumeValue
         super.init()
     }
     
     override init() {
         self.playlist = Playlist()
-        self.storage = StoredDefaults(folder: self.playlist.folder)
+        self.storage = PlayerConfiguration(folder: self.playlist.folder)
         self.volume = PlayerManager.DefaultVolumeValue
         super.init()
     }
@@ -223,7 +223,7 @@ class PlayerManager: NSObject {
         guard !isEmpty() else { return ErrorEmptyPlaylist() }
         let track = self.playlist.tracks[self.state.currentIndex].absoluteString
         self.state.update(time: self.player?.currentTime(), track: track)
-        return storage.save(folder: playlist.folder, data: state.jsonData()).error
+        return storage.save(folder: playlist.folder, state: self.state).error
     }
     
     func isPlaying() -> Bool {
@@ -268,7 +268,7 @@ class PlayerManager: NSObject {
     func resetPlayerState() -> Error? {
         self.player?.pause()
         self.state.reset()
-        return storage.save(folder: playlist.folder, data: state.jsonData()).error
+        return storage.save(folder: playlist.folder, state: self.state).error
     }
     
     func playTime() -> (currentTime: CMTime?, duration: CMTime?) {
