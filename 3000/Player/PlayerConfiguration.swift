@@ -19,99 +19,43 @@ class PlayerConfiguration {
     static let TimeScaleKey = "timeScale"
     static let SecondsKey = "seconds"
     static let LastTrackKey = "LastTrack"
-    static let VolumeLevel = "VolumeLevel"
+    static let VolumeLevelKey = "VolumeLevel"
     static let folderInfo = ".3000.json"
     
     private var accessCount = 0
     private var playlistUrl: URL?
-    var data: Dictionary<String, Any>?
+    let defaults = UserDefaults.standard
     
     init(folder: URL) {
-        self.use(folder: folder)
     }
     
-    private func use(folder: URL) {
-        if let error = change(folder: folder) {
-            debug_print("\(error.localizedDescription)")
-        }
+    func save(folder: URL, state: PlayerState) {
+        defaults.set(state.lastTrack, forKey: PlayerConfiguration.LastTrackKey)
+        defaults.set(state.volume, forKey: PlayerConfiguration.VolumeLevelKey)
+        defaults.set(state.seconds, forKey: PlayerConfiguration.SecondsKey)
+        defaults.set(state.timescale, forKey: PlayerConfiguration.TimeScaleKey)
+        defaults.synchronize()
     }
-    
-    func change(folder: URL) -> Error?{
-        do {
-            let playlistData = try Data(contentsOf: folder.appendingPathComponent(PlayerConfiguration.folderInfo))
-            let newDict = try JSONSerialization.jsonObject(with: playlistData, options: []) as?  Dictionary<String, Any>
-            
-            // Perserve the volume level if playlist has no default
-            let oldVolume = self.getVolumeLevel()
-            self.data = newDict
-            if var data = self.data, data[PlayerConfiguration.VolumeLevel] == nil {
-                data.updateValue(oldVolume as Any, forKey: PlayerConfiguration.VolumeLevel)
-            }
-        } catch  { return error }
-        
-        return nil
-    }
-    
-    
-    func save(folder: URL, state: PlayerState) -> (Bool, error: Error?) {
-        let data = self.jsonData(state: state)
-        let fileUrl = folder.appendingPathComponent(PlayerConfiguration.folderInfo)
-        do {
-            let serializedData = try JSONSerialization.data(withJSONObject: data, options: [])
-            try serializedData.write(to: fileUrl)
-            debug_print("Saved to \(fileUrl)")
-        } catch { return (false, error) }
-        return (true, nil)
-    }
-    
-    private func jsonData(state: PlayerState) -> Any {
-        var data: [String: Any?] = [
-            PlayerConfiguration.LastTrackKey: state.lastTrack,
-            PlayerConfiguration.VolumeLevel: state.volume
-        ]
-        // Save the player time
-        if let seconds = state.seconds,
-            let timescale = state.timescale {
-            data[PlayerConfiguration.PlaybackTimeKey] = [
-                PlayerConfiguration.SecondsKey: seconds,
-                PlayerConfiguration.TimeScaleKey: timescale
-            ]
-        }
-        
-        return data
-    }
-    
     
     func getLastTrack() -> URL? {
-        guard let data = self.data,
-            let value = data[PlayerConfiguration.LastTrackKey] as? String else {
+        guard let value = defaults.string(forKey: PlayerConfiguration.LastTrackKey) else {
                 return nil
         }
         return URL(string: value)
     }
     
     func removeLastTrack() {
-        guard var data = self.data else { return }
-        data.removeValue(forKey: PlayerConfiguration.LastTrackKey)
-        self.data = data        
+        defaults.removeObject(forKey: PlayerConfiguration.LastTrackKey)
     }
     
     func getVolumeLevel() -> Float? {
-        guard let data = self.data, let v = data[PlayerConfiguration.VolumeLevel] else { return nil }
-        return (v as AnyObject).floatValue
+        return defaults.float(forKey: PlayerConfiguration.VolumeLevelKey)
     }
     
     func seekTime(playlist: Playlist) -> CMTime? {
-        guard let data = self.data,
-            let playback = data[PlayerConfiguration.PlaybackTimeKey] as? Dictionary<String, Double>,
-            let s = playback[PlayerConfiguration.TimeScaleKey] else {
-                return nil
-        }
-        
-        let seconds = playback[PlayerConfiguration.SecondsKey]
-        let timeScale = CMTimeScale(s)
-        
-        return CMTime(seconds: seconds!, preferredTimescale: timeScale)
+        let seconds = defaults.double(forKey: PlayerConfiguration.PlaybackTimeKey)
+        let timeScale = CMTimeScale(defaults.integer(forKey: PlayerConfiguration.TimeScaleKey))
+        return CMTime(seconds: seconds, preferredTimescale: timeScale)
     }
     
     func resolveLastPath() -> URL? {

@@ -277,11 +277,14 @@ class ViewController: NSViewController {
             debug_print("\(#function): selectodFolder is nil")
             return
         }
-        guard self.pm.resetPlayerState() == nil else {
+        self.pm.resetPlayerState()
+        /* TODO: what todo with the below?
+        if let error = {
             debug_print("\(#function): failed to reset player state")
+            debug_print("\(error.localizedDescription)")
             self.updateViewForEmptyPlaylist()
             return
-        }
+        }*/
         guard self.usePlaylist(selectedFolder) else {
             debug_print("\(#function): failed to use playlist")
             return

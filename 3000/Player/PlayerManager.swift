@@ -177,9 +177,6 @@ class PlayerManager: NSObject {
     
     func useCache(playlist: Playlist) -> Error? {
         self.playlist = playlist
-        if let error = self.storage.change(folder: playlist.folder) {
-            return error
-        }
         if let url = self.storage.getLastTrack(),
             let index = self.indexFor(url: url, playlist: playlist) {
             self.state.from(index)
@@ -223,7 +220,8 @@ class PlayerManager: NSObject {
         guard !isEmpty() else { return ErrorEmptyPlaylist() }
         let track = self.playlist.tracks[self.state.currentIndex].absoluteString
         self.state.update(time: self.player?.currentTime(), track: track)
-        return storage.save(folder: playlist.folder, state: self.state).error
+        storage.save(folder: playlist.folder, state: self.state)
+        return nil
     }
     
     func isPlaying() -> Bool {
@@ -266,10 +264,10 @@ class PlayerManager: NSObject {
     }
     
     // resetPlayerState used when changing playlist
-    func resetPlayerState() -> Error? {
+    func resetPlayerState() {
         self.player?.pause()
         self.state.reset()
-        return storage.save(folder: playlist.folder, state: self.state).error
+        storage.save(folder: playlist.folder, state: self.state)
     }
     
     func playTime() -> (currentTime: CMTime?, duration: CMTime?) {
