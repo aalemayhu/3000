@@ -23,7 +23,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var imageView: ArtworkImageView!
     @IBOutlet weak var currentTimeLabel: NSTextField!
     @IBOutlet weak var durationLabel: NSTextField!
-    @IBOutlet weak var progressSlider: NSSlider!
     
     @IBOutlet weak var volumeButton: NSButton!
     
@@ -105,7 +104,6 @@ class ViewController: NSViewController {
         let duration = playTime.duration ?? pm.duration(for: index)
         let currentTime = playTime.currentTime ?? pm.time(for: index)
         
-        self.setupProgressSlider(duration)
         self.updatePlayTimeLabels(currentTime, duration)
     }
     
@@ -142,7 +140,6 @@ class ViewController: NSViewController {
         registerLocalMonitoringKeyboardEvents()
         
         loadDefaults()
-        progressSlider.trackFillColor = NSColor.gray
         
         toggleTrackInfo(hidden: true)
         
@@ -222,12 +219,6 @@ class ViewController: NSViewController {
         return true
     }
     
-    func setupProgressSlider(_ duration: CMTime) {
-        let max = CMTimeGetSeconds(duration)
-        self.progressSlider.minValue = 0
-        self.progressSlider.maxValue = Double(max)
-    }
-    
     @IBAction func sliderValueChanged(_ sender: NSSlider) {
         guard let player = pm.player else {
             return
@@ -241,8 +232,6 @@ class ViewController: NSViewController {
         
         let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
         let durationInSeconds = CMTimeGetSeconds(duration)
-        
-        self.progressSlider.doubleValue = Double(currentTimeInSeconds)
         
         let start = Date(timeIntervalSince1970: currentTimeInSeconds)
         let end = Date(timeIntervalSince1970: durationInSeconds)
@@ -359,7 +348,6 @@ class ViewController: NSViewController {
     func toggleTrackInfo(hidden: Bool) {
         trackInfoLabel.isHidden = hidden
         trackArtistLabel.isHidden = hidden
-        progressSlider.isHidden = hidden
         volumeButton.isHidden = hidden
         durationLabel.isHidden = hidden
         currentTimeLabel.isHidden = hidden

@@ -278,13 +278,6 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXk-Pi-QHm">
-                                <rect key="frame" x="18" y="61" width="220" height="19"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="sRd-aX-rtF" customClass="TrackProgressSliderCell" customModule="_000" customModuleProvider="target"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" target="XfG-lQ-9wD" id="HBs-ec-R4X"/>
-                                </connections>
-                            </slider>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="3MI-rf-mAf">
                                 <rect key="frame" x="93" y="5" width="70" height="48"/>
                                 <constraints>
@@ -307,13 +300,10 @@
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="XDz-PB-3FW"/>
                             <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="XHm-FA-4OL"/>
                             <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="dyg-0D-GUc"/>
-                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="epZ-TZ-UFP"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="eqG-H2-SdA"/>
-                            <constraint firstItem="hXk-Pi-QHm" firstAttribute="top" secondItem="b2i-w6-9Wo" secondAttribute="bottom" constant="25" id="iE6-qL-ffG"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="jo4-05-jJY"/>
                             <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="3MI-rf-mAf" secondAttribute="trailing" constant="42" id="kN9-qg-HJJ"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="nN7-kQ-gGv"/>
-                            <constraint firstAttribute="trailing" secondItem="hXk-Pi-QHm" secondAttribute="trailing" constant="20" id="vxL-ze-jYX"/>
                             <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="vyf-PZ-ycY"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="wdF-5d-m6A"/>
                             <constraint firstAttribute="bottom" secondItem="agG-90-gvG" secondAttribute="bottom" constant="20" id="xuR-Jb-QpY"/>
@@ -323,7 +313,6 @@
                         <outlet property="currentTimeLabel" destination="x3w-Bo-YQR" id="M2c-uF-h7j"/>
                         <outlet property="durationLabel" destination="agG-90-gvG" id="h2z-3I-bLS"/>
                         <outlet property="imageView" destination="Bpc-1v-CQo" id="DMv-fD-QPM"/>
-                        <outlet property="progressSlider" destination="hXk-Pi-QHm" id="fad-Ui-aIf"/>
                         <outlet property="trackArtistLabel" destination="XGC-cc-PWz" id="w7V-1N-aib"/>
                         <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
                         <outlet property="volumeButton" destination="3MI-rf-mAf" id="CJD-Xp-wf3"/>
