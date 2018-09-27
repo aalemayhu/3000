@@ -221,10 +221,14 @@ class ViewController: NSViewController {
     }
     
     func updatePlayTimeLabels(_ currentTime: CMTime, _ duration: CMTime) {
-        let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
+        var currentTimeInSeconds = CMTimeGetSeconds(currentTime)
         let durationInSeconds = CMTimeGetSeconds(duration)
         
         debug_print("currentTimeInSeconds=\(currentTimeInSeconds)")
+        if currentTimeInSeconds.isNaN {
+            currentTimeInSeconds = 0
+            debug_print("change currentTimeInSeconds=\(currentTimeInSeconds)")
+        }
         
         let start = Date(timeIntervalSince1970: currentTimeInSeconds)
         let end = Date(timeIntervalSince1970: durationInSeconds)
