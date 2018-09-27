@@ -13,15 +13,15 @@ class BlurView: NSView {
         self.layerUsesCoreImageFilters = true
         self.layer?.needsDisplayOnBoundsChange = true
         
-        let satFilter = CIFilter(name: "CIColorControls")
-        satFilter?.setDefaults()
-        satFilter?.setValue(NSNumber(value: 2.0), forKey: "inputSaturation")
+        guard let satFilter = CIFilter(name: "CIColorControls") else { return }
+        satFilter.setDefaults()
+        satFilter.setValue(NSNumber(value: 2.0), forKey: "inputSaturation")
         
         let blurFilter = CIFilter(name: "CIGaussianBlur")
         blurFilter?.setDefaults()
         blurFilter?.setValue(NSNumber(value: 40.0), forKey: "inputRadius")
         
-        self.layer?.backgroundFilters = [satFilter!, blurFilter!]
+        self.layer?.backgroundFilters = [satFilter, blurFilter!]
         self.layer?.needsDisplay()
     }
     

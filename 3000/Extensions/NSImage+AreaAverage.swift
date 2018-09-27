@@ -10,11 +10,12 @@ extension NSImage {
         
         // Get average color.
         let context = CIContext()
-        let inputImage = CIImage(cgImage: self.CGImage)
+        guard let cgImage = self.CGImage else { return NSColor.white }
+        let inputImage = CIImage(cgImage: cgImage) 
         let extent = inputImage.extent
         let inputExtent = CIVector(x: extent.origin.x, y: extent.origin.y, z: extent.size.width, w: extent.size.height)
-        let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: inputExtent])!
-        let outputImage = filter.outputImage!
+
+        guard let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: inputExtent]), let outputImage = filter.outputImage else { return NSColor.white }
         let outputExtent = outputImage.extent
         assert(outputExtent.size.width == 1 && outputExtent.size.height == 1)
         
@@ -27,13 +28,12 @@ extension NSImage {
     }
     
     // https://stackoverflow.com/questions/24595908/swift-nsimage-to-cgimage/24595958#24595958
-    var CGImage: CGImage {
+    var CGImage: CGImage? {
         get {
-            let imageData = self.tiffRepresentation
-            let cfdata = imageData! as CFData
+            guard let imageData = self.tiffRepresentation else { return nil}
+            let cfdata = imageData as CFData
             let source = CGImageSourceCreateWithData(cfdata, nil)!
-            let maskRef = CGImageSourceCreateImageAtIndex(source, 0, nil)
-            return maskRef!
+            return CGImageSourceCreateImageAtIndex(source, 0, nil)
         }
     }
 }
