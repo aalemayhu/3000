@@ -279,7 +279,7 @@
                                 </customSpacing>
                             </stackView>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="3MI-rf-mAf">
-                                <rect key="frame" x="119" y="23" width="18" height="12"/>
+                                <rect key="frame" x="65" y="23" width="126" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="FAV-VW-2J5"/>
                                 </constraints>
@@ -294,7 +294,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="8bQ-1n-B40"/>
-                            <constraint firstItem="3MI-rf-mAf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="8" symbolic="YES" id="Azz-LC-BGf"/>
+                            <constraint firstItem="3MI-rf-mAf" firstAttribute="leading" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="8" symbolic="YES" id="Azz-LC-BGf"/>
                             <constraint firstAttribute="bottom" secondItem="3MI-rf-mAf" secondAttribute="bottom" constant="23" id="DiY-x7-U1V"/>
                             <constraint firstItem="3MI-rf-mAf" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="LQo-Kh-Mc3"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="XDz-PB-3FW"/>
@@ -302,7 +302,7 @@
                             <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="dyg-0D-GUc"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="eqG-H2-SdA"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="jo4-05-jJY"/>
-                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" secondItem="3MI-rf-mAf" secondAttribute="trailing" constant="68" id="kN9-qg-HJJ"/>
+                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3MI-rf-mAf" secondAttribute="trailing" id="kN9-qg-HJJ"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="nN7-kQ-gGv"/>
                             <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="vyf-PZ-ycY"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="wdF-5d-m6A"/>
