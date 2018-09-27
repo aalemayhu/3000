@@ -89,8 +89,9 @@ class ViewController: NSViewController {
         self.currentTimeLabel.stringValue = ""
         self.durationLabel.stringValue = ""
         self.trackInfoLabel.stringValue = ""
-        self.trackArtistLabel.stringValue = "Press space 2 play or CMD+O"
-        
+        self.trackArtistLabel.stringValue = "Drag a folder with mp3 and / or m4a files"
+        self.trackArtistLabel.textColor = NSColor.white
+        self.toggleTrackInfo(hidden: true)
         if let path = Bundle.main.path(forResource: "placeholder", ofType: ".png") {
             self.imageView.configure(with: NSImage(contentsOfFile: path))
         }
@@ -337,6 +338,7 @@ class ViewController: NSViewController {
         super.mouseEntered(with: event)
         self.imageView?.blur()
         self.toggleTrackInfo(hidden: false)
+
     }
     
     override func mouseExited(with event: NSEvent) {
@@ -348,7 +350,7 @@ class ViewController: NSViewController {
     func toggleTrackInfo(hidden: Bool) {
         trackInfoLabel.isHidden = hidden
         trackArtistLabel.isHidden = hidden
-        volumeButton.isHidden = hidden
+        volumeButton.isHidden = hidden || self.pm.trackCount() < 1
         durationLabel.isHidden = hidden
         currentTimeLabel.isHidden = hidden
     }
