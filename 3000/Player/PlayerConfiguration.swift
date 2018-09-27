@@ -15,11 +15,11 @@ class PlayerConfiguration {
     static let LastPath = "LastPath"
     
     // JSON
-    static let PlaybackTimeKey = "PlaybackTime"
     static let TimeScaleKey = "timeScale"
     static let SecondsKey = "seconds"
     static let LastTrackKey = "LastTrack"
     static let VolumeLevelKey = "VolumeLevel"
+    // TODO: rename to something related to bookmarks, we don't use json anymore.
     static let folderInfo = ".3000.json"
     
     private var accessCount = 0
@@ -54,7 +54,7 @@ class PlayerConfiguration {
     }
     
     func seekTime(playlist: Playlist) -> CMTime? {
-        let seconds = defaults.double(forKey: PlayerConfiguration.PlaybackTimeKey)
+        let seconds = defaults.double(forKey: PlayerConfiguration.SecondsKey)
         let timeScale = CMTimeScale(defaults.integer(forKey: PlayerConfiguration.TimeScaleKey))
         return CMTime(seconds: seconds, preferredTimescale: timeScale)
     }

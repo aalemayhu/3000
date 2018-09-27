@@ -220,23 +220,17 @@ class ViewController: NSViewController {
         return true
     }
     
-    @IBAction func sliderValueChanged(_ sender: NSSlider) {
-        guard let player = pm.player else {
-            return
-        }
-        
-        let seekTime = CMTime(seconds: sender.doubleValue, preferredTimescale: 1000000000)
-        player.seek(to: seekTime)
-    }
-    
     func updatePlayTimeLabels(_ currentTime: CMTime, _ duration: CMTime) {
-        
         let currentTimeInSeconds = CMTimeGetSeconds(currentTime)
         let durationInSeconds = CMTimeGetSeconds(duration)
         
+        debug_print("currentTimeInSeconds=\(currentTimeInSeconds)")
+        
         let start = Date(timeIntervalSince1970: currentTimeInSeconds)
         let end = Date(timeIntervalSince1970: durationInSeconds)
-        
+
+        debug_print("start=\(start)")
+
         let fmt = DateFormatter()
         fmt.dateFormat = "mm:ss"
         
