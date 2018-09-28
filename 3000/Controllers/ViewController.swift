@@ -40,6 +40,8 @@ class ViewController: NSViewController {
         }
     }
     
+    var sizeBeforeFullscreen: NSRect?
+    
     // View
     
     override func viewDidLoad() {
@@ -99,15 +101,12 @@ class ViewController: NSViewController {
         op.start()
     }
     
-    @objc func screenResize() {
-        let fontSize = max(self.imageView.frame.size.width/28, 13)
-        self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
-        self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
-    }
-    
     // ---
     
     func configure () {
+        if let window = NSApplication.shared.windows.first {
+            window.delegate = self
+        }
         registerNotificationObservers()
         registerLocalMonitoringKeyboardEvents()
         
@@ -140,8 +139,6 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
-                                               name: NSWindow.didResizeNotification, object: nil)
     }
     
     func loadDefaults() {
