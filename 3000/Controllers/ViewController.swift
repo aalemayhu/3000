@@ -21,23 +21,15 @@ class ViewController: NSViewController {
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
     @IBOutlet weak var imageView: ArtworkImageView!
-    @IBOutlet weak var currentTimeLabel: NSTextField!
-    @IBOutlet weak var durationLabel: NSTextField!
-    
-    @IBOutlet weak var volumeButton: NSButton!
     
     var cache = [String: Bool]()
     var pm: PlayerManager = PlayerManager()
     
-    var timeObserverToken: Any?
     var tracksViewController: TracksViewController?
-    var volumeViewController: VolumeViewController?
     
     // TODO: rename to be more popover specific
     var isTracksControllerVisible = false
-    var isVolumeViewControllerVisible = false
 
-    var popOverVolume: NSPopover?
     var popOverTracks: NSPopover?
 
     var isActive = true
@@ -81,13 +73,9 @@ class ViewController: NSViewController {
         self.trackArtistLabel.stringValue = "\(artist)"
         self.trackInfoLabel.textColor = textColor
         self.trackArtistLabel.textColor = textColor
-        
-        self.updateTimeElements(for: index)
     }
     
     func updateViewForEmptyPlaylist() {
-        self.currentTimeLabel.stringValue = ""
-        self.durationLabel.stringValue = ""
         self.trackInfoLabel.stringValue = ""
         self.trackArtistLabel.stringValue = "Drag a folder with mp3 and / or m4a files"
         self.trackArtistLabel.textColor = NSColor.white
@@ -95,17 +83,6 @@ class ViewController: NSViewController {
         if let path = Bundle.main.path(forResource: "placeholder", ofType: ".png") {
             self.imageView.configure(with: NSImage(contentsOfFile: path))
         }
-    }
-    
-    func updateTimeElements(for index: Int) {
-        debug_print("\(#function)")
-        // Either use the playing items duration or load from currently not playing item
-        let playTime = pm.playTime()
-        
-        let duration = playTime.duration ?? pm.duration(for: index)
-        let currentTime = playTime.currentTime ?? pm.time(for: index)
-        
-        self.updatePlayTimeLabels(currentTime, duration)
     }
     
     func updateArtwork(with artwork: NSImage?) {
@@ -126,14 +103,8 @@ class ViewController: NSViewController {
         let fontSize = max(self.imageView.frame.size.width/28, 13)
         self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
         self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
-        
-        self.currentTimeLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
-        self.durationLabel.font = NSFont(name: "Helvetica Neue", size: fontSize)
     }
     
-    @IBAction func volumeButtonPressed(_ sender: NSButton) {
-        self.showVolumeView()
-    }
     // ---
     
     func configure () {
@@ -220,27 +191,6 @@ class ViewController: NSViewController {
         return true
     }
     
-    func updatePlayTimeLabels(_ currentTime: CMTime, _ duration: CMTime) {
-        var currentTimeInSeconds = CMTimeGetSeconds(currentTime)
-        let durationInSeconds = CMTimeGetSeconds(duration)
-        
-        debug_print("currentTimeInSeconds=\(currentTimeInSeconds)")
-        if currentTimeInSeconds.isNaN {
-            currentTimeInSeconds = 0
-            debug_print("change currentTimeInSeconds=\(currentTimeInSeconds)")
-        }
-        
-        let start = Date(timeIntervalSince1970: currentTimeInSeconds)
-        let end = Date(timeIntervalSince1970: durationInSeconds)
-
-        debug_print("start=\(start)")
-
-        let fmt = DateFormatter()
-        fmt.dateFormat = "mm:ss"
-        
-        currentTimeLabel.stringValue = fmt.string(from: start)
-        durationLabel.stringValue = fmt.string(from: end)
-    }
     
     func hidePopOver() {
         if self.isTracksControllerVisible {
@@ -248,12 +198,6 @@ class ViewController: NSViewController {
             self.tracksViewController = nil
             self.popOverTracks?.close()
             self.popOverTracks = nil
-        }
-        if self.isVolumeViewControllerVisible {
-            self.isVolumeViewControllerVisible = false
-            self.volumeViewController = nil
-            self.popOverVolume?.close()
-            self.popOverVolume = nil
         }
     }
     
@@ -280,7 +224,6 @@ class ViewController: NSViewController {
     
     @objc func playerDidStart(note: NSNotification){
         self.updateView()
-        self.addPeriodicTimeObserver()
         
         guard let window = self.view.window, window.level != .floating else { return }
         guard !isActive else { return }
@@ -302,35 +245,7 @@ class ViewController: NSViewController {
         })
         op.start()
     }
-    
-    // Player observers
-    
-    func playerTimeProgressed() {
-        guard let index = pm.getIndex() else { return }
-        self.updateTimeElements(for: index)
-    }
-    
-    func addPeriodicTimeObserver() {
-        guard let player = pm.player else { fatalError("Player not setup") }
-        // Notify every half second
-        let timeScale = CMTimeScale(NSEC_PER_SEC)
-        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
-        
-        timeObserverToken = player.addPeriodicTimeObserver(forInterval: time,
-                                                           queue: .main) {
-                                                            [weak self] time in
-                                                            self?.playerTimeProgressed()
-        }
-    }
-    
-    func removePeriodicTimeObserver() {
-        guard let player = pm.player else { return }
-        if let timeObserverToken = timeObserverToken {
-            player.removeTimeObserver(timeObserverToken)
-            self.timeObserverToken = nil
-        }
-    }
-    
+
     // Blur handling
     override func mouseEntered(with event: NSEvent) {
         super.mouseEntered(with: event)
@@ -348,9 +263,6 @@ class ViewController: NSViewController {
     func toggleTrackInfo(hidden: Bool) {
         trackInfoLabel.isHidden = hidden
         trackArtistLabel.isHidden = hidden
-        volumeButton.isHidden = hidden || self.pm.trackCount() < 1
-        durationLabel.isHidden = hidden
-        currentTimeLabel.isHidden = hidden
     }
     
     
@@ -363,15 +275,5 @@ class ViewController: NSViewController {
         p.delegate = self
         p.animates = true
         return p
-    }
-    
-    func showVolumeView() {
-        guard !isVolumeViewControllerVisible else { return }
-        self.volumeViewController = VolumeViewController()
-        self.volumeViewController?.selectorDelegate = self
-        guard let volumeViewController = self.volumeViewController else { return }
-        self.popOverVolume = popOver(for: volumeViewController)
-        self.popOverVolume?.show(relativeTo: self.view.bounds, of: self.volumeButton, preferredEdge: .maxY)
-        self.isVolumeViewControllerVisible = true
     }
 }

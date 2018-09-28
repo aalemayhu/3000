@@ -233,22 +233,6 @@
                             <customView horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Bpc-1v-CQo" customClass="ArtworkImageView" customModule="_000" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="256" height="250"/>
                             </customView>
-                            <textField horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="x3w-Bo-YQR">
-                                <rect key="frame" x="18" y="20" width="41" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00:00" id="Ve0-P6-dpS">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="agG-90-gvG">
-                                <rect key="frame" x="203" y="20" width="35" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="??:??" id="Yag-BR-T3g">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b2i-w6-9Wo" userLabel="Artist + Title">
                                 <rect key="frame" x="33" y="103" width="190" height="44"/>
                                 <subviews>
@@ -278,44 +262,20 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="3MI-rf-mAf">
-                                <rect key="frame" x="65" y="23" width="126" height="12"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="FAV-VW-2J5"/>
-                                </constraints>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Volume button" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9hx-AR-FUk">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="volumeButtonPressed:" target="XfG-lQ-9wD" id="5Mx-Bp-JXE"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="8bQ-1n-B40"/>
-                            <constraint firstItem="3MI-rf-mAf" firstAttribute="leading" secondItem="x3w-Bo-YQR" secondAttribute="trailing" constant="8" symbolic="YES" id="Azz-LC-BGf"/>
-                            <constraint firstAttribute="bottom" secondItem="3MI-rf-mAf" secondAttribute="bottom" constant="23" id="DiY-x7-U1V"/>
-                            <constraint firstItem="3MI-rf-mAf" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="LQo-Kh-Mc3"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="XDz-PB-3FW"/>
-                            <constraint firstItem="x3w-Bo-YQR" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="XHm-FA-4OL"/>
-                            <constraint firstAttribute="bottom" secondItem="x3w-Bo-YQR" secondAttribute="bottom" constant="20" id="dyg-0D-GUc"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="eqG-H2-SdA"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="jo4-05-jJY"/>
-                            <constraint firstItem="agG-90-gvG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3MI-rf-mAf" secondAttribute="trailing" id="kN9-qg-HJJ"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="nN7-kQ-gGv"/>
-                            <constraint firstAttribute="trailing" secondItem="agG-90-gvG" secondAttribute="trailing" constant="20" id="vyf-PZ-ycY"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="wdF-5d-m6A"/>
-                            <constraint firstAttribute="bottom" secondItem="agG-90-gvG" secondAttribute="bottom" constant="20" id="xuR-Jb-QpY"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="currentTimeLabel" destination="x3w-Bo-YQR" id="M2c-uF-h7j"/>
-                        <outlet property="durationLabel" destination="agG-90-gvG" id="h2z-3I-bLS"/>
                         <outlet property="imageView" destination="Bpc-1v-CQo" id="DMv-fD-QPM"/>
                         <outlet property="trackArtistLabel" destination="XGC-cc-PWz" id="w7V-1N-aib"/>
                         <outlet property="trackInfoLabel" destination="Yhi-IQ-gcw" id="b93-54-Rjg"/>
-                        <outlet property="volumeButton" destination="3MI-rf-mAf" id="CJD-Xp-wf3"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -323,7 +283,4 @@
             <point key="canvasLocation" x="-2774" y="864"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Volume button" width="18" height="12"/>
-    </resources>
 </document>
