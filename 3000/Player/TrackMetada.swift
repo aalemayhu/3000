@@ -17,6 +17,13 @@ class TrackMetadata {
     var artist: String?
     var artwork: NSImage?
     
+    static var PlaceHolderArtwork: NSImage? {
+        get {
+            guard let path = Bundle.main.path(forResource: "placeholder", ofType: ".png") else { return nil}
+            return NSImage(contentsOfFile: path)
+        }
+    }
+    
     private func use(asset: AVURLAsset, useImage: Bool = false) {
         for item in asset.metadata {
             guard let commonKey = item.commonKey, let _ = item.value else {
@@ -44,6 +51,18 @@ class TrackMetadata {
                 debug_print("NO match for \(commonKey)")
                 continue
             }
+        }
+        
+        self.setPlaceholders(asset: asset)
+    }
+    
+    private func setPlaceholders(asset: AVURLAsset) {
+        if self.title == nil {
+            self.title = asset.url.lastPathComponent
+        }
+        
+        if self.artwork == nil {
+            self.artwork = TrackMetadata.PlaceHolderArtwork
         }
     }
     

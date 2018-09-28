@@ -118,7 +118,7 @@ class PlayerManager: NSObject {
     
     func trackInfo(for index: Int) -> TrackListInfo {
         let m = self.metadata(for: index)
-        return (m.artist ?? "artist", title: m.title ?? "title")
+        return (m.artist ?? "Name", title: m.title ?? "Title")
     }
     
     func isEmpty() -> Bool {
