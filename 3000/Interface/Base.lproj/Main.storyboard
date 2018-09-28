@@ -227,14 +227,14 @@
             <objects>
                 <viewController title="3000" id="XfG-lQ-9wD" customClass="ViewController" customModule="_000" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl" customClass="MainView" customModule="_000" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="256" height="250"/>
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <customView horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Bpc-1v-CQo" customClass="ArtworkImageView" customModule="_000" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="256" height="250"/>
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                             </customView>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b2i-w6-9Wo" userLabel="Artist + Title">
-                                <rect key="frame" x="33" y="103" width="190" height="44"/>
+                                <rect key="frame" x="30" y="103" width="190" height="44"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-cc-PWz">
                                         <rect key="frame" x="-2" y="24" width="194" height="20"/>
