@@ -264,11 +264,13 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Bpc-1v-CQo" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="8bQ-1n-B40"/>
+                            <constraint firstAttribute="trailing" secondItem="Bpc-1v-CQo" secondAttribute="trailing" id="PRj-XV-ITj"/>
+                            <constraint firstItem="Bpc-1v-CQo" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="UNO-yx-5eZ"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="XDz-PB-3FW"/>
+                            <constraint firstAttribute="bottom" secondItem="Bpc-1v-CQo" secondAttribute="bottom" id="d80-FU-Szw"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="eqG-H2-SdA"/>
-                            <constraint firstItem="Bpc-1v-CQo" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="jo4-05-jJY"/>
                             <constraint firstItem="b2i-w6-9Wo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="nN7-kQ-gGv"/>
+                            <constraint firstItem="Bpc-1v-CQo" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="pMo-wt-yLR"/>
                             <constraint firstItem="Bpc-1v-CQo" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="wdF-5d-m6A"/>
                         </constraints>
                     </view>
