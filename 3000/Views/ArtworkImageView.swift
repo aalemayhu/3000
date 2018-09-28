@@ -19,6 +19,12 @@ class ArtworkImageView: DropView {
     
     func configure(with image: NSImage?) {
         self.image = image
+        if self.layer == nil {
+            self.layer = CALayer()
+        }
+        self.layer?.cornerRadius = 4
+        self.layer?.masksToBounds = true
+        
         self.invalidateIntrinsicContentSize()
         self.needsDisplay = true
     }
