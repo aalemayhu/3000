@@ -30,8 +30,6 @@ class ViewController: NSViewController {
     // TODO: rename to be more popover specific
     var isTracksControllerVisible = false
 
-    var popOverTracks: NSPopover?
-
     var isActive = true
     
     var mainView: MainView? {
@@ -137,6 +135,8 @@ class ViewController: NSViewController {
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidStart(note:)),
                                                name: NSNotification.Name.StartPlayingItem, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(screenResize),
+                                               name: NSWindow.didResizeNotification, object: nil)
     }
     
     func loadDefaults() {
@@ -171,7 +171,7 @@ class ViewController: NSViewController {
         case Keybinding.Tracks:
             self.showTracksView()
         case Keybinding.Esc:
-            self.hidePopOver()
+            self.hideTracksView()
         case Keybinding.Obs:
             self.showObsFilePath()
         }
@@ -189,12 +189,11 @@ class ViewController: NSViewController {
     }
     
     
-    func hidePopOver() {
+    func hideTracksView() {
         if self.isTracksControllerVisible {
             self.isTracksControllerVisible = false
+            self.tracksViewController?.view.animator().removeFromSuperview()
             self.tracksViewController = nil
-            self.popOverTracks?.close()
-            self.popOverTracks = nil
         }
     }
     
@@ -222,6 +221,15 @@ class ViewController: NSViewController {
     }
     
     // Notification handlers
+    
+    @objc func screenResize() {
+        debug_print("\(#function)")
+        let fontSize = max(self.imageView.frame.size.width/28, 13)
+        self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
+        self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
+        self.tracksViewController?.view.frame = self.view.frame
+        self.tracksViewController?.view.needsDisplay = true
+    }
     
     @objc func playerDidFinishPlaying(note: NSNotification){
         self.pm.playNextTrack()

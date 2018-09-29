@@ -54,11 +54,12 @@ extension ViewController: AppDelegateActions {
     }
     
     func showTracksView() {
+        // TODO: refactor below
         guard !isTracksControllerVisible else { return }
         self.tracksViewController = self.tracksViewController ?? TracksViewController(selectorDelegate: self)
-        guard let tracksController = self.tracksViewController else { return }
-        self.popOverTracks = self.popOver(for: tracksController)
-        self.popOverTracks?.show(relativeTo: self.view.bounds, of: self.trackInfoLabel, preferredEdge: .maxY)
+        guard let tracksViewController = self.tracksViewController else { return }
+        tracksViewController.view.frame = self.view.frame
+        self.view.animator().addSubview(tracksViewController.view)
         self.isTracksControllerVisible = true
     }
     

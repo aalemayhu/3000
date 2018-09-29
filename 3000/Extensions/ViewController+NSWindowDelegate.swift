@@ -10,17 +10,6 @@ import Cocoa
 
 extension ViewController: NSWindowDelegate {
     
-    
-    func windowWillResize(_ sender: NSWindow, to frameSize: NSSize) -> NSSize {
-        debug_print("\(#function)")
-        let fontSize = max(self.imageView.frame.size.width/28, 13)
-        self.trackArtistLabel.font = NSFont(name: "Helvetica Neue Bold", size: fontSize)
-        self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
-        self.imageView.needsLayout = true
-        self.view.needsLayout = true
-        return frameSize
-    }
-    
     func windowWillEnterFullScreen(_ notification: Notification) {
         debug_print("\(#function)")
     }

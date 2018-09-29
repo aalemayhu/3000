@@ -23,7 +23,7 @@ extension ViewController: TracksViewControllerSelector {
     }
     
     func didSelectTrack(index: Int) {
-        self.isTracksControllerVisible = false
+        self.hideTracksView()
         self.pm.playFrom(index)
     }
 }
