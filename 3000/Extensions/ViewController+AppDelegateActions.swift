@@ -14,7 +14,7 @@ extension ViewController: AppDelegateActions {
     func defaultUrlForNSPanel() -> URL {
         if let url = self.pm.urlForCurrentPlaylist() {
             return url
-        }        
+        }
         let homeUrl = FileManager.default.homeDirectoryForCurrentUser
         return homeUrl.appendingPathComponent("Music")
     }
@@ -58,13 +58,15 @@ extension ViewController: AppDelegateActions {
     }
     
     func showTracksView() {
+        guard !isTracksViewVisible else { return }
+        if self.tracksViewController == nil {
+            self.tracksViewController = TracksViewController(selectorDelegate: self)
+        }
         // TODO: refactor below
-        guard !isTracksControllerVisible else { return }
-        self.tracksViewController = self.tracksViewController ?? TracksViewController(selectorDelegate: self)
-        guard let tracksViewController = self.tracksViewController else { return }
-        tracksViewController.view.frame = self.view.frame
-        self.view.animator().addSubview(tracksViewController.view)
-        self.isTracksControllerVisible = true
+        guard let vc = self.tracksViewController else { return }
+        vc.view.frame = self.view.frame
+        self.view.animator().addSubview(vc.view)
+        self.isTracksViewVisible = true
     }
     
     func toggleLoop() {

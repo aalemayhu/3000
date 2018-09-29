@@ -11,7 +11,6 @@
 		50251946215933D200B53C20 /* NSView+CenterConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50251945215933D200B53C20 /* NSView+CenterConstraint.swift */; };
 		502B11642146CD1500A7F3F2 /* ArtworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B11632146CD1500A7F3F2 /* ArtworkImageView.swift */; };
 		503AE59921514EBC00D937AE /* Playlist+ErrorEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */; };
-		503AE59D21515C5E00D937AE /* ViewController+PopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */; };
 		503AE5A121515D5C00D937AE /* TracksViewControllerSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */; };
 		503AE5A32151622E00D937AE /* ViewController+TracksViewControllerSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */; };
 		503BD5A52153F0A6007EDF74 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 503BD5A42153F0A6007EDF74 /* placeholder.png */; };
@@ -72,7 +71,6 @@
 		50251945215933D200B53C20 /* NSView+CenterConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+CenterConstraint.swift"; sourceTree = "<group>"; };
 		502B11632146CD1500A7F3F2 /* ArtworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkImageView.swift; sourceTree = "<group>"; };
 		503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Playlist+ErrorEmpty.swift"; sourceTree = "<group>"; };
-		503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+PopOver.swift"; sourceTree = "<group>"; };
 		503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewControllerSelector.swift; sourceTree = "<group>"; };
 		503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+TracksViewControllerSelector.swift"; sourceTree = "<group>"; };
 		503BD5A42153F0A6007EDF74 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 				50E72511214AC4B7001864C5 /* ViewController+AppDelegateActions.swift */,
 				5091464021500265005210D7 /* TracksViewController+TableView.swift */,
 				509146422150100D005210D7 /* NSImage+AreaAverage.swift */,
-				503AE59C21515C5E00D937AE /* ViewController+PopOver.swift */,
 				503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */,
 				50251945215933D200B53C20 /* NSView+CenterConstraint.swift */,
 				50E6E91F215E9995007530C5 /* ViewController+NSWindowDelegate.swift */,
@@ -458,7 +455,6 @@
 				84D80EC3213461CF006C5D14 /* Playlist.swift in Sources */,
 				2DCB45F0213AE1C10082B462 /* DebugHelper.swift in Sources */,
 				509B666421482594006D9421 /* TracksTableRowView.swift in Sources */,
-				503AE59D21515C5E00D937AE /* ViewController+PopOver.swift in Sources */,
 				509B666121481F7C006D9421 /* TracksViewController.swift in Sources */,
 				50E6E920215E9995007530C5 /* ViewController+NSWindowDelegate.swift in Sources */,
 				502B11642146CD1500A7F3F2 /* ArtworkImageView.swift in Sources */,

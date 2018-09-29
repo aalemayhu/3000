@@ -59,7 +59,6 @@ class PlayerState {
     }
     
     func random(upperBound: Int) {
-        // TODO: store the previous index here
         self.previousIndex = self.index
         self.index = Int(arc4random_uniform(UInt32(upperBound)))
     }

@@ -3,7 +3,6 @@
 import Cocoa
 import CoreImage
 
-// TODO: review for crashes
 extension NSImage {
     func areaAverage() -> NSColor {
         var bitmap = [UInt8](repeating: 0, count: 4)
@@ -32,7 +31,7 @@ extension NSImage {
         get {
             guard let imageData = self.tiffRepresentation else { return nil}
             let cfdata = imageData as CFData
-            let source = CGImageSourceCreateWithData(cfdata, nil)!
+            guard let source = CGImageSourceCreateWithData(cfdata, nil) else { return nil}
             return CGImageSourceCreateImageAtIndex(source, 0, nil)
         }
     }

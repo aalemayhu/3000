@@ -27,8 +27,7 @@ class ViewController: NSViewController {
     
     var tracksViewController: TracksViewController?
     
-    // TODO: rename to be more popover specific
-    var isTracksControllerVisible = false
+    var isTracksViewVisible = false
 
     var isActive = true
     
@@ -190,11 +189,10 @@ class ViewController: NSViewController {
     
     
     func hideTracksView() {
-        if self.isTracksControllerVisible {
-            self.isTracksControllerVisible = false
-            self.tracksViewController?.view.animator().removeFromSuperview()
-            self.tracksViewController = nil
-        }
+        guard self.isTracksViewVisible else { return }
+        self.isTracksViewVisible = false
+        self.tracksViewController?.view.animator().removeFromSuperview()
+        self.tracksViewController = nil
     }
     
     func showObsFilePath() {
@@ -291,17 +289,5 @@ class ViewController: NSViewController {
     func toggleTrackInfo(hidden: Bool) {
         trackInfoLabel.isHidden = hidden
         trackArtistLabel.isHidden = hidden
-    }
-    
-    
-    // --
-    
-    func popOver(for controller: NSViewController) -> NSPopover {
-        let p = NSPopover()
-        p.behavior = .applicationDefined
-        p.contentViewController = controller
-        p.delegate = self
-        p.animates = true
-        return p
     }
 }
