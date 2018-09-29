@@ -172,6 +172,8 @@ class ViewController: NSViewController {
             self.showTracksView()
         case Keybinding.Esc:
             self.hidePopOver()
+        case Keybinding.Obs:
+            self.showObsFilePath()
         }
     }    
     
@@ -194,6 +196,14 @@ class ViewController: NSViewController {
             self.popOverTracks?.close()
             self.popOverTracks = nil
         }
+    }
+    
+    func showObsFilePath() {
+        let alert = NSAlert.init()
+        alert.addButton(withTitle: "OK")
+        alert.messageText = "\(NSTemporaryDirectory())file-for-obs.txt"
+        alert.runModal()
+        alert.alertStyle = .informational
     }
     
     // Directory management
@@ -219,7 +229,8 @@ class ViewController: NSViewController {
     
     @objc func playerDidStart(note: NSNotification){
         self.updateView()
-        
+        writeOutTrackInfoForOBS()
+
         guard let window = self.view.window, window.level != .floating else { return }
         guard !isActive else { return }
         showPlayingNextNotification()
@@ -240,6 +251,20 @@ class ViewController: NSViewController {
         })
         op.start()
     }
+    
+    func writeOutTrackInfoForOBS() {
+        guard let index = pm.getIndex() else { return }
+        let track = self.pm.metadata(for: index)
+        do {
+            let filePath = "\(NSTemporaryDirectory())file-for-obs.txt"
+            let fileUrl = URL(fileURLWithPath: filePath)
+            let data = track.obsData()
+            try data?.write(to: fileUrl)
+        } catch {
+            debug_print(error.localizedDescription)
+        }
+    }
+
 
     // Blur handling
     override func mouseEntered(with event: NSEvent) {

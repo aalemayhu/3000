@@ -19,4 +19,5 @@ enum Keybinding: String {
     case Mute = "m"
     case Tracks = "t"
     case Esc = "\u{1B}"
+    case Obs = "i"
 }

@@ -74,4 +74,22 @@ class TrackMetadata {
     func loadOnlyText(from asset: AVURLAsset) {
         self.use(asset: asset, useImage: false)
     }
+
+    // TODO: refactor below
+    func obsData() -> Data? {
+        var contents = "Music\n"
+        if let artist = artist {
+            contents += "\(artist)\n"
+        }
+        
+        if let title = title {
+            contents += "\(title)\n"
+        }
+        
+        if let album = albumName {
+            contents += "[\(album)]\n"
+        }
+        
+        return contents.data(using: .utf8)
+    }
 }
