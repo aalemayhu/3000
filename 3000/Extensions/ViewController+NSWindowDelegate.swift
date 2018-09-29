@@ -12,30 +12,33 @@ extension ViewController: NSWindowDelegate {
     
     func windowWillEnterFullScreen(_ notification: Notification) {
         debug_print("\(#function)")
+        self.view.animator().isHidden = true
+        debug_print("view.frame=\(self.view.frame)")
     }
     
     func windowDidEnterFullScreen(_ notification: Notification) {
         debug_print("\(#function)")
+        self.view.animator().isHidden = false
+        debug_print("view.frame=\(self.view.frame)")
     }
     
     func window(_ window: NSWindow, startCustomAnimationToEnterFullScreenWithDuration duration: TimeInterval) {
         debug_print("\(#function)")
-//        guard let screen = window.screen else { return }
-//        self.sizeBeforeFullscreen = window.frame
-//        NSAnimationContext.runAnimationGroup { (context) in
-//            context.duration = duration
-//            window.animator().setFrame(screen.frame, display: true)
-////            window.animator().setContentSize(screen.frame.size)
-//        }
+        guard let screen = window.screen else { return }
+        self.sizeBeforeFullscreen = window.frame
+        window.backgroundColor = NSColor.black
+        NSAnimationContext.runAnimationGroup { (context) in
+            context.duration = duration
+            window.animator().setFrame(screen.frame, display: true)
+        }
     }
     
     func window(_ window: NSWindow, startCustomAnimationToExitFullScreenWithDuration duration: TimeInterval) {
-        debug_print("\(#function)")
-//        guard let sizeBeforeFullscreen = self.sizeBeforeFullscreen else { return }
-//        NSAnimationContext.runAnimationGroup { (context) in
-//            context.duration = duration
-//            window.animator().setFrame(sizeBeforeFullscreen, display: true)
-//        }
+        guard let sizeBeforeFullscreen = self.sizeBeforeFullscreen else { return }
+        NSAnimationContext.runAnimationGroup { (context) in
+            context.duration = duration
+            window.animator().setFrame(sizeBeforeFullscreen, display: true)
+        }
     }
     
     func customWindowsToEnterFullScreen(for window: NSWindow) -> [NSWindow]? {
