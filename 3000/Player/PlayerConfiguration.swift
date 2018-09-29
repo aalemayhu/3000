@@ -19,8 +19,7 @@ class PlayerConfiguration {
     static let SecondsKey = "seconds"
     static let LastTrackKey = "LastTrack"
     static let VolumeLevelKey = "VolumeLevel"
-    // TODO: rename to something related to bookmarks, we don't use json anymore.
-    static let folderInfo = ".3000.json"
+    static let bookMarksFilename = ".3000"
     
     private var accessCount = 0
     private var playlistUrl: URL?
@@ -62,7 +61,7 @@ class PlayerConfiguration {
     func resolveLastPath() -> URL? {
         do {
             let folder = URL(fileURLWithPath: NSHomeDirectory())
-            let fileUrl = folder.appendingPathComponent(PlayerConfiguration.folderInfo)
+            let fileUrl = folder.appendingPathComponent(PlayerConfiguration.bookMarksFilename)
             let data = try Data(contentsOf: fileUrl)
             var isStale = false
             let resolvedUrl = try URL(resolvingBookmarkData: data, options: .withSecurityScope,
@@ -101,7 +100,7 @@ class PlayerConfiguration {
     func saveBookmark(_ url: URL) -> Error? {
         self.cleanupScopedResources()
         let folder = URL(fileURLWithPath: NSHomeDirectory())
-        let fileUrl = folder.appendingPathComponent(PlayerConfiguration.folderInfo)
+        let fileUrl = folder.appendingPathComponent(PlayerConfiguration.bookMarksFilename)
         do {
             let data = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             try data.write(to: fileUrl)

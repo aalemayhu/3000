@@ -12,7 +12,11 @@ import Cocoa
 extension ViewController: AppDelegateActions {
     
     func defaultUrlForNSPanel() -> URL {
-        return self.pm.urlForCurrentPlaylist() ?? FileManager.default.homeDirectoryForCurrentUser
+        if let url = self.pm.urlForCurrentPlaylist() {
+            return url
+        }        
+        let homeUrl = FileManager.default.homeDirectoryForCurrentUser
+        return homeUrl.appendingPathComponent("Music")
     }
     
     func setLastPath(url: URL) {
