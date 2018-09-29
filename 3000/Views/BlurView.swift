@@ -2,6 +2,7 @@
 
 import Foundation
 import Cocoa
+import CoreGraphics
 
 class BlurView: NSView {
     
@@ -21,7 +22,11 @@ class BlurView: NSView {
         blurFilter?.setDefaults()
         blurFilter?.setValue(NSNumber(value: 40.0), forKey: "inputRadius")
         
-        self.layer?.backgroundFilters = [satFilter, blurFilter!]
+        let affineClampFilter = CIFilter(name: "CIAffineClamp")
+        let xform = CGAffineTransform(scaleX: 2, y: 2)
+        affineClampFilter?.setValue(xform, forKey: "inputTransform")
+
+        self.layer?.backgroundFilters = [satFilter, affineClampFilter!,  blurFilter!]
         self.layer?.needsDisplay()
     }
     
