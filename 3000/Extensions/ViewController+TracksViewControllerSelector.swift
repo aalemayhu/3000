@@ -14,10 +14,6 @@ extension ViewController: TracksViewControllerSelector {
         return self.pm.trackCount()
     }
     
-    func currentArtwork() -> NSImage? {
-        return self.imageView?.layer?.contents as? NSImage
-    }
-    
     func trackInfo(at index: Int) -> TrackListInfo {
         return self.pm.trackInfo(for: index)
     }

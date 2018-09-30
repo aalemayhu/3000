@@ -14,5 +14,4 @@ protocol TracksViewControllerSelector {
     func didSelectTrack(index: Int)
     func trackInfo(at index: Int) -> TrackListInfo
     func numberOfTracks() -> Int
-    func currentArtwork() -> NSImage?
 }

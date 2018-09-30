@@ -15,13 +15,7 @@ class TrackMetadata {
     var type: String?
     var albumName: String?
     var artist: String?
-    var artwork: NSImage? = NSImage(named: "Placeholder")
-    
-    static var PlaceHolderArtwork: NSImage? {
-        get {
-            return NSImage(named: "Placeholder")
-        }
-    }
+    var artwork: NSImage?
     
     private func use(asset: AVURLAsset, useImage: Bool = false) {
         for item in asset.metadata {
@@ -61,7 +55,7 @@ class TrackMetadata {
         }
         
         if self.artwork == nil {
-            self.artwork = TrackMetadata.PlaceHolderArtwork
+            self.artwork = NSImage(named: "Placeholder")
         }
     }
     

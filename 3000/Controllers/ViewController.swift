@@ -79,7 +79,7 @@ class ViewController: NSViewController {
         self.trackArtistLabel.stringValue = "Drag a folder with mp3\n and / or m4a files"
         self.trackArtistLabel.textColor = NSColor.white
         self.toggleTrackInfo(hidden: true)
-        self.imageView.configure(with: TrackMetadata.PlaceHolderArtwork)        
+        self.imageView.configure(with: NSImage(named: "Placeholder"))        
     }
     
     func updateArtwork(with artwork: NSImage?) {
