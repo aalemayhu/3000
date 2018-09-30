@@ -3,9 +3,8 @@
 a minimal music player for the macOS.
 
 The main feature of the app is that it can play music from a folder and it
-treats it as a playlist. **Only MP3 and M4A files are supported**.
-
-
+treats it as a playlist. **Only MP3 and M4A files are supported**. For the
+player to show artwork the metadata has to be set.
 
 ## Why not use iTunes?
 
