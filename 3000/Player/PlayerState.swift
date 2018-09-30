@@ -35,13 +35,6 @@ class PlayerState {
         self.volume = PlayerManager.DefaultVolumeValue
     }
     
-    init(lastTrack: String, volume: Float, seconds: Double?, timescale: CMTimeScale?) {
-        self.lastTrack = lastTrack
-        self.volume = volume
-        self.seconds = seconds
-        self.timescale = timescale
-    }
-    
     func update(time: CMTime?, track: String) {
          self.seconds = time?.seconds
          self.timescale = time?.timescale

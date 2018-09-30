@@ -11,15 +11,17 @@ import AVFoundation
 
 class PlayerConfiguration {
     
+    enum Keys: String {
+        case TimeScale = "timeScale"
+        case Seconds = "seconds"
+        case LastTrack = "LastTrack"
+        case VolumeLevel = "VolumeLevel"
+        case Bookmark = ".3000"
+    }
+
+    
     //
     static let LastPath = "LastPath"
-    
-    // JSON
-    static let TimeScaleKey = "timeScale"
-    static let SecondsKey = "seconds"
-    static let LastTrackKey = "LastTrack"
-    static let VolumeLevelKey = "VolumeLevel"
-    static let bookMarksFilename = ".3000"
     
     private var accessCount = 0
     private var playlistUrl: URL?
@@ -29,39 +31,39 @@ class PlayerConfiguration {
     }
     
     func save(folder: URL, state: PlayerState) {
-        defaults.set(state.lastTrack, forKey: PlayerConfiguration.LastTrackKey)
-        defaults.set(state.volume, forKey: PlayerConfiguration.VolumeLevelKey)
-        defaults.set(state.seconds, forKey: PlayerConfiguration.SecondsKey)
-        defaults.set(state.timescale, forKey: PlayerConfiguration.TimeScaleKey)
+        defaults.set(state.lastTrack, forKey: Keys.LastTrack.rawValue)
+        defaults.set(state.volume, forKey: Keys.VolumeLevel.rawValue)
+        defaults.set(state.seconds, forKey: Keys.Seconds.rawValue)
+        defaults.set(state.timescale, forKey: Keys.TimeScale.rawValue)
         defaults.synchronize()
     }
     
     func getLastTrack() -> URL? {
-        guard let value = defaults.string(forKey: PlayerConfiguration.LastTrackKey) else {
+        guard let value = defaults.string(forKey: PlayerConfiguration.Keys.LastTrack.rawValue) else {
                 return nil
         }
         return URL(string: value)
     }
     
     func removeLastTrack() {
-        defaults.removeObject(forKey: PlayerConfiguration.LastTrackKey)
+        defaults.removeObject(forKey: Keys.LastTrack.rawValue)
         defaults.synchronize()
     }
     
     func getVolumeLevel() -> Float? {
-        return defaults.float(forKey: PlayerConfiguration.VolumeLevelKey)
+        return defaults.float(forKey: PlayerConfiguration.Keys.VolumeLevel.rawValue)
     }
     
     func seekTime(playlist: Playlist) -> CMTime? {
-        let seconds = defaults.double(forKey: PlayerConfiguration.SecondsKey)
-        let timeScale = CMTimeScale(defaults.integer(forKey: PlayerConfiguration.TimeScaleKey))
+        let seconds = defaults.double(forKey: Keys.Seconds.rawValue)
+        let timeScale = CMTimeScale(defaults.integer(forKey: Keys.TimeScale.rawValue))
         return CMTime(seconds: seconds, preferredTimescale: timeScale)
     }
     
     func resolveLastPath() -> URL? {
         do {
             let folder = URL(fileURLWithPath: NSHomeDirectory())
-            let fileUrl = folder.appendingPathComponent(PlayerConfiguration.bookMarksFilename)
+            let fileUrl = folder.appendingPathComponent(Keys.Bookmark.rawValue)
             let data = try Data(contentsOf: fileUrl)
             var isStale = false
             let resolvedUrl = try URL(resolvingBookmarkData: data, options: .withSecurityScope,
@@ -100,7 +102,7 @@ class PlayerConfiguration {
     func saveBookmark(_ url: URL) -> Error? {
         self.cleanupScopedResources()
         let folder = URL(fileURLWithPath: NSHomeDirectory())
-        let fileUrl = folder.appendingPathComponent(PlayerConfiguration.bookMarksFilename)
+        let fileUrl = folder.appendingPathComponent(Keys.Bookmark.rawValue)
         do {
             let data = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             try data.write(to: fileUrl)
