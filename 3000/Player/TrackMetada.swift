@@ -12,13 +12,19 @@ import AVFoundation
 
 class TrackMetadata {
     
-    var isLoaded = false
     var title: String?
     var type: String?
     var albumName: String?
     var artist: String?
     var artwork: NSImage?
+    var duration: CMTime?
     
+    var isLoaded: Bool {
+        get { return self.loaded }
+    }
+    
+    private var loaded = false
+
     private func use(asset: AVURLAsset, useImage: Bool = false) {
         for item in asset.metadata {
             guard let commonKey = item.commonKey, let _ = item.value else {
@@ -48,7 +54,8 @@ class TrackMetadata {
             }
         }
         
-        self.isLoaded = useImage
+        self.loaded = useImage
+        self.duration = asset.duration
         self.setPlaceholders(asset: asset)
     }
     
@@ -64,6 +71,11 @@ class TrackMetadata {
     
     func load(from asset: AVURLAsset) {
         self.use(asset: asset, useImage: true)
+    }
+    
+    func unload() {
+        self.loaded = false
+        self.artwork = nil
     }
     
     func loadOnlyText(from asset: AVURLAsset) {

@@ -39,6 +39,8 @@ class PlayerManager: NSObject {
         AVURLAssetPreferPreciseDurationAndTimingKey: true
     ]
     
+    var metadataCache = [Int: TrackMetadata]()
+    
     init(playlist: Playlist) {
         self.playlist = playlist
         self.storage = PlayerConfiguration(folder: playlist.folder)
@@ -68,6 +70,10 @@ class PlayerManager: NSObject {
         guard playlist.size() > 0 else { return }
         if isEndOfPlaylist() {
             self.state.reset()
+        }
+        
+        if self.state.currentIndex != self.state.previousIndex {
+            self.metadataCache[self.state.previousIndex]?.unload()
         }
         
         let u = playlist.tracks[self.state.currentIndex]
@@ -110,11 +116,16 @@ class PlayerManager: NSObject {
     }
     
     func metadata(for index: Int) -> TrackMetadata {
-        let asset = self.asset(for: index)
+        if let match = self.metadataCache[index] {
+            return match
+        }
+        
         let m = TrackMetadata()
         if !m.isLoaded {
+            let asset = self.asset(for: index)
             m.loadOnlyText(from: asset)
         }
+        self.metadataCache[index] = m
         return m
     }
     
@@ -136,14 +147,14 @@ class PlayerManager: NSObject {
     func playNextTrack() {
         self.storage.removeLastTrack()
         self.state.next()
-        play(time: nil)
+        self.play(time: nil)
     }
     
     func playPreviousTrack() {
         self.storage.removeLastTrack()
         guard self.state.currentIndex > 0 else { return }
-        self.state.previous()
-        play(time: nil)
+        self.state.back()
+        self.play(time: nil)
     }
     
     func mute() {
@@ -152,8 +163,6 @@ class PlayerManager: NSObject {
     
     func playRandomTrack() {
         self.storage.removeLastTrack()
-        // obs: experimenting without zero out image
-//        self.metadata(for: self.state.playerIndex).artwork = nil
         self.state.random(upperBound: self.playlist.size())
         self.play(time: nil)
     }
@@ -178,6 +187,7 @@ class PlayerManager: NSObject {
     }
     
     func useCache(playlist: Playlist) -> Error? {
+        self.metadataCache.removeAll()
         self.playlist = playlist
         if let url = self.storage.getLastTrack(),
             let index = self.indexFor(url: url, playlist: playlist) {
@@ -277,9 +287,13 @@ class PlayerManager: NSObject {
         return CMTime(seconds: 0, preferredTimescale: 1000000000)
     }
     
-    func duration(for  index: Int) -> CMTime {
-        let track = self.playlist.tracks[index]
-        return AVURLAsset(url: track, options: PlayerManager.AssetOptions).duration
+    func duration(for  index: Int) -> CMTime? {
+        guard let track = self.metadataCache[index] else { return nil }
+        if track.duration != nil {
+            let asset = AVURLAsset(url: self.playlist.tracks[index], options: PlayerManager.AssetOptions)
+            track.loadOnlyText(from: asset)
+        }
+        return track.duration
     }
     
     // Notifications

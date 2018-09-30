@@ -15,13 +15,17 @@ class PlayerState {
     var seconds: Double?
     var timescale: CMTimeScale?
     
+    // TODO: save the previous index?
+    var previousIndex: Int {
+        get { return self.previous }
+    }
+    
     var currentIndex: Int {
         get { return self.index }
     }
     
     private var index: Int = 0
-    // TODO: save the previous index?
-    private var previousIndex = 0
+    private var previous: Int = 0
     
     // TODO: save the value of isLooping
     var isLooping = false
@@ -50,21 +54,21 @@ class PlayerState {
     }
     
     func next() {
-        self.previousIndex = self.index
+        self.previous = self.index
         self.index += 1
     }
     
-    func previous() {
+    func back() {
         self.index = self.previousIndex
     }
     
     func random(upperBound: Int) {
-        self.previousIndex = self.index
+        self.previous = self.index
         self.index = Int(arc4random_uniform(UInt32(upperBound)))
     }
     
     func from(_ i: Int) {
-        self.previousIndex = self.index
+        self.previous = self.index
         self.index = i
     }
 }
