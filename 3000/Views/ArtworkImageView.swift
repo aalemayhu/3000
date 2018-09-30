@@ -6,6 +6,7 @@ import Cocoa
 
 class ArtworkImageView: DropView {
     
+    private var imageView: NSImageView?
     private var image: NSImage?
     private let minimumArtworkSize = NSSize(width: 250, height: 250)
 
@@ -14,19 +15,30 @@ class ArtworkImageView: DropView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        self.image?.draw(in: dirtyRect)
+        super.draw(dirtyRect)
+        self.imageView?.draw(dirtyRect)
     }
     
     func configure(with image: NSImage?) {
         self.image = image
+        configureLayer()
+        self.invalidateIntrinsicContentSize()
+        self.needsDisplay = true
+        if self.imageView == nil {
+            imageView = NSImageView(frame: self.frame)
+            imageView?.unregisterDraggedTypes()
+            self.addSubview(imageView!)
+        }
+        imageView?.image = self.image
+    }
+    
+    private func configureLayer() {
         if self.layer == nil {
             self.layer = CALayer()
         }
+        self.wantsLayer = true
         self.layer?.cornerRadius = 4
         self.layer?.masksToBounds = true
-        
-        self.invalidateIntrinsicContentSize()
-        self.needsDisplay = true
     }
     
     override var intrinsicContentSize: NSSize {
