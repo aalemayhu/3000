@@ -6,6 +6,7 @@ import Cocoa
 
 class ArtworkImageView: DropView {
     
+    private var blurView: BlurView?
     private var imageView: NSImageView?
     private var image: NSImage?
     private let minimumArtworkSize = NSSize(width: 250, height: 250)
@@ -55,5 +56,22 @@ class ArtworkImageView: DropView {
             }
             return image.size
         }
+    }
+    
+    // Blur management
+    
+    func blur() {
+        if self.blurView == nil {
+            guard let f = NSScreen.main?.frame else { return }
+            self.blurView = BlurView(frame: f)
+        }
+        
+        if let blurView = self.blurView {
+            self.addSubview(blurView)
+        }
+    }
+    
+    func unblur()  {
+        self.blurView?.removeFromSuperview()
     }
 }
