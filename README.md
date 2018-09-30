@@ -32,4 +32,4 @@ programming just for fun again.
 
 ![Active window](Screenshots/active.png)
 ![In-active window](Screenshots/inactive.png)
-![Tracks list](Screenshots/tracks\ list.png)
+![Tracks list](Screenshots/tracks%20list.png)
