@@ -114,7 +114,7 @@ class ViewController: NSViewController {
     }
     
     func registerLocalMonitoringKeyboardEvents() {
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {[unowned self] in
             // Only use supported keybindings
             if let key = $0.characters, let k = Keybinding(rawValue: key) {
                 self.keyDown(with: k)
