@@ -34,7 +34,6 @@ class Playlist {
     }
     
     private func isSupported(_ type: String) -> Bool {
-        // TODO: refactor this to use TI / AV types
         return type.hasSuffix(".mp3") || type.hasSuffix(".m4a")
     }
     
