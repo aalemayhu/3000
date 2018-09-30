@@ -112,7 +112,9 @@ class PlayerManager: NSObject {
     func metadata(for index: Int) -> TrackMetadata {
         let asset = self.asset(for: index)
         let m = TrackMetadata()
-        m.loadOnlyText(from: asset)
+        if !m.isLoaded {
+            m.loadOnlyText(from: asset)
+        }
         return m
     }
     

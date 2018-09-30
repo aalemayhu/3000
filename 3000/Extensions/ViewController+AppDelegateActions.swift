@@ -24,11 +24,11 @@ extension ViewController: AppDelegateActions {
     }
     
     func applicationDidBecomeActive(_ notification: Notification) {
-        self.isActive = true
+        self.shouldWeShowNotifications = true
     }
     
     func applicationDidResignActive(_ notification: Notification) {
-        self.isActive = false
+        self.shouldWeShowNotifications = false
     }
         
     func playOrPause() {

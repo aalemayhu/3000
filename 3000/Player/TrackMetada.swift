@@ -10,7 +10,9 @@ import Foundation
 import Cocoa
 import AVFoundation
 
-class TrackMetadata {    
+class TrackMetadata {
+    
+    var isLoaded = false
     var title: String?
     var type: String?
     var albumName: String?
@@ -46,6 +48,7 @@ class TrackMetadata {
             }
         }
         
+        self.isLoaded = useImage
         self.setPlaceholders(asset: asset)
     }
     

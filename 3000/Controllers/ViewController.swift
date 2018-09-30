@@ -13,30 +13,25 @@ import Dispatch
 
 class ViewController: NSViewController {
     
-    // TODO: reduce memory usage in this class
-    
-    let PlayableCollectionViewItemIdentifier = NSUserInterfaceItemIdentifier(rawValue: "PlayableCollectionViewItem")
-    
     // Views
     @IBOutlet weak var trackInfoLabel: NSTextField!
     @IBOutlet weak var trackArtistLabel: NSTextField!
     @IBOutlet weak var imageView: ArtworkImageView!
-    
-    var cache = [String: Bool]()
-    var pm: PlayerManager = PlayerManager()
-    
-    var tracksViewController: TracksViewController?
-    
-    var isTracksViewVisible = false
-
-    var isActive = true
-    
     var mainView: MainView? {
         get {
             return self.view as? MainView
         }
     }
     
+    // Controllers
+    var tracksViewController: TracksViewController?
+    var isTracksViewVisible = false
+    
+    // Player
+    var pm: PlayerManager = PlayerManager()
+    
+    // Application state
+    var shouldWeShowNotifications = true
     var sizeBeforeFullscreen: NSRect?
     
     // View
@@ -88,8 +83,11 @@ class ViewController: NSViewController {
     }
     
     func loadArtwork(for index: Int, track: TrackMetadata) {
+        // Prevent excessive calls to NSImage
+        guard !track.isLoaded else { return }
+        
         let op = MetadataLoader(asset: self.pm.asset(for: index), track: track, completionBlock: {
-            DispatchQueue.main.sync {
+            DispatchQueue.main.sync {[unowned self] in
                 self.updateArtwork(with: track.artwork)
             }
         })
@@ -99,12 +97,8 @@ class ViewController: NSViewController {
     // ---
     
     func configure () {
-        if let window = NSApplication.shared.windows.first {
-            window.delegate = self
-        }
         registerNotificationObservers()
         registerLocalMonitoringKeyboardEvents()
-        
         loadDefaults()
         
         toggleTrackInfo(hidden: true)
@@ -180,10 +174,8 @@ class ViewController: NSViewController {
         let p = Playlist(folder: folder)
         if let error = self.pm.useCache(playlist: p), p.size() == 0 {
             debug_print(error.localizedDescription)
-            
             return false
         }
-        
         return true
     }
     
@@ -207,7 +199,7 @@ class ViewController: NSViewController {
     
     @objc func openedDirectory() {
         guard let selectedFolder = self.pm.securityScopedUrlForPlaylist() else {
-            debug_print("\(#function): selectodFolder is nil")
+            debug_print("\(#function): selectedFolder is nil")
             return
         }
         self.pm.resetPlayerState()       
@@ -238,7 +230,7 @@ class ViewController: NSViewController {
         writeOutTrackInfoForOBS()
 
         guard let window = self.view.window, window.level != .floating else { return }
-        guard !isActive else { return }
+        guard !shouldWeShowNotifications else { return }
         showPlayingNextNotification()
     }
     
@@ -246,16 +238,27 @@ class ViewController: NSViewController {
         guard let index = pm.getIndex() else { return }
         let track = self.pm.metadata(for: index)
         NSUserNotificationCenter.default.removeAllDeliveredNotifications()
+
+        // Prevent excessive calls to NSImage
+        if track.isLoaded {
+            self.presentNotification(for: track)
+            return
+        }
+        
         let op = MetadataLoader(asset: self.pm.asset(for: index), track: track, completionBlock: {
-            DispatchQueue.main.sync {
-                let notification = NSUserNotification()
-                notification.title = track.artist
-                notification.subtitle = track.title
-                notification.contentImage = track.artwork
-                NSUserNotificationCenter.default.deliver(notification)
+            DispatchQueue.main.sync {[unowned self] in
+                self.presentNotification(for: track)
             }
         })
         op.start()
+    }
+    
+    func presentNotification(for track: TrackMetadata) {
+        let notification = NSUserNotification()
+        notification.title = track.artist
+        notification.subtitle = track.title
+        notification.contentImage = track.artwork
+        NSUserNotificationCenter.default.deliver(notification)
     }
     
     func writeOutTrackInfoForOBS() {
