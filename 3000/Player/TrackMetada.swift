@@ -15,12 +15,11 @@ class TrackMetadata {
     var type: String?
     var albumName: String?
     var artist: String?
-    var artwork: NSImage?
+    var artwork: NSImage? = NSImage(named: "Placeholder")
     
     static var PlaceHolderArtwork: NSImage? {
         get {
-            guard let path = Bundle.main.path(forResource: "placeholder", ofType: ".png") else { return nil}
-            return NSImage(contentsOfFile: path)
+            return NSImage(named: "Placeholder")
         }
     }
     

@@ -13,7 +13,6 @@
 		503AE59921514EBC00D937AE /* Playlist+ErrorEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */; };
 		503AE5A121515D5C00D937AE /* TracksViewControllerSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */; };
 		503AE5A32151622E00D937AE /* ViewController+TracksViewControllerSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */; };
-		503BD5A52153F0A6007EDF74 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 503BD5A42153F0A6007EDF74 /* placeholder.png */; };
 		506B5AA621441B9B00EFD176 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506B5AA521441B9B00EFD176 /* BlurView.swift */; };
 		508BEA28214C1C0C009D9BA5 /* MetadataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */; };
 		5091463F214FFE43005210D7 /* AppDelegateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5091463E214FFE43005210D7 /* AppDelegateActions.swift */; };
@@ -73,7 +72,6 @@
 		503AE59821514EBC00D937AE /* Playlist+ErrorEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Playlist+ErrorEmpty.swift"; sourceTree = "<group>"; };
 		503AE5A021515D5C00D937AE /* TracksViewControllerSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewControllerSelector.swift; sourceTree = "<group>"; };
 		503AE5A22151622E00D937AE /* ViewController+TracksViewControllerSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+TracksViewControllerSelector.swift"; sourceTree = "<group>"; };
-		503BD5A42153F0A6007EDF74 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		506B5AA521441B9B00EFD176 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		508BEA27214C1C0C009D9BA5 /* MetadataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataLoader.swift; sourceTree = "<group>"; };
 		5091463E214FFE43005210D7 /* AppDelegateActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateActions.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				50E20FB4215691AA0098FF93 /* Volume button.png */,
-				503BD5A42153F0A6007EDF74 /* placeholder.png */,
 				8414CE122132D26600CE30F6 /* Main.storyboard */,
 				509B666021481F7C006D9421 /* TracksViewController.xib */,
 			);
@@ -398,7 +395,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8414CE112132D26600CE30F6 /* Assets.xcassets in Resources */,
-				503BD5A52153F0A6007EDF74 /* placeholder.png in Resources */,
 				509B666221481F7C006D9421 /* TracksViewController.xib in Resources */,
 				50E20FB5215691AA0098FF93 /* Volume button.png in Resources */,
 				8414CE142132D26600CE30F6 /* Main.storyboard in Resources */,
