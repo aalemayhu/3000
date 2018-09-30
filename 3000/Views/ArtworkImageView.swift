@@ -10,7 +10,7 @@ class ArtworkImageView: DropView {
     private var imageView: NSImageView?
     private var image: NSImage?
     private let minimumArtworkSize = NSSize(width: 250, height: 250)
-
+    
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
     }
@@ -56,6 +56,13 @@ class ArtworkImageView: DropView {
             }
             return image.size
         }
+    }
+    
+    func resize(frame: NSRect) {
+        self.frame = frame
+        self.imageView?.frame = frame
+        self.blurView?.frame = frame
+        self.needsDisplay = true
     }
     
     // Blur management

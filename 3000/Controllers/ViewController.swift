@@ -219,6 +219,7 @@ class ViewController: NSViewController {
         self.trackInfoLabel.font = NSFont(name: "Helvetica Neue Light", size: fontSize)
         self.tracksViewController?.view.frame = self.view.frame
         self.tracksViewController?.view.needsDisplay = true
+        self.imageView.resize(frame: self.view.frame)
     }
     
     @objc func playerDidFinishPlaying(note: NSNotification){
