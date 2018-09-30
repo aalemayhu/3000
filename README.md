@@ -30,5 +30,6 @@ programming just for fun again.
 
 ## Screenshots
 
-- TODO: Show blur, unblur
-- TODO: Show tracks
+![Active window](Screenshots/active.png)
+![In-active window](Screenshots/inactive.png)
+![Tracks list](Screenshots/tracks\ list.png)
