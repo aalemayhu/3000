@@ -83,10 +83,8 @@ class TrackMetadata {
     }
 
     func obsData() -> Data? {
-        var contents = "Music\n"
-        contents += artist != nil ? "Artist: \(artist!)\n" : ""
-        contents += title != nil ? "Title: \(title!)\n" : ""
-        contents += albumName != nil ? "Album: \(albumName!)\n" : ""
+        var contents = artist != nil ? "\(artist!) - " : ""
+        contents += title != nil ? "\(title!)" : ""
         return contents.data(using: .utf8)
     }
 }
